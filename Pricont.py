@@ -3,6 +3,8 @@ from tkinter import scrolledtext, ttk
 from intents import classificar
 from respostas import resposta
 
+NOME_BOT = "Ajuda Jurídica"
+
 
 # ------------------ TEMA / ESTILO ------------------
 PALETTE = {
@@ -75,7 +77,7 @@ def on_send(*_):
     intent = classificar(user)
     bot = resposta(intent)
 
-    append_message("Bot", bot)
+    append_message("Jose", bot)
     entry.delete(0, tk.END)
 
 # ---------------------------------------------------
@@ -83,7 +85,7 @@ def on_send(*_):
 
 # ------------------- UI / LAYOUT -------------------
 root = tk.Tk()
-root.title("⚖️ Bot Jurídico - Triagem (v0.2)")
+root.title("⚖️ Ajuda Jurídica - Triagem (v0.2)")
 root.geometry("640x520")
 root.minsize(560, 460)
 
@@ -93,7 +95,7 @@ style_app(root)
 header = ttk.Frame(root, style="Header.TFrame")
 header.pack(fill="x", padx=12, pady=(12, 8))
 
-title = ttk.Label(header, text="⚖️  Bot Jurídico", style="Header.TLabel")
+title = ttk.Label(header, text="⚖️  Ajuda Juridica", style="Header.TLabel")
 title.pack(anchor="w")
 
 subtitle = ttk.Label(header, text="Triagem inicial • Não substitui aconselhamento jurídico",
