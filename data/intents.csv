@@ -1,0 +1,77 @@
+texto,intent
+"me chamaram de macaco",RACISMO
+"me zoaram por ser negro",RACISMO
+"me ofenderam pela cor da pele",RACISMO
+"disseram que preto não presta",RACISMO
+"sofri piada racista na escola",RACISMO
+"me chamaram de escravo",RACISMO
+"comentaram ofensa racial no trabalho",RACISMO
+"me chamaram de preto safado",RACISMO
+"usaram apelido racista comigo",RACISMO
+"me chamaram de negro imundo",RACISMO
+
+"disseram que vão me bater",AMEACA
+"um cara falou que vai me matar",AMEACA
+"recebi ameaça de morte por mensagem",AMEACA
+"falaram que iam me quebrar na porrada",AMEACA
+"prometeram me agredir na saída",AMEACA
+"mandaram mensagem me ameaçando",AMEACA
+"me ligaram falando que iam me pegar",AMEACA
+"me xingaram e falaram que iam me bater",AMEACA
+"um vizinho me fez ameaça grave",AMEACA
+"ameaçaram machucar minha família",AMEACA
+
+"espalharam mentiras sobre mim",HONRA
+"me chamaram de ladrão sem eu ser",HONRA
+"postaram difamação sobre mim",HONRA
+"falaram calúnia no grupo de whatsapp",HONRA
+"me acusaram injustamente",HONRA
+"disseram que eu roubei sem provas",HONRA
+"estão falando mal da minha reputação",HONRA
+"espalharam fake news sobre mim",HONRA
+"me chamaram de safado em público",HONRA
+"um colega inventou histórias falsas",HONRA
+
+"um cara fica me seguindo todo dia",PERSEGUICAO
+"estão me perseguindo no instagram",PERSEGUICAO
+"recebo mensagens insistentes de um estranho",PERSEGUICAO
+"um homem me persegue até em casa",PERSEGUICAO
+"estão me stalkeando nas redes sociais",PERSEGUICAO
+"ficam me rondando perto do trabalho",PERSEGUICAO
+"me mandam mensagens sem parar",PERSEGUICAO
+"um vizinho me segue quando saio",PERSEGUICAO
+"me perseguem até a faculdade",PERSEGUICAO
+"um ex não para de me procurar",PERSEGUICAO
+
+"caí em um golpe de pix",ESTELIONATO
+"me enganaram pedindo transferência",ESTELIONATO
+"um falso vendedor sumiu com meu dinheiro",ESTELIONATO
+"caí num golpe do marketplace",ESTELIONATO
+"fui enganado numa compra online",ESTELIONATO
+"fizeram cobrança falsa",ESTELIONATO
+"me mandaram boleto fraudado",ESTELIONATO
+"vendi produto e não me pagaram",ESTELIONATO
+"mandaram link de golpe",ESTELIONATO
+"um falso amigo pediu dinheiro e sumiu",ESTELIONATO
+
+"meu marido me bateu",VIOLENCIA_DOMESTICA
+"sofri agressão do meu parceiro",VIOLENCIA_DOMESTICA
+"apanhei dentro de casa",VIOLENCIA_DOMESTICA
+"meu companheiro me agrediu fisicamente",VIOLENCIA_DOMESTICA
+"me ameaçaram em casa",VIOLENCIA_DOMESTICA
+"estou sofrendo violência doméstica",VIOLENCIA_DOMESTICA
+"apanhei do meu esposo",VIOLENCIA_DOMESTICA
+"meu namorado me bateu",VIOLENCIA_DOMESTICA
+"apanhei do pai dos meus filhos",VIOLENCIA_DOMESTICA
+"estou sendo agredida dentro de casa",VIOLENCIA_DOMESTICA
+
+"não sei explicar o que aconteceu",DESCONHECIDO
+"tô confuso, não sei qual é o problema",DESCONHECIDO
+"é uma situação estranha, não entendi",DESCONHECIDO
+"quero ajuda mas não sei o nome do crime",DESCONHECIDO
+"não sei se isso é crime",DESCONHECIDO
+"aconteceu algo, mas não sei classificar",DESCONHECIDO
+"não entendi direito a situação",DESCONHECIDO
+"tô perdido, não sei o que fazer",DESCONHECIDO
+"coisa nada a ver",DESCONHECIDO
+"sem contexto",DESCONHECIDO

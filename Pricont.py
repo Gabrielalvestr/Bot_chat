@@ -2,6 +2,8 @@ import tkinter as tk
 from tkinter import scrolledtext, ttk
 from intents import classificar
 from respostas import resposta
+from model_intent import get_model
+from respostas import resposta
 
 USE_API = True  # se quiser forçar local, troque para False
 
@@ -57,11 +59,15 @@ def on_send(*_):
         return
     append_message("Você", user)
 
-    intent = classificar(user)
-    bot_text = resposta(intent)
+    model = get_model()
+    intent, score = model.predict(user, threshold=0.15)
+    # opcional debug:
+    # append_message("Dev", f"intent={intent} score={score:.3f}")
 
+    bot_text = resposta(intent)
     append_message(NOME_BOT, bot_text)
     entry.delete(0, tk.END)
+
 # =====================================================
 
 
