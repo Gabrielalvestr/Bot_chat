@@ -16,17 +16,19 @@ def _clean(s: str) -> str:
 
 class IntentModel:
     def __init__(self, path=MODEL_PATH):
+        if not os.path.exists(path):
+            raise FileNotFoundError(f"Modelo não encontrado em {path}. Treine com train_intents.py primeiro.")
         self.pipe = load(path)
 
-    def predict(self, text: str, threshold: float = 0.15) -> tuple[str, float]:
+    def predict(self, text: str, threshold: float = 0.5) -> tuple[str, float]:
         """
         Retorna (intent, score). Usa a margem do LinearSVC como 'confiança'.
         Se a margem máxima < threshold, devolve DESCONHECIDO.
         """
         t = _clean(text)
-        margins = self.pipe.decision_function([t])  # (1, n_classes) ou (1,)
+        margins = self.pipe.decision_function([t])
         if np.ndim(margins) == 1:
-            margins = np.vstack([-margins, margins]).T  # caso binário (não deve ser aqui)
+            margins = np.vstack([-margins, margins]).T
         idx = int(np.argmax(margins[0]))
         score = float(margins[0][idx])
         intent = self.pipe.classes_[idx]
@@ -34,7 +36,7 @@ class IntentModel:
             return "DESCONHECIDO", score
         return intent, score
 
-# Singleton simples
+# Singleton simples (carrega o modelo uma vez só)
 _model = None
 def get_model() -> IntentModel:
     global _model
