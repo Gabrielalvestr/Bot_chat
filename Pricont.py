@@ -32,12 +32,50 @@ def style_app(root: tk.Tk):
         style.theme_use("clam")
     except Exception:
         pass
+
     style.configure("TFrame", background=PALETTE["bg"])
     style.configure("Card.TFrame", background=PALETTE["card"], relief="flat")
     style.configure("Header.TFrame", background=PALETTE["card"])
-    style.configure("Header.TLabel", background=PALETTE["card"], foreground=PALETTE["accent"], font=FONT_TITLE)
-    style.configure("Sub.TLabel", background=PALETTE["card"], foreground=PALETTE["muted"], font=("Segoe UI", 9))
-    style.configure("Send.TButton", background=PALETTE["accent"], foreground="white")
+    style.configure(
+        "Header.TLabel",
+        background=PALETTE["card"],
+        foreground=PALETTE["accent"],
+        font=FONT_TITLE
+    )
+    style.configure(
+        "Sub.TLabel",
+        background=PALETTE["card"],
+        foreground=PALETTE["muted"],
+        font=("Segoe UI", 9)
+    )
+
+    # botão enviar
+    style.configure(
+        "Send.TButton",
+        background=PALETTE["accent"],
+        foreground="white",
+        padding=(12, 8)
+    )
+    style.map(
+        "Send.TButton",
+        background=[("active", PALETTE["accent_dark"]), ("pressed", PALETTE["accent_dark"])],
+        foreground=[("disabled", "#D1D5DB")],
+    )
+
+    # botões de ação (Salvar / Limpar)
+    style.configure(
+        "Action.TButton",
+        background=PALETTE["accent"],
+        foreground="white",
+        padding=(12, 8)
+    )
+    style.map(
+        "Action.TButton",
+        background=[("active", PALETTE["accent_dark"]), ("pressed", PALETTE["accent_dark"])],
+        foreground=[("disabled", "#D1D5DB")],
+    )
+
+
 # ==============================================
 
 
@@ -184,41 +222,60 @@ chat.pack(fill=tk.BOTH, expand=True, padx=8, pady=8)
 chat.tag_configure("voce", foreground=PALETTE["accent"], font=("Segoe UI Semibold", 10))
 chat.tag_configure("bot", foreground=PALETTE["muted"])
 
-# Linha inferior
+# linha inferior (entrada + botão enviar)
 bottom = ttk.Frame(root, style="TFrame")
 bottom.pack(fill="x", padx=12, pady=(0, 12))
+
 entry = ttk.Entry(bottom, font=FONT_BASE)
 entry.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=(0, 8))
 entry.bind("<Return>", on_send)
+
 send_btn = ttk.Button(bottom, text="Enviar", command=on_send, style="Send.TButton")
 send_btn.pack(side=tk.LEFT)
 
-# barra de ações
-actions = ttk.Frame(root, style="TFrame")
+# separador fininho para dar respiro
+sep2 = tk.Frame(root, height=1, bg=PALETTE["line"])
+sep2.pack(fill="x", padx=12, pady=(0, 8))
+
+# ===== BARRA DE AÇÕES (Salva/Limpa) + STATUS =====
+actions = ttk.Frame(root, style="Card.TFrame")  # fundo igual ao chat
 actions.pack(fill="x", padx=12, pady=(0, 8))
 
-btn_save_txt = ttk.Button(actions, text="Salvar .txt", command=save_chat_txt, style="TButton")
+btn_save_txt = ttk.Button(
+    actions, text="💾 Salvar .txt", command=save_chat_txt, style="Action.TButton"
+)
 btn_save_txt.pack(side=tk.LEFT)
+btn_save_txt.configure(cursor="hand2")
 
-btn_save_csv = ttk.Button(actions, text="Salvar .csv", command=save_chat_csv, style="TButton")
+btn_save_csv = ttk.Button(
+    actions, text="📑 Salvar .csv", command=save_chat_csv, style="Action.TButton"
+)
 btn_save_csv.pack(side=tk.LEFT, padx=(8, 0))
+btn_save_csv.configure(cursor="hand2")
 
-btn_clear = ttk.Button(actions, text="Limpar", command=clear_chat, style="TButton")
+btn_clear = ttk.Button(
+    actions, text="🧹 Limpar", command=clear_chat, style="Action.TButton"
+)
 btn_clear.pack(side=tk.LEFT, padx=(8, 0))
+btn_clear.configure(cursor="hand2")
 
-# barra de status
+# barra de status (mensagens como “Salvo: …”, “Chat limpo.”)
 status = tk.StringVar(value="")
 status_bar = ttk.Label(root, textvariable=status, style="Sub.TLabel")
 status_bar.pack(fill="x", padx=12, pady=(0, 8))
 
+# foco inicial
 entry.focus()
 
-# atalhos
+# atalhos de teclado
 root.bind_all("<Control-s>", save_chat_txt)
 root.bind_all("<Control-S>", save_chat_txt)
 root.bind_all("<Control-l>", clear_chat)
 root.bind_all("<Control-L>", clear_chat)
 
+# loop principal
 root.mainloop()
+
+
 
 
