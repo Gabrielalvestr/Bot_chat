@@ -2,6 +2,10 @@ import tkinter as tk
 from tkinter import scrolledtext, ttk
 from model_intent import get_model
 from respostas import resposta
+from tkinter import filedialog
+from datetime import datetime
+
+HISTORY = [] # cada item: {"ts": "...", "role": "...", "text": "..."}
 
 # =================== CONFIG ===================
 NOME_BOT = "Ajuda Jurídica"
@@ -39,14 +43,70 @@ def style_app(root: tk.Tk):
 
 # ============ HELPERS DO CHAT =================
 def append_message(prefix: str, text: str):
+    ts = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    # salva no histórico
+    HISTORY.append({"ts": ts, "role": prefix, "text": text})
+
+    # escreve no chat
     chat.configure(state=tk.NORMAL)
     tag = "voce" if prefix.lower().startswith("v") else "bot"
     if prefix == NOME_BOT:
         tag = "bot"
-    chat.insert(tk.END, f"{prefix}: ", tag)
+    chat.insert(tk.END, f"[{ts}] {prefix}: ", tag)
     chat.insert(tk.END, f"{text}\n")
     chat.see(tk.END)
     chat.configure(state=tk.DISABLED)
+
+def clear_chat(*_):
+    """Limpa painel e histórico."""
+    HISTORY.clear()
+    chat.configure(state=tk.NORMAL)
+    chat.delete("1.0", tk.END)
+    chat.configure(state=tk.DISABLED)
+    status.set("Chat limpo.")
+
+def save_chat_txt(*_):
+    """Exporta o histórico em .txt"""
+    if not HISTORY:
+        status.set("Nada para salvar.")
+        return
+    path = filedialog.asksaveasfilename(
+        defaultextension=".txt",
+        filetypes=[("Texto", "*.txt")],
+        initialfile=f"ajuda_juridica_{datetime.now().strftime('%Y%m%d_%H%M')}.txt"
+    )
+    if not path:
+        return
+    try:
+        with open(path, "w", encoding="utf-8") as f:
+            for item in HISTORY:
+                f.write(f"[{item['ts']}] {item['role']}: {item['text']}\n")
+        status.set(f"Salvo: {path}")
+    except Exception as e:
+        status.set(f"Erro ao salvar: {e}")
+
+def save_chat_csv(*_):
+    """Exporta o histórico em .csv (ts,role,text)"""
+    import csv
+    if not HISTORY:
+        status.set("Nada para salvar.")
+        return
+    path = filedialog.asksaveasfilename(
+        defaultextension=".csv",
+        filetypes=[("CSV", "*.csv")],
+        initialfile=f"ajuda_juridica_{datetime.now().strftime('%Y%m%d_%H%M')}.csv"
+    )
+    if not path:
+        return
+    try:
+        with open(path, "w", newline="", encoding="utf-8") as f:
+            w = csv.writer(f)
+            w.writerow(["timestamp", "role", "text"])
+            for item in HISTORY:
+                w.writerow([item["ts"], item["role"], item["text"]])
+        status.set(f"Salvo: {path}")
+    except Exception as e:
+        status.set(f"Erro ao salvar: {e}")
 # ==============================================
 
 
@@ -133,5 +193,32 @@ entry.bind("<Return>", on_send)
 send_btn = ttk.Button(bottom, text="Enviar", command=on_send, style="Send.TButton")
 send_btn.pack(side=tk.LEFT)
 
+# barra de ações
+actions = ttk.Frame(root, style="TFrame")
+actions.pack(fill="x", padx=12, pady=(0, 8))
+
+btn_save_txt = ttk.Button(actions, text="Salvar .txt", command=save_chat_txt, style="TButton")
+btn_save_txt.pack(side=tk.LEFT)
+
+btn_save_csv = ttk.Button(actions, text="Salvar .csv", command=save_chat_csv, style="TButton")
+btn_save_csv.pack(side=tk.LEFT, padx=(8, 0))
+
+btn_clear = ttk.Button(actions, text="Limpar", command=clear_chat, style="TButton")
+btn_clear.pack(side=tk.LEFT, padx=(8, 0))
+
+# barra de status
+status = tk.StringVar(value="")
+status_bar = ttk.Label(root, textvariable=status, style="Sub.TLabel")
+status_bar.pack(fill="x", padx=12, pady=(0, 8))
+
 entry.focus()
+
+# atalhos
+root.bind_all("<Control-s>", save_chat_txt)
+root.bind_all("<Control-S>", save_chat_txt)
+root.bind_all("<Control-l>", clear_chat)
+root.bind_all("<Control-L>", clear_chat)
+
 root.mainloop()
+
+
