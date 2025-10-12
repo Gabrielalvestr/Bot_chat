@@ -1,0 +1,6 @@
+.minhas_ocorrencias{
+    justify-content: center;
+    gap: 60px;
+    display: flex;
+    flex-wrap: wrap;
+}
