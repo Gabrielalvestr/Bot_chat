@@ -17,7 +17,7 @@ const PerfilPage = () => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
 
-  const API_URL = 'http://localhost:3000/api'; // Sua API Backend
+  const API_URL = 'http://localhost:3001/api'; // Sua API Backend
 
   // useEffect para buscar os dados do perfil quando a página carrega
   useEffect(() => {

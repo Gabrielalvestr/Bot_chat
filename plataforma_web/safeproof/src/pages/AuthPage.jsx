@@ -2,12 +2,14 @@
 
 import React, { useState } from 'react';
 import './AuthPage.css';
+import { useNavigate } from 'react-router-dom';
 
 // No seu app real, você provavelmente passaria uma função para atualizar o estado de login no App.jsx
 // Ex: const AuthPage = ({ onLoginSuccess }) => { ... }
 const AuthPage = () => {
     // Estado para controlar se estamos no modo 'login' (true) ou 'registro' (false)
     const [isLoginMode, setIsLoginMode] = useState(true);
+    const navigate = useNavigate();
 
     // Estado unificado para todos os campos do formulário
     const [formData, setFormData] = useState({
@@ -23,7 +25,7 @@ const AuthPage = () => {
     const [success, setSuccess] = useState(null);
 
     // URL da sua API (coloque em um arquivo de configuração .env em um projeto real)
-    const API_URL = 'http://localhost:3000/api';
+    const API_URL = 'http://localhost:3001/api'; // Sua API Backend
 
     // Função para alternar entre os modos de login e registro
     const toggleMode = () => {
@@ -74,8 +76,7 @@ const AuthPage = () => {
                 // No app real, você salvaria o token e redirecionaria o usuário
                 localStorage.setItem('authToken', data.token);
                 setSuccess('Login bem-sucedido! Redirecionando...');
-                // onLoginSuccess(data.token); // Exemplo de como notificar o componente pai
-                // window.location.href = '/'; // Redireciona para a home
+                window.location.href = '/perfil'
             } else {
                 // Se for registro, exiba uma mensagem de sucesso e mude para o modo de login
                 setSuccess('Conta criada com sucesso! Por favor, faça o login.');

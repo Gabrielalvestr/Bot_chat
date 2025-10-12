@@ -13,7 +13,7 @@ const RegisterPage = () => {
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
-    const API_URL = 'http://localhost:3000/api';
+  const API_URL = 'http://localhost:3001/api'; // Sua API Backend
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;

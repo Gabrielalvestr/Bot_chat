@@ -36,23 +36,27 @@ function App() {
           <Route path="/login" element={<AuthPage onLoginSuccess={handleLoginSuccess} />} />
 
           {/* Rotas Protegidas */}
-          <Route 
-            path="/minhas-ocorrencias" 
+          <Route
+            path="/minhas-ocorrencias"
             element={
               <ProtectedRoute>
                 <OcorrenciasPage />
               </ProtectedRoute>
-            } 
+            }
           />
-          <Route 
-            path="/perfil" 
+          <Route
+            path="/perfil"
             element={
+              <ProtectedRoute>
+
                 <PerfilPage />
-            } 
+              </ProtectedRoute>
+
+            }
           />
 
           <Route path="/registrar" element={<RegisterPage />} />
-          
+
           {/* Rota para qualquer outro caminho não encontrado */}
           <Route path="*" element={<div><h2>Página não encontrada (404)</h2></div>} />
         </Routes>

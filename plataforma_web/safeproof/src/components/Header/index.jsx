@@ -20,13 +20,13 @@ const Header = ({ usuarioLogado, onLogout }) => {
             <nav className="navigation">
                 <ul>
                     <li><Link to="/">Home</Link></li>
-                    {!usuarioLogado && (
+                    {usuarioLogado && (
                         <li><Link to="/minhas-ocorrencias">Minhas Ocorrências</Link></li>
                     )}
                 </ul>
             </nav>
             <div className="user-actions">
-                {!usuarioLogado ? (
+                {usuarioLogado ? (
                     <div className="dropdown">
                         <button className="user-profile-button">Meu Perfil ▼</button>
                         <div className="dropdown-content">

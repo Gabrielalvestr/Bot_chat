@@ -1,5 +1,5 @@
 // IMPORTANTE: Substitua pela URL da sua API backend
-const API_URL = 'http://localhost:3000/api'; // Exemplo para desenvolvimento local
+const API_URL = 'http://localhost:3001/api'; // Sua API Backend
 
 document.addEventListener('DOMContentLoaded', () => {
     // Verifica se o usuário já está logado. Se sim, redireciona para a tela principal.

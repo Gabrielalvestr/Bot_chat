@@ -1,6 +1,79 @@
-.minhas_ocorrencias{
-    justify-content: center;
-    gap: 60px;
-    display: flex;
-    flex-wrap: wrap;
+.ocorrencia-card {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    position: relative;
+}
+
+.ocorrencia-card h3 {
+    margin-top: 0;
+    color: #007bff;
+}
+
+.info-group {
+    margin-bottom: 0.75rem;
+}
+
+.info-group strong {
+    display: block;
+    color: #555;
+    font-size: 0.9rem;
+    margin-bottom: 4px;
+}
+
+.info-group a {
+    color: #0056b3;
+    text-decoration: none;
+    word-break: break-all;
+}
+
+.info-group a:hover {
+    text-decoration: underline;
+}
+
+.info-group .hash span {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.85rem;
+    color: #6c757d;
+    word-break: break-all;
+}
+
+.status-badge {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #fff;
+    text-transform: capitalize;
+}
+
+.status-ativa {
+    background-color: #28a745;
+}
+
+.status-arquivada {
+    background-color: #6c757d;
+}
+
+.gravidade {
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.gravidade-baixa {
+    color: #17a2b8;
+}
+
+.gravidade-media {
+    color: #ffc107;
+}
+
+.gravidade-alta {
+    color: #dc3545;
 }
