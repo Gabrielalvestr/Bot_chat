@@ -4,6 +4,7 @@ const API_URL = 'http://localhost:3001/api'; // Sua API Backend
 document.addEventListener('DOMContentLoaded', () => {
     const createBtn = document.getElementById('create-occurrence-btn');
     const logoutBtn = document.getElementById('logout-btn');
+    const userNameContainer = document.getElementById("user_name")
     const statusMessage = document.getElementById('status-message');
     let authToken = null;
     let userMail = null;
@@ -13,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = '../login/login.html';
         } else {
             userMail = result.userMail;
+            userNameContainer.innerText = result.userMail
         }
     });
     // Verifica se o usuário está logado. Se não, volta para a tela de login.

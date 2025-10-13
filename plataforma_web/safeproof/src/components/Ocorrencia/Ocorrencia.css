@@ -77,3 +77,44 @@
 .gravidade-alta {
     color: #dc3545;
 }
+
+.ocorrencia-link {
+    text-decoration: none;
+    color: inherit;
+    /* Remove a cor azul padrão do link */
+    display: block;
+    /* Faz o link ocupar todo o espaço do card */
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    left: 1.5rem;
+}
+
+/* Move o status badge para o final */
+.status-badge {
+    position: static;
+}
+
+.visibility-badge {
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+.visibility-publica {
+    background-color: #17a2b8;
+    /* Azul-petróleo */
+}
+
+.visibility-privada {
+    background-color: #6c757d;
+    /* Cinza */
+}

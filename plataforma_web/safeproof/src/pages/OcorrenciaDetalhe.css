@@ -1,0 +1,140 @@
+.detalhe-container {
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+    background-color: #f0f2f5;
+    min-height: calc(100vh - 80px);
+}
+
+.detalhe-card {
+    width: 100%;
+    max-width: 900px;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.detalhe-card h1 {
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+}
+
+.back-button {
+    display: inline-block;
+    margin-bottom: 2rem;
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.back-button:hover {
+    text-decoration: underline;
+}
+
+.detalhe-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.detalhe-item {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 5px;
+}
+
+.detalhe-item strong {
+    display: block;
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 0.5rem;
+}
+
+.detalhe-item span,
+.detalhe-item a {
+    font-size: 1.1rem;
+    word-break: break-all;
+}
+
+.detalhe-item.full-width {
+    grid-column: 1 / -1;
+}
+
+.detalhe-item.hash span {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* Reutilizando os estilos dos badges de status e gravidade */
+.status-badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #fff;
+    text-transform: capitalize;
+}
+
+.status-ativa {
+    background-color: #28a745;
+}
+
+.status-arquivada {
+    background-color: #6c757d;
+}
+
+.gravidade {
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.gravidade-baixa {
+    color: #17a2b8;
+}
+
+.gravidade-media {
+    color: #ffc107;
+}
+
+.gravidade-alta {
+    color: #dc3545;
+}
+
+.visibility-control {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e0e0e0;
+}
+
+.visibility-control h3 {
+    margin-top: 0;
+}
+
+.visibility-control p {
+    color: #555;
+    margin-bottom: 1rem;
+}
+
+.toggle-visibility-btn {
+    padding: 0.6rem 1.2rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: #ffc107;
+    color: #212529;
+    transition: background-color 0.3s ease;
+}
+
+.toggle-visibility-btn:hover {
+    background-color: #e0a800;
+}
+
+.toggle-visibility-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}

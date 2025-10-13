@@ -15,9 +15,10 @@ app.use(express.json({ limit: '10mb' })); // Permite que o servidor entenda JSON
 
 // --- Banco de Dados em Memória (Simulação) ---
 let users = [
-    { id: 1, nome: 'Alice Silva', email: 'alice@exemplo.com', senha: '123', documento: '111.222.333-44' }
+    { id: 1, nome: 'Alice Silva', email: 'alice@exemplo.com', senha: '123', documento: '111.222.333-44' },
+    { id: 2, nome: 'Gabriel Falcao', email: 'falcao@exemplo.com', senha: '123', documento: '222.333.444-55' }
 ];
-let nextUserId = 2;
+let nextUserId = 3;
 
 
 // --- Middleware de Autenticação ---
@@ -75,7 +76,7 @@ app.post('/api/usuarios/login', (req, res) => {
     const token = jwt.sign(tokenPayload, JWT_SECRET, { expiresIn: '1h' }); // Token expira em 1 hora
 
     console.log(`Usuário ${user.email} logado com sucesso.`);
-    res.json({ message: 'Login bem-sucedido!', token });
+    res.json({ message: 'Login bem-sucedido!', token, id: user.id });
 });
 
 // 3. Obter Perfil do Usuário (Rota Protegida)
@@ -155,23 +156,23 @@ let ocorrencias = [
         status: 'ativa',
         gravidade: 'alta',
         tipo_crime: 'Discurso de Ódio',
-        data_criacao: '2025-10-10T14:48:00.000Z'
+        data_criacao: '2025-10-10T14:48:00.000Z',
+        publica: false
     },
     {
         id: 2,
-        id_usuario_criador: 1,
+        id_usuario_criador: 2,
         url: 'https://forum.com/thread-ameacadora',
         hash_evidencia: 'f6e5d4c3b2a1...',
         status: 'arquivada',
         gravidade: 'media',
         tipo_crime: 'Ameaça',
-        data_criacao: '2025-09-28T11:21:00.000Z'
+        data_criacao: '2025-09-28T11:21:00.000Z',
+        publica: true
     }
 ];
 let nextOcorrenciaId = 3;
 
-
-// ... (código existente das rotas /registrar, /login, /perfil)
 
 
 // --- NOVA ROTA PARA BUSCAR OCORRÊNCIAS ---
@@ -190,17 +191,70 @@ app.get('/api/ocorrencias', authenticateToken, (req, res) => {
 });
 
 
-// ... (código existente de app.listen)
+app.get('/api/ocorrencias/:id', authenticateToken, (req, res) => {
+    const ocorrenciaId = parseInt(req.params.id, 10); // Pega o ID da URL e converte para número
+    const userId = req.user.id; // Pega o ID do usuário do token JWT
+
+    console.log(`Recebida requisição para GET /api/ocorrencias/${ocorrenciaId}`);
+
+    // 1. Encontra a ocorrência no nosso "banco de dados"
+    const ocorrencia = ocorrencias.find(o => o.id === ocorrenciaId);
+
+    if (ocorrencia) {
+        if (ocorrencia.publica || ocorrencia.id_usuario_criador == userId) {
+            return res.json( {...ocorrencia, mesmoCriador: ocorrencia.id_usuario_criador == userId})
+        }
+    }
+
+    // 2. Verifica se a ocorrência existe
+    if (!ocorrencia || !ocorrencia.publica) {
+        return res.status(404).json({ message: 'Ocorrência não encontrada.' });
+    }
+
+});
+
+
+// --- NOVA ROTA PARA ATUALIZAR A VISIBILIDADE ---
+app.patch('/api/ocorrencias/:id/visibilidade', authenticateToken, (req, res) => {
+    const ocorrenciaId = parseInt(req.params.id, 10);
+    const userId = req.user.id;
+    const { publica } = req.body; // Espera um corpo como: { "publica": true }
+
+    console.log(`Recebida requisição PATCH para /api/ocorrencias/${ocorrenciaId}/visibilidade`);
+    
+    // Validação
+    if (typeof publica !== 'boolean') {
+        return res.status(400).json({ message: 'O campo "publica" deve ser um valor booleano (true/false).' });
+    }
+
+    const ocorrenciaIndex = ocorrencias.findIndex(o => o.id === ocorrenciaId);
+
+    if (ocorrenciaIndex === -1) {
+        return res.status(404).json({ message: 'Ocorrência não encontrada.' });
+    }
+
+    // VERIFICAÇÃO DE SEGURANÇA: Usuário só pode alterar sua própria ocorrência
+    if (ocorrencias[ocorrenciaIndex].id_usuario_criador !== userId) {
+        return res.status(403).json({ message: 'Acesso negado.' });
+    }
+    
+    // Atualiza o campo
+    ocorrencias[ocorrenciaIndex].publica = publica;
+    
+    console.log(`Visibilidade da ocorrência ${ocorrenciaId} alterada para: ${publica}`);
+    res.status(200).json(ocorrencias[ocorrenciaIndex]); // Retorna a ocorrência atualizada
+});
+
 
 // --- ATUALIZE A MENSAGEM DE LOG PARA INCLUIR A NOVA ROTA ---
 app.listen(PORT, () => {
     console.log(`Servidor mock rodando na porta ${PORT}`);
     console.log(`Endpoints disponíveis:
-  - POST /api/usuarios/registrar
-  - POST /api/usuarios/login
-  - GET  /api/perfil/me (protegido)
-  - PUT  /api/perfil/me (protegido)
-  - POST /api/ocorrencias (protegido)
-  - GET  /api/ocorrencias (protegido) <-- NOVO ENDPOINT
-  `);
+    - POST /api/usuarios/registrar
+    - POST /api/usuarios/login
+    - GET  /api/perfil/me (protegido)
+    - PUT  /api/perfil/me (protegido)
+    - POST /api/ocorrencias (protegido)
+    - GET  /api/ocorrencias (protegido) <-- NOVO ENDPOINT
+`);
 });

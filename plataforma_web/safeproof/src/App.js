@@ -11,6 +11,7 @@ import AuthPage from './pages/AuthPage';
 import OcorrenciasPage from './pages/OcorrenciasPage';
 import PerfilPage from './pages/PerfilPage';
 import RegisterPage from './pages/RegisterPage';
+import OcorrenciaDetalhePage from './pages/OcorrenciaDetalhePage';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('authToken'));
@@ -21,6 +22,8 @@ function App() {
 
   const handleLogout = () => {
     localStorage.removeItem('authToken');
+    localStorage.removeItem('id');
+
     setIsLoggedIn(false);
   };
 
@@ -48,11 +51,14 @@ function App() {
             path="/perfil"
             element={
               <ProtectedRoute>
-
                 <PerfilPage />
               </ProtectedRoute>
 
             }
+          />
+          <Route
+            path="/ocorrencias/:id"
+            element={<ProtectedRoute><OcorrenciaDetalhePage /></ProtectedRoute>}
           />
 
           <Route path="/registrar" element={<RegisterPage />} />

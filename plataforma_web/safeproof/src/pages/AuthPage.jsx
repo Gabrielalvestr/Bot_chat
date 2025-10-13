@@ -75,6 +75,7 @@ const AuthPage = () => {
                 // Se for login, salve o token e informe o sucesso
                 // No app real, você salvaria o token e redirecionaria o usuário
                 localStorage.setItem('authToken', data.token);
+                localStorage.setItem('id', data.id)
                 setSuccess('Login bem-sucedido! Redirecionando...');
                 window.location.href = '/perfil'
             } else {

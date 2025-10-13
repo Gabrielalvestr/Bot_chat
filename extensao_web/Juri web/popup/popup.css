@@ -62,3 +62,12 @@ p {
 .error { color: #d9534f; }
 .success { color: #5cb85c; }
 .info { color: #5bc0de; }
+
+.header{
+    display: flex;
+    flex-direction: row;
+}
+
+.header h1{
+    font-size: 16px;
+}
