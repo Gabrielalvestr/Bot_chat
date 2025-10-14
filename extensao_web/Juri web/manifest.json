@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "name": "Juri Web",
+    "name": "Safe Proof",
     "version": "1.0",
     "description": "Cria uma ocorrência a partir de uma página web, capturando evidências.",
     "permissions": [
