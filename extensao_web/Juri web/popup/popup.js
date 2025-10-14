@@ -1,5 +1,5 @@
 // IMPORTANTE: Substitua pela URL da sua API backend
-const API_URL = 'http://localhost:3001/api'; // Sua API Backend
+const API_URL = 'http://localhost:3001/api'; 
 
 document.addEventListener('DOMContentLoaded', () => {
     const createBtn = document.getElementById('create-occurrence-btn');

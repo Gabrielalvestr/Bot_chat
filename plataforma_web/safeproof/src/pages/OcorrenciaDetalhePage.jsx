@@ -8,7 +8,7 @@ const OcorrenciaDetalhePage = () => {
     const [error, setError] = useState(null);
     const [isUpdating, setIsUpdating] = useState(false); // Novo estado para o botão
 
-    const API_URL = 'http://localhost:3001/api';
+    const API_URL = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
         const fetchOcorrencia = async () => {
