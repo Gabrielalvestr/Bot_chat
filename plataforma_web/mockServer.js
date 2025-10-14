@@ -9,8 +9,17 @@ const app = express();
 const PORT = 3001; // Usaremos uma porta diferente da do React (que geralmente é 3000 ou 5173)
 const JWT_SECRET = 'seu_segredo_super_secreto_para_testes'; // Em produção, use variáveis de ambiente!
 
-// --- Middlewares ---
-app.use(cors()); // Permite que o frontend React acesse esta API
+const corsOptions = {
+    // Substitua pela URL exata do seu frontend no Render
+    origin: '*',
+    // Métodos que seu frontend pode usar
+    methods: "GET,POST,PUT,PATCH,DELETE,OPTIONS",
+    // Cabeçalhos que seu frontend pode enviar
+    allowedHeaders: "Content-Type,Authorization",
+    optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
 app.use(express.json({ limit: '10mb' })); // Permite que o servidor entenda JSON e aumenta o limite para receber a imagem em Base64
 
 // --- Banco de Dados em Memória (Simulação) ---
@@ -202,7 +211,7 @@ app.get('/api/ocorrencias/:id', authenticateToken, (req, res) => {
 
     if (ocorrencia) {
         if (ocorrencia.publica || ocorrencia.id_usuario_criador == userId) {
-            return res.json( {...ocorrencia, mesmoCriador: ocorrencia.id_usuario_criador == userId})
+            return res.json({ ...ocorrencia, mesmoCriador: ocorrencia.id_usuario_criador == userId })
         }
     }
 
@@ -221,7 +230,7 @@ app.patch('/api/ocorrencias/:id/visibilidade', authenticateToken, (req, res) => 
     const { publica } = req.body; // Espera um corpo como: { "publica": true }
 
     console.log(`Recebida requisição PATCH para /api/ocorrencias/${ocorrenciaId}/visibilidade`);
-    
+
     // Validação
     if (typeof publica !== 'boolean') {
         return res.status(400).json({ message: 'O campo "publica" deve ser um valor booleano (true/false).' });
@@ -237,10 +246,10 @@ app.patch('/api/ocorrencias/:id/visibilidade', authenticateToken, (req, res) => 
     if (ocorrencias[ocorrenciaIndex].id_usuario_criador !== userId) {
         return res.status(403).json({ message: 'Acesso negado.' });
     }
-    
+
     // Atualiza o campo
     ocorrencias[ocorrenciaIndex].publica = publica;
-    
+
     console.log(`Visibilidade da ocorrência ${ocorrenciaId} alterada para: ${publica}`);
     res.status(200).json(ocorrencias[ocorrenciaIndex]); // Retorna a ocorrência atualizada
 });
