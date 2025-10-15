@@ -1,0 +1,57 @@
+# Arquivo .gitignore para projetos Node.js
+
+# Ignora os pacotes e dependências do Node.js.
+# Esta é a linha mais importante para o seu pedido.
+# A barra no final garante que ele ignore apenas pastas, não arquivos com o mesmo nome.
+# A ausência de uma barra no início faz com que ele ignore a pasta em qualquer nível do projeto.
+node_modules/
+
+# Logs gerados pelo Node.js, npm, yarn ou pnpm
+# Estes arquivos são úteis para depuração local, mas não para o repositório.
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+pnpm-debug.log*
+*.log
+
+# Arquivos de ambiente (.env)
+# IMPORTANTE: Estes arquivos contêm segredos e chaves de API.
+# NUNCA devem ser enviados para o repositório por segurança.
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.*.local
+
+# Pastas de build e distribuição
+# O código nessas pastas é gerado automaticamente a partir do seu código-fonte.
+# Apenas o código-fonte deve ser versionado.
+dist/
+build/
+.next/
+.nuxt/
+.out/
+
+# Arquivos gerados por testes e relatórios de cobertura
+coverage/
+.nyc_output/
+
+# Arquivos de configuração de IDEs e editores de código
+# Cada desenvolvedor tem sua própria configuração local.
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Arquivos gerados pelo Sistema Operacional
+.DS_Store
+Thumbs.db
