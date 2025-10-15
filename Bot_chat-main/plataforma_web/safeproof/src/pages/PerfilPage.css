@@ -1,0 +1,143 @@
+/* src/pages/PerfilPage/PerfilPage.css */
+
+.perfil-container {
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+    background-color: #f0f2f5;
+    min-height: calc(100vh - 80px);
+    /* Ajustar altura para preencher a tela abaixo do header */
+}
+
+.perfil-card {
+    width: 100%;
+    max-width: 700px;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.perfil-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+}
+
+.perfil-header h2 {
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+.denuncias-button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 0.6rem 1.2rem;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.denuncias-button:hover {
+    background-color: #0056b3;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 0.5rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.display-value {
+    font-size: 1.1rem;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    border: 1px solid #e0e0e0;
+}
+
+.action-buttons {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.action-buttons button {
+    padding: 0.75rem 1.5rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.edit-btn {
+    background-color: #17a2b8;
+    color: white;
+}
+
+.edit-btn:hover {
+    background-color: #138496;
+}
+
+.save-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+.save-btn:hover {
+    background-color: #218838;
+}
+
+.cancel-btn {
+    background-color: #6c757d;
+    color: white;
+}
+
+.cancel-btn:hover {
+    background-color: #5a6268;
+}
+
+.message {
+    text-align: center;
+    margin-top: 1rem;
+    padding: 10px;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+.message.error {
+    color: #721c24;
+    background-color: #f8d7da;
+}
+
+.message.success {
+    color: #155724;
+    background-color: #d4edda;
+}
+
+.loading-container,
+.error-container {
+    text-align: center;
+    padding: 4rem;
+    font-size: 1.5rem;
+}

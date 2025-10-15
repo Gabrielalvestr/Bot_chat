@@ -1,0 +1,30 @@
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f2f5;
+  font-family: Arial, sans-serif;
+}
+.register-card {
+  background: #ffffff;
+  padding: 2rem 3rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+/* O resto do CSS pode ser o mesmo do AuthPage.css, apenas troque '.auth-' por '.register-' */
+/* ... (input-group, submit-btn, message, etc.) ... */
+.login-link {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+.login-link a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+.login-link a:hover {
+  text-decoration: underline;
+}

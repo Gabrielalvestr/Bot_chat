@@ -1,0 +1,73 @@
+body {
+    font-family: Arial, sans-serif;
+    width: 320px;
+    padding: 10px;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+}
+h3 {
+    margin: 0;
+    color: #333;
+}
+#logout-btn {
+    padding: 5px 10px;
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+#logout-btn:hover {
+    background-color: #c9302c;
+}
+p {
+    font-size: 14px;
+    color: #555;
+    margin: 15px 0;
+}
+#create-occurrence-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+#create-occurrence-btn:hover {
+    background-color: #4cae4c;
+}
+#create-occurrence-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+.status {
+    text-align: center;
+    margin-top: 15px;
+    font-weight: bold;
+    font-size: 14px;
+}
+.error { color: #d9534f; }
+.success { color: #5cb85c; }
+.info { color: #5bc0de; }
+
+.header{
+    display: flex;
+    flex-direction: row;
+}
+
+.header h1{
+    font-size: 16px;
+}
