@@ -1,45 +1,93 @@
 # model_intent.py
-from joblib import load
-import os
-import numpy as np
+# Carrega o modelo treinado e oferece .predict(text) -> (intent, score)
+
+from __future__ import annotations
 import re
+import pickle
+from pathlib import Path
+from typing import Tuple, Any
 
-MODEL_PATH = os.path.join("models", "intents.pkl")
+# Caminho do arquivo de modelo (.pkl)
+BASE = Path(__file__).parent
+MODEL_PATH = BASE / "models" / "intents.pkl"
 
-def _clean(s: str) -> str:
-    s = s.lower()
-    s = re.sub(r"http\S+", " ", s)
-    s = re.sub(r"[@#]\S+", " ", s)
-    s = re.sub(r"[^a-záàâãéèêíïóôõöúç0-9\s]", " ", s)
-    s = re.sub(r"\s+", " ", s).strip()
-    return s
+# Cache singleton em memória
+_MODEL_CACHE: "IntentModel | None" = None
+
+
+def _clean(text: str) -> str:
+    """Normaliza o texto para o classificador."""
+    t = text.lower()
+    t = re.sub(r"http\S+|www\.\S+", " ", t)     # remove URLs
+    t = re.sub(r"[@#]\w+", " ", t)              # remove @menções e #hashtags
+    t = re.sub(r"[^a-zá-úà-ùãõâêîôûç0-9\s]", " ", t)
+    t = re.sub(r"\s+", " ", t).strip()
+    return t
+
 
 class IntentModel:
-    def __init__(self, path=MODEL_PATH):
-        if not os.path.exists(path):
-            raise FileNotFoundError(f"Modelo não encontrado em {path}. Treine com train_intents.py primeiro.")
-        self.pipe = load(path)
+    """Wrapper para diferentes formatos de .pkl (Pipeline OU dict)."""
 
-    def predict(self, text: str, threshold: float = 0.5) -> tuple[str, float]:
-        """
-        Retorna (intent, score). Usa a margem do LinearSVC como 'confiança'.
-        Se a margem máxima < threshold, devolve DESCONHECIDO.
-        """
+    def __init__(self, artifact: Any):
+        self.artifact = artifact
+
+        # formatos suportados:
+        # 1) sklearn Pipeline com .predict_proba / .predict
+        # 2) dict {"vectorizer": ..., "clf": ..., "label_encoder": ...}
+        self.is_pipeline = hasattr(artifact, "predict") and hasattr(artifact, "predict_proba")
+        self.has_dict = isinstance(artifact, dict) and "clf" in artifact
+
+        if not (self.is_pipeline or self.has_dict):
+            raise ValueError("Formato de modelo não reconhecido. Esperado Pipeline ou dict {'clf', ...}.")
+
+    def _predict_proba(self, X):
+        if self.is_pipeline:
+            return self.artifact.predict_proba(X)
+        # dict
+        vec = self.artifact["vectorizer"]
+        clf = self.artifact["clf"]
+        Xv = vec.transform(X)
+        return clf.predict_proba(Xv)
+
+    def _classes(self):
+        if self.is_pipeline:
+            # tenta classes_ no pipeline (última etapa)
+            try:
+                return self.artifact.classes_
+            except Exception:
+                # tenta acessar o estimador final
+                try:
+                    return self.artifact.named_steps[list(self.artifact.named_steps)[-1]].classes_
+                except Exception:
+                    pass
+        # dict
+        return self.artifact.get("classes_", None) or self.artifact["clf"].classes_
+
+    def predict(self, text: str) -> Tuple[str, float]:
+        """Retorna (intent, score_max)."""
         t = _clean(text)
-        margins = self.pipe.decision_function([t])
-        if np.ndim(margins) == 1:
-            margins = np.vstack([-margins, margins]).T
-        idx = int(np.argmax(margins[0]))
-        score = float(margins[0][idx])
-        intent = self.pipe.classes_[idx]
-        if score < threshold:
-            return "DESCONHECIDO", score
+        if not t:
+            return "DESCONHECIDO", 0.0
+
+        probas = self._predict_proba([t])[0]
+        classes = self._classes()
+        idx = probas.argmax()
+        intent = str(classes[idx])
+        score = float(probas[idx])
         return intent, score
 
-# Singleton simples (carrega o modelo uma vez só)
-_model = None
+
 def get_model() -> IntentModel:
-    global _model
-    if _model is None:
-        _model = IntentModel(MODEL_PATH)
-    return _model
+    """Carrega e mantém em cache o modelo (singleton)."""
+    global _MODEL_CACHE
+    if _MODEL_CACHE is not None:
+        return _MODEL_CACHE
+
+    if not MODEL_PATH.exists():
+        raise FileNotFoundError(f"Modelo não encontrado: {MODEL_PATH}")
+
+    with open(MODEL_PATH, "rb") as f:
+        artifact = pickle.load(f)
+
+    _MODEL_CACHE = IntentModel(artifact)
+    return _MODEL_CACHE
