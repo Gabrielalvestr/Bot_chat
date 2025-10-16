@@ -5,6 +5,7 @@
   min-height: 100vh;
   background-color: #f0f2f5;
   font-family: Arial, sans-serif;
+  color: black;
 }
 .register-card {
   background: #ffffff;
@@ -27,4 +28,9 @@
 }
 .login-link a:hover {
   text-decoration: underline;
+}
+
+.input-group-checkbox{
+  display: flex;
+  gap: 8px;
 }

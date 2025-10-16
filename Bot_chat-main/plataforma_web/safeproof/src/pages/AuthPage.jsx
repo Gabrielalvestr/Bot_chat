@@ -113,11 +113,9 @@ const AuthPage = () => {
                         {isLoading ? 'Carregando...' : (isLoginMode ? 'Entrar' : 'Registrar')}
                     </button>
                 </form>
-                <p className="toggle-mode" onClick={toggleMode}>
-                    {isLoginMode
-                        ? 'Não tem uma conta? Registre-se'
-                        : 'Já tem uma conta? Faça o login'}
-                </p>
+                <a href='/registrar'>
+                    Não tem uma conta? Cadastre-se aqui
+                </a>
             </div>
         </div>
     );

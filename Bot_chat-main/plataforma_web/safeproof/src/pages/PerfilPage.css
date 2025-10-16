@@ -6,6 +6,7 @@
     padding: 2rem;
     background-color: #f0f2f5;
     min-height: calc(100vh - 80px);
+    color: black;
     /* Ajustar altura para preencher a tela abaixo do header */
 }
 
@@ -93,6 +94,14 @@
 .edit-btn {
     background-color: #17a2b8;
     color: white;
+}
+.delete-btn {
+    background-color: #c21e13;
+    color: white;
+}
+
+.delete-btn:hover {
+    background-color: #b82217;
 }
 
 .edit-btn:hover {

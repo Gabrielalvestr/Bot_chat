@@ -60,7 +60,7 @@ const OcorrenciasPage = () => {
                         tipo: ocorrencia.id_crime,
                         status: ocorrencia.status,
                         gravidade: ocorrencia.gravidade,
-                        data: ev.created_at,
+                        data_criacao: ev.created_at,
                         hash: ev.hash,
                         url: ev.url_pagina,
                         imagem: ev.imagem_url,
@@ -95,7 +95,7 @@ const OcorrenciasPage = () => {
     }
 
     return (
-        <div style={{ padding: '2rem' }}>
+        <div style={{ padding: '2rem', color: 'black' }}>
             <h2>Minhas Ocorrências</h2>
 
             {ocorrencias.length === 0 ? (

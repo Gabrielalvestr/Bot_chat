@@ -11,13 +11,13 @@ const PerfilPage = () => {
   const [formData, setFormData] = useState({});
   // Estado para controlar o modo de edição
   const [isEditing, setIsEditing] = useState(false);
-  
+  const [isDeleting, setIsDeleting] = useState(false);
   // Estados de feedback
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
 
-    const API_URL = 'http://localhost:8080/api/v1/safe_proof'; // Sua API Backend
+  const API_URL = 'http://localhost:8080/api/v1/safe_proof'; // Sua API Backend
 
   // useEffect para buscar os dados do perfil quando a página carrega
   useEffect(() => {
@@ -34,7 +34,7 @@ const PerfilPage = () => {
         });
 
         if (!response.ok) throw new Error('Não foi possível carregar os dados do perfil.');
-        
+
         const data = await response.json();
         setUserData(data); // Guarda os dados originais
         setFormData(data); // Prepara o formulário com os dados atuais
@@ -71,29 +71,82 @@ const PerfilPage = () => {
     setSuccess(null);
 
     try {
-        const token = localStorage.getItem('authToken');
-        // **AÇÃO DO BACKEND NECESSÁRIA:** Criar um endpoint PUT /api/perfil/me
-        const response = await fetch(`${API_URL}/perfil/me`, {
-            method: 'PUT',
-            headers: { 
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}` 
-            },
-            body: JSON.stringify(formData)
-        });
+      const token = localStorage.getItem('authToken');
+      // **AÇÃO DO BACKEND NECESSÁRIA:** Criar um endpoint PUT /api/perfil/me
+      const response = await fetch(`${API_URL}/perfil/me`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(formData)
+      });
 
-        const data = await response.json();
-        if (!response.ok) throw new Error(data.message || 'Erro ao atualizar o perfil.');
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message || 'Erro ao atualizar o perfil.');
 
-        setUserData(data); // Atualiza os dados base com as novas informações
-        setSuccess('Perfil atualizado com sucesso!');
-        setIsEditing(false); // Sai do modo de edição
+      setUserData(data); // Atualiza os dados base com as novas informações
+      setSuccess('Perfil atualizado com sucesso!');
+      setIsEditing(false); // Sai do modo de edição
     } catch (err) {
-        setError(err.message);
+      setError(err.message);
     } finally {
-        setIsLoading(false);
+      setIsLoading(false);
     }
   };
+
+  const handleApagar = async (e) => {
+
+    const confirmou = window.confirm(
+      "Você tem CERTEZA de que deseja excluir sua conta? Esta ação é permanente e não pode ser desfeita."
+    );
+
+    // Se o usuário clicar em "Cancelar", a função para imediatamente.
+    if (!confirmou) {
+      return;
+    }
+
+    // Inicia o processo de exclusão e limpa erros anteriores
+    setIsDeleting(true);
+    setError(null);
+    try {
+      // 2. Recuperação de Dados de Autenticação
+      const usuarioId = localStorage.getItem('id'); // Pega o ID do usuário logado
+      const token = localStorage.getItem('authToken');
+
+      if (!usuarioId || !token) {
+        throw new Error('Sua sessão expirou. Por favor, faça o login novamente.');
+      }
+
+      // 3. Lógica da Requisição DELETE
+      const response = await fetch(`${API_URL}/deletar_usuario/${usuarioId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.message || 'Não foi possível excluir a conta.');
+      }
+
+      // 4. Tratamento de Sucesso
+      alert('Sua conta foi excluída com sucesso.');
+      // Limpa todos os dados de sessão do navegador
+      localStorage.clear();
+      // Redireciona para a página de login
+      window.location.href = '/login'
+
+    } catch (err) {
+      // 5. Tratamento de Erro
+      setError(err.message);
+      alert(`Erro: ${err.message}`); // Mostra um alerta com o erro
+    } finally {
+      // Garante que o botão seja reativado mesmo se houver erro
+      setIsDeleting(false);
+    }
+  }
 
   // Renderiza estados de carregamento ou erro
   if (isLoading && !userData) return <div className="loading-container">Carregando perfil...</div>;
@@ -127,7 +180,7 @@ const PerfilPage = () => {
               <p className="display-value">{userData?.email}</p>
             )}
           </div>
-          
+
           <div className="form-group">
             <label>Documento (CPF/RG)</label>
             {/* Documento geralmente não é editável, mas aqui permitimos para exemplo */}
@@ -137,7 +190,7 @@ const PerfilPage = () => {
               <p className="display-value">{userData?.documento}</p>
             )}
           </div>
-          
+
           {/* Mensagens de feedback */}
           {success && <p className="message success">{success}</p>}
           {error && <p className="message error">{error}</p>}
@@ -157,6 +210,10 @@ const PerfilPage = () => {
                 Editar Perfil
               </button>
             )}
+            <button type="button" className="delete-btn" onClick={handleApagar}>
+              {isDeleting ? 'Excluindo...' : 'Excluir Minha Conta Permanentemente'}
+
+            </button>
           </div>
         </form>
       </div>
