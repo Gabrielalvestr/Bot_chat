@@ -6,14 +6,16 @@ const RegisterPage = () => {
     const [formData, setFormData] = useState({
         nome: '',
         email: '',
-        senha: '',
+        senha_hash: '',
         documento: '',
+        oab: '',
+        tipo_usuario: '0'
     });
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
-
-  const API_URL = 'http://localhost:3001/api'; // Sua API Backend
+    const [isProfissa, setIsProfissa] = useState(false)
+    const API_URL = 'http://localhost:8080/api/v1/safe_proof'; // Sua API Backend
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -27,11 +29,16 @@ const RegisterPage = () => {
         e.preventDefault();
         setIsLoading(true);
         setError(null);
+        if(isProfissa){
+            formData.tipo_usuario = '1'
+        }
+                console.log(JSON.stringify(formData))
 
         try {
-            const response = await fetch(`${API_URL}/usuarios/registrar`, {
+            const response = await fetch(`${API_URL}/registrar_usuario`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*"
+ },
                 body: JSON.stringify(formData),
             });
 
@@ -53,6 +60,8 @@ const RegisterPage = () => {
         }
     };
 
+    console.log(isProfissa)
+
     return (
         <div className="register-container">
             <div className="register-card">
@@ -68,13 +77,23 @@ const RegisterPage = () => {
                     </div>
                     <div className="input-group">
                         <label htmlFor="senha">Senha</label>
-                        <input type="password" id="senha" name="senha" value={formData.senha} onChange={handleInputChange} required />
+                        <input type="password" id="senha" name="senha_hash" value={formData.senha_hash} onChange={handleInputChange} required />
                     </div>
                     <div className="input-group">
                         <label htmlFor="documento">Documento (CPF ou RG)</label>
                         <input type="text" id="documento" name="documento" value={formData.documento} onChange={handleInputChange} required />
                     </div>
 
+                    <div className="input-group">
+                        <label htmlFor="profisional">Uso profissional </label>
+                        <input type="checkbox" defaultValue={isProfissa} id='profisional' onChange={(e) => setIsProfissa(Boolean(e.target.value))} />
+                    </div>
+                    {isProfissa ?
+                        <div className="input-group">
+                            <label htmlFor="oab">Documento (OAB)</label>
+                            <input type="text" id="oab" name="oab" value={formData.oab} onChange={handleInputChange} required />
+                        </div>
+                    : ''}
                     {error && <p className="message error">{error}</p>}
 
                     <button type="submit" className="submit-btn" disabled={isLoading}>

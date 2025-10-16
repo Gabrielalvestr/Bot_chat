@@ -25,7 +25,7 @@ const AuthPage = () => {
     const [success, setSuccess] = useState(null);
 
     // URL da sua API (coloque em um arquivo de configuração .env em um projeto real)
-    const API_URL = 'http://localhost:3001/api'; // Sua API Backend
+    const API_URL = 'http://localhost:8080/api/v1/safe_proof'; // Sua API Backend
 
     // Função para alternar entre os modos de login e registro
     const toggleMode = () => {
@@ -53,9 +53,9 @@ const AuthPage = () => {
         setSuccess(null);
 
         // Define o endpoint e o corpo da requisição com base no modo atual
-        const endpoint = isLoginMode ? `${API_URL}/usuarios/login` : `${API_URL}/usuarios/registrar`;
+        const endpoint = isLoginMode ? `${API_URL}/login` : `${API_URL}/usuarios/registrar`;
         const body = isLoginMode
-            ? { email: formData.email, senha: formData.senha }
+            ? { email: formData.email, senha_hash: formData.senha }
             : { nome: formData.nome, email: formData.email, senha: formData.senha, documento: formData.documento };
 
         try {
@@ -75,7 +75,7 @@ const AuthPage = () => {
                 // Se for login, salve o token e informe o sucesso
                 // No app real, você salvaria o token e redirecionaria o usuário
                 localStorage.setItem('authToken', data.token);
-                localStorage.setItem('id', data.id)
+                localStorage.setItem('id', data.id_usuario)
                 setSuccess('Login bem-sucedido! Redirecionando...');
                 window.location.href = '/perfil'
             } else {

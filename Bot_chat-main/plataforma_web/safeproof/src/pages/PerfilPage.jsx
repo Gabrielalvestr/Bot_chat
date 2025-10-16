@@ -17,7 +17,7 @@ const PerfilPage = () => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
 
-  const API_URL = 'http://localhost:3001/api'; // Sua API Backend
+    const API_URL = 'http://localhost:8080/api/v1/safe_proof'; // Sua API Backend
 
   // useEffect para buscar os dados do perfil quando a página carrega
   useEffect(() => {
@@ -29,7 +29,7 @@ const PerfilPage = () => {
         if (!token) throw new Error('Token de autenticação não encontrado.');
 
         // **AÇÃO DO BACKEND NECESSÁRIA:** Criar um endpoint GET /api/perfil/me
-        const response = await fetch(`${API_URL}/perfil/me`, {
+        const response = await fetch(`${API_URL}/usuario/${localStorage.getItem("id")}`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
 

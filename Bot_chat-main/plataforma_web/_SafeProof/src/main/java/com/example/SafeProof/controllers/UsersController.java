@@ -1,4 +1,5 @@
 package com.example.SafeProof.controllers;
+
 import com.example.SafeProof.models.UsersModel;
 import com.example.SafeProof.requests.LoginRequest;
 import com.example.SafeProof.requests.UsersRequest;
@@ -13,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.mindrot.jbcrypt.BCrypt;
 import java.util.Optional;
 
-
 @RestController
 @RequestMapping("api/v1/safe_proof")
 public class UsersController {
@@ -24,24 +24,29 @@ public class UsersController {
     private OcorrenciasService ocorrenciasService;
 
     @GetMapping("/listar_usuarios")
-    public ResponseEntity<?> listarTodosUsuarios(){
+    public ResponseEntity<?> listarTodosUsuarios() {
         return ResponseEntity.status(HttpStatus.OK).body(userService.listarTodos());
     }
 
+    @GetMapping("/usuario/{id}")
+    public ResponseEntity<?> getUsuarioById(@PathVariable(value = "id") Integer id) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.findById(id));
+    }
+
     @PostMapping("/registrar_usuario")
-    public ResponseEntity<?> registrarUsuario(@RequestBody UsersRequest body){
+    public ResponseEntity<?> registrarUsuario(@RequestBody UsersRequest body) {
         var usersModel = new UsersModel();
         BeanUtils.copyProperties(body, usersModel);// Convertendo a request para Model
         String senha_hash = BCrypt.hashpw(body.senha_hash(), BCrypt.gensalt());
         usersModel.setSenha_hash(senha_hash);
         var bodyReturn = userService.getErros(usersModel);
-        if(bodyReturn.containsKey("erro_email") || bodyReturn.containsKey("erro_documento"))
+        if (bodyReturn.containsKey("erro_email") || bodyReturn.containsKey("erro_documento"))
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bodyReturn);
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(usersModel));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest body){
+    public ResponseEntity<?> login(@RequestBody LoginRequest body) {
         Optional<UsersModel> userOptional = userService.findByEmail(body.email());
         if (userOptional.isEmpty() ||
                 !BCrypt.checkpw(body.senha_hash(), userOptional.get().getSenha_hash())) {
@@ -49,17 +54,17 @@ public class UsersController {
         }
         String jwtToken = JwtUtil.generate(body.email());
 
-        var bodyReturn = userService.returnLogin(userOptional.get().getId_usuario(), jwtToken);
+        var bodyReturn = userService.returnLogin(userOptional.get().getId_usuario(), jwtToken,
+                userOptional.get().getNome());
 
         return ResponseEntity.ok(bodyReturn);
     }
 
-
     @DeleteMapping("/deletar_usuario/{id}")
-    public ResponseEntity<?> deletarUsuario(@PathVariable(value="id") Integer id){
+    public ResponseEntity<?> deletarUsuario(@PathVariable(value = "id") Integer id) {
         // 1. Deleta todos os filhos associados
         ocorrenciasService.deletaOcorrenciasByIdUsuario(id);
         userService.deleteUsuarioById(id);
-        return ResponseEntity.status(HttpStatus.OK).body("Id:"+ id + " deletado!");
+        return ResponseEntity.status(HttpStatus.OK).body("Id:" + id + " deletado!");
     }
 }

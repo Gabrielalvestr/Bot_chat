@@ -75,16 +75,15 @@ const OcorrenciaDetalhePage = () => {
     return (
         <div className="detalhe-container">
             <div className="detalhe-card">
-                <Link to="/minhas-ocorrencias" className="back-button">← Voltar para a lista</Link>
                 <h1>Detalhes da Ocorrência #{ocorrencia.id}</h1>
 
                 <div className="detalhe-grid">
-                    <div className="detalhe-item"><strong>Tipo de Crime:</strong><span>{ocorrencia.tipo_crime}</span></div>
+                    <div className="detalhe-item"><strong>Tipo de Crime:</strong><span>{ocorrencia.tipo}</span></div>
                     <div className="detalhe-item"><strong>Status:</strong><span className={`status-badge status-${ocorrencia.status}`}>{ocorrencia.status}</span></div>
                     <div className="detalhe-item"><strong>Gravidade:</strong><span className={`gravidade gravidade-${ocorrencia.gravidade}`}>{ocorrencia.gravidade}</span></div>
-                    <div className="detalhe-item"><strong>Data da Coleta:</strong><span>{formatDate(ocorrencia.data_criacao)}</span></div>
+                    <div className="detalhe-item"><strong>Data da Coleta:</strong><span>{formatDate(ocorrencia.data)}</span></div>
                     <div className="detalhe-item full-width"><strong>URL da Evidência:</strong><a href={ocorrencia.url} target="_blank" rel="noopener noreferrer">{ocorrencia.url}</a></div>
-                    <div className="detalhe-item full-width hash"><strong>Hash de Validação (SHA-256):</strong><span>{ocorrencia.hash_evidencia}</span></div>
+                    <div className="detalhe-item full-width hash"><strong>Hash de Validação (SHA-256):</strong><span>{ocorrencia.hash}</span></div>
                     <div className="detalhe-item full-width hash"><strong>Imagem:</strong><img src={ocorrencia.imagem} width={800} /></div>
 
                 </div>

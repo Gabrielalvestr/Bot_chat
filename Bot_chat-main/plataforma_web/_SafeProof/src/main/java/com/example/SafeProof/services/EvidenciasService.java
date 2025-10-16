@@ -15,16 +15,20 @@ public class EvidenciasService {
     @Autowired
     private EvidenciasRepository evidenciasRepository;
 
-    public List<EvidenciasModel> listarTodos(){
+    public List<EvidenciasModel> listarTodos() {
         return evidenciasRepository.findAll();
     }
 
-    public EvidenciasModel save(EvidenciasModel body){
+    public Optional<EvidenciasModel> buscarPorId(Integer id) {
+        return evidenciasRepository.findById(id);
+    }
+
+    public EvidenciasModel save(EvidenciasModel body) {
         return evidenciasRepository.save(body);
     }
 
     @Transactional
-    public void deleteById(Integer id){
+    public void deleteById(Integer id) {
         evidenciasRepository.deleteById(id);
     }
 

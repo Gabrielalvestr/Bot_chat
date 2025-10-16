@@ -1,5 +1,5 @@
 // IMPORTANTE: Substitua pela URL da sua API backend
-const API_URL = 'http://localhost:3001/api'; // Sua API Backend
+const API_URL = 'http://localhost:8080/api/v1/safe_proof'; // Sua API Backend
 
 document.addEventListener('DOMContentLoaded', () => {
     // Verifica se o usuário já está logado. Se sim, redireciona para a tela principal.
@@ -36,20 +36,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const password = document.getElementById('login-password').value;
 
         try {
-            const response = await fetch(`${API_URL}/usuarios/login`, {
+            const response = await fetch(`${API_URL}/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, senha: password })
+                body: JSON.stringify({ email, senha_hash: password })
             });
 
             const data = await response.json();
 
+            console.log(data)
             if (!response.ok) {
                 throw new Error(data.message || 'Erro ao fazer login.');
             }
 
-            // Salva o token e redireciona
-            chrome.storage.local.set({ authToken: data.token, userMail: email }, () => {
+            // Salva o token e redireciona  
+
+            chrome.storage.local.set({ authToken: data.token, id: data.id_usuario, nome: data.nome }, () => {
                 window.location.href = '../popup/popup.html';
             });
 
@@ -67,10 +69,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const documento = document.getElementById('register-documento').value;
 
         try {
-            const response = await fetch(`${API_URL}/usuarios/registrar`, {
+            const response = await fetch(`${API_URL}/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ nome, email, senha: password, documento })
+                body: JSON.stringify({ nome, email, senha_hash: password, documento })
             });
 
             const data = await response.json();
