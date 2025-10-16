@@ -1,54 +1,68 @@
 # train_intents.py
-import os, re
 import pandas as pd
 from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline, FeatureUnion
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.svm import LinearSVC
-from sklearn.pipeline import Pipeline
+from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report
-from joblib import dump
+import joblib
+import re
+import os
 
-DATA_PATH = "data/intents.csv"
-MODEL_DIR = "models"
-MODEL_PATH = os.path.join(MODEL_DIR, "intents.pkl")
+DATA_PATH = "data/intents_treino.csv"   # sem DESCONHECIDO
+MODEL_PATH = "models/intents.pkl"
 
 def clean_text(s: str) -> str:
     s = s.lower()
-    s = re.sub(r"http\S+", " ", s)           # remove URLs
-    s = re.sub(r"[@#]\S+", " ", s)           # remove @menções e #hashtags
-    s = re.sub(r"[^a-záàâãéèêíïóôõöúç0-9\s]", " ", s)  # tira pontuação pesada
+    s = re.sub(r"http\S+|www\.\S+", " url ", s)
+    s = re.sub(r"\d+", " <num> ", s)
+    s = re.sub(r"[^\w\sáéíóúâêôãõç]", " ", s, flags=re.UNICODE)
     s = re.sub(r"\s+", " ", s).strip()
     return s
 
 def main():
-    # 1) carregar dataset
     df = pd.read_csv(DATA_PATH)
-    df["texto"] = df["texto"].astype(str).map(clean_text)
-    X = df["texto"].values
-    y = df["intent"].values
+    df = df.dropna(subset=["texto", "intent"]).copy()
 
-    # 2) split treino/teste
+    # 1) Normalização do rótulo (unificar abreviações)
+    df["intent"] = df["intent"].replace({
+        "VIOL": "VIOLENCIA_DOMESTICA"
+    })
+
+    # 2) Limpeza de texto
+    df["texto"] = df["texto"].astype(str).map(clean_text)
+
+    # 3) Remover classes com <2 exemplos (para permitir stratify)
+    vc = df["intent"].value_counts()
+    raras = vc[vc < 2].index.tolist()
+    if raras:
+        print("⚠️ Removendo classes raras (<2 exemplos):", raras)
+        df = df[~df["intent"].isin(raras)].copy()
+
+    X = df["texto"].tolist()
+    y = df["intent"].tolist()
+
+    # 4) Split estratificado
     Xtr, Xte, ytr, yte = train_test_split(
-        X, y, test_size=0.3, random_state=42
+        X, y, test_size=0.2, random_state=42, stratify=y
     )
 
-    # 3) pipeline TF-IDF + SVM linear
+    # 5) Features: word + char n-grams
+    word = TfidfVectorizer(analyzer="word", ngram_range=(1,2), max_features=20000)
+    char = TfidfVectorizer(analyzer="char", ngram_range=(3,5), max_features=5000)
+
     pipe = Pipeline([
-        ("tfidf", TfidfVectorizer(ngram_range=(1,2), min_df=1)),
-        ("clf",   LinearSVC(class_weight="balanced"))
+        ("feats", FeatureUnion([("word", word), ("char", char)])),
+        ("clf", LogisticRegression(max_iter=500, class_weight="balanced"))
     ])
 
-    # 4) treinar
     pipe.fit(Xtr, ytr)
-
-    # 5) avaliar
     ypred = pipe.predict(Xte)
-    print("\n===== RELATÓRIO DE TESTE =====")
-    print(classification_report(yte, ypred, digits=3))
+    print("\n=== RELATÓRIO VALIDAÇÃO ===")
+    print(classification_report(yte, ypred))
 
-    # 6) salvar modelo
-    os.makedirs(MODEL_DIR, exist_ok=True)
-    dump(pipe, MODEL_PATH)
+    os.makedirs(os.path.dirname(MODEL_PATH), exist_ok=True)
+    joblib.dump(pipe, MODEL_PATH)
     print(f"\n✅ Modelo salvo em: {MODEL_PATH}")
 
 if __name__ == "__main__":

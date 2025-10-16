@@ -54,4 +54,6 @@ coverage/
 
 # Arquivos gerados pelo Sistema Operacional
 .DS_Store
-Thumbs.db
+Thumbs.db__pycache__/
+*.py[cod]
+*.swp
