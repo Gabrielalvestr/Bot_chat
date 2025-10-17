@@ -38,6 +38,7 @@ const PerfilPage = () => {
         const data = await response.json();
         setUserData(data); // Guarda os dados originais
         setFormData(data); // Prepara o formulário com os dados atuais
+        console.log(data)
       } catch (err) {
         setError(err.message);
       } finally {
@@ -188,6 +189,16 @@ const PerfilPage = () => {
               <input type="text" name="documento" value={formData.documento || ''} onChange={handleInputChange} />
             ) : (
               <p className="display-value">{userData?.documento}</p>
+            )}
+          </div>
+
+          <div className="form-group">
+            <label>Telefone de Contato</label>
+            {/* Documento geralmente não é editável, mas aqui permitimos para exemplo */}
+            {isEditing ? (
+              <input type="text" name="contato" value={formData.contato || ''} onChange={handleInputChange} />
+            ) : (
+              <p className="display-value">{userData?.contato}</p>
             )}
           </div>
 
