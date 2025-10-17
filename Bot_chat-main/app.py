@@ -1,85 +1,62 @@
+# -*- coding: utf-8 -*-
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+from model_intent import predict_intent
+import traceback
+
+# importa sua função de resposta
+try:
+    from respostas import resposta as _resposta
+except Exception:
+    _resposta = None
 
 app = Flask(__name__)
 CORS(app)
 
-# ==========================
-# BANCO SIMPLES DE RESPOSTAS
-# ==========================
+@app.route("/health", methods=["GET"])
+def health():
+    return jsonify({"ok": True, "status": "up"})
 
-def resposta(texto):
-    msg = texto.lower()
-
-    if any(p in msg for p in ["racismo", "preto", "macaco", "injúria racial", "injuria racial"]):
-        return (
-            "Classificação: possível racismo/injúria racial.\n"
-            "Passos: BO (delegacia/eletrônica); procurar Delegacia de Crimes Raciais; advogado/Defensoria.\n"
-            "Provas: prints com data/hora/URL; perfis/IDs; testemunhas; denúncia na plataforma.\n\n"
-            "⚠️ Triagem inicial; não substitui advogado. Emergência/risco: 190. DH: 100. Mulher: 180. "
-            "Denúncia anônima: 181. Ajuda gratuita: Defensoria Pública do seu estado."
-        )
-
-    elif any(p in msg for p in ["ameaça", "me ameaçou", "tá me ameaçando", "disse que vai me matar"]):
-        return (
-            "Classificação: possível ameaça (art. 147 CP).\n"
-            "Passos: BO (delegacia/eletrônica); avaliar medidas protetivas; advogado/Defensoria.\n"
-            "Provas: prints com data/hora/URL; conversas originais e perfis/IDs; testemunhas.\n\n"
-            "⚠️ Triagem inicial; não substitui advogado. Emergência: 190. DH: 100. Mulher: 180."
-        )
-
-    elif any(p in msg for p in ["difamou", "caluniou", "me xingou", "falou mal de mim", "me chamou de ladrão"]):
-        return (
-            "Classificação: possível ofensa à honra (injúria/difamação/calúnia).\n"
-            "Passos: BO; avaliar queixa/ação com advogado/Defensoria. Guardar links/perfis e contexto.\n"
-            "Provas: prints e testemunhas.\n\n"
-            "⚠️ Triagem inicial; não substitui advogado."
-        )
-
-    elif any(p in msg for p in ["me persegue", "stalkeando", "perseguição", "fica me seguindo", "stalker"]):
-        return (
-            "Classificação: possível perseguição/stalking (Lei 14.132/2021).\n"
-            "Passos: BO; considerar medidas protetivas; advogado/Defensoria.\n"
-            "Provas: capturas de tela, mensagens e histórico de contatos.\n\n"
-            "⚠️ Triagem inicial; não substitui advogado."
-        )
-
-    elif any(p in msg for p in ["me enganaram", "golpe", "fui enganado", "pix errado", "me roubaram online", "clonaram meu cartão", "roubaram dinheiro"]):
-        return (
-            "Classificação: possível estelionato/golpe financeiro.\n"
-            "Passos: BO (delegacia/eletrônica); comunicar banco/plataforma; guardar comprovantes; advogado/Defensoria.\n"
-            "Provas: prints de conversas, comprovantes de transações, e-mails ou mensagens de golpe.\n\n"
-            "⚠️ Triagem inicial; não substitui advogado."
-        )
-
-    elif any(p in msg for p in ["me bateu", "apanhei", "me agrediu", "violência doméstica", "me empurrou"]):
-        return (
-            "Classificação: possível violência doméstica (Lei Maria da Penha).\n"
-            "Passos: 190 em urgência; BO; solicitar medidas protetivas; Defensoria/advogado.\n"
-            "Provas: fotos das lesões, prints de ameaças, contatos e testemunhas.\n\n"
-            "⚠️ Triagem inicial; não substitui advogado. Emergência: 190. Mulher: 180."
-        )
-
-    else:
-        return (
-            "Não reconheci a situação. Pode descrever melhor o que aconteceu?\n"
-            "Provas: prints, conversas, datas e contextos ajudam a entender o caso."
-        )
-
-# ==========================
-# ROTA PRINCIPAL
-# ==========================
+def build_message(intent: str, text: str) -> str:
+    """
+    Usa sua função respostas.resposta com flexibilidade:
+    - tenta (intent, text)
+    - cai para (intent) se a assinatura for diferente
+    - devolve mensagem padrão se não existir
+    """
+    if _resposta is None:
+        return f"(TESTE) Classificado como {intent}."
+    try:
+        # alguns projetos usam (intent, texto)
+        return _resposta(intent, text)
+    except TypeError:
+        # outros usam só (intent)
+        return _resposta(intent)
+    except Exception:
+        traceback.print_exc()
+        return f"(TESTE) Classificado como {intent}."
 
 @app.route("/api/chat", methods=["POST"])
-def chat():
-    data = request.get_json() or {}
-    texto = data.get("message", "")
-    resposta_texto = resposta(texto)
-    return jsonify({"ok": True, "message": resposta_texto})
+def api_chat():
+    try:
+        data = request.get_json(force=True) or {}
+        text = (data.get("message") or "").strip()
+        if not text:
+            return jsonify({"ok": False, "error": "mensagem vazia"}), 400
 
-@app.route("/health")
-def health():
-    return {"ok": True, "status": "up"}
+        intent, score = predict_intent(text)
+        msg = build_message(intent, text)
+
+        return jsonify({
+            "ok": True,
+            "intent": intent,
+            "score": float(score),
+            "message": msg
+        })
+    except Exception as e:
+        traceback.print_exc()
+        return jsonify({"ok": False, "error": f"Erro interno: {e}"}), 500
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    # Rode:  python app.py
+    app.run(host="127.0.0.1", port=5000, debug=True)

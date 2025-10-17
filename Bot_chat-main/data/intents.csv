@@ -80,6 +80,108 @@ texto,intent
 "me chamaram de neguinho fedido",RACISMO
 "postaram comentário racista na minha foto",RACISMO
 "um colega falou q preto não devia existir",RACISMO
+me xingaram de macaco no insta,RACISMO
+me xingaram de macaco no facebook,RACISMO
+me xingaram de macaco no trabalho,RACISMO
+me xingaram de macaco na escola,RACISMO
+me xingaram de macaco no grupo da família,RACISMO
+me xingaram de macaco no whatsapp,RACISMO
+me xingaram de macaco no zap,RACISMO
+me xingaram de macaco no twitter,RACISMO
+me xingaram de macaco no jogo online,RACISMO
+me xingaram de macaco em público,RACISMO
+me xingaram de macaco no estádio,RACISMO
+me xingaram de macaco na rua,RACISMO
+me xingaram de macaco na faculdade,RACISMO
+me xingaram de macaco num comentário,RACISMO
+me xingaram de macaco por DM,RACISMO
+me xingaram de macaco num post,RACISMO
+me xingaram de macaco num story,RACISMO
+me xingaram de macaco em live,RACISMO
+me xingaram de macaco no tiktok,RACISMO
+me xingaram de macaco num áudio,RACISMO
+me chamaram de preto imundo no insta,RACISMO
+me chamaram de preto imundo no facebook,RACISMO
+me chamaram de preto imundo no trabalho,RACISMO
+me chamaram de preto imundo na escola,RACISMO
+me chamaram de preto imundo no grupo da família,RACISMO
+me chamaram de preto imundo no whatsapp,RACISMO
+me chamaram de preto imundo no zap,RACISMO
+me chamaram de preto imundo no twitter,RACISMO
+me chamaram de preto imundo no jogo online,RACISMO
+me chamaram de preto imundo em público,RACISMO
+me chamaram de preto imundo no estádio,RACISMO
+me chamaram de preto imundo na rua,RACISMO
+me chamaram de preto imundo na faculdade,RACISMO
+me chamaram de preto imundo num comentário,RACISMO
+me chamaram de preto imundo por DM,RACISMO
+me chamaram de preto imundo num post,RACISMO
+me chamaram de preto imundo num story,RACISMO
+me chamaram de preto imundo em live,RACISMO
+me chamaram de preto imundo no tiktok,RACISMO
+me chamaram de preto imundo num áudio,RACISMO
+mandaram eu voltar pra senzala no insta,RACISMO
+mandaram eu voltar pra senzala no facebook,RACISMO
+mandaram eu voltar pra senzala no trabalho,RACISMO
+mandaram eu voltar pra senzala na escola,RACISMO
+mandaram eu voltar pra senzala no grupo da família,RACISMO
+mandaram eu voltar pra senzala no whatsapp,RACISMO
+mandaram eu voltar pra senzala no zap,RACISMO
+mandaram eu voltar pra senzala no twitter,RACISMO
+mandaram eu voltar pra senzala no jogo online,RACISMO
+mandaram eu voltar pra senzala em público,RACISMO
+mandaram eu voltar pra senzala no estádio,RACISMO
+mandaram eu voltar pra senzala na rua,RACISMO
+mandaram eu voltar pra senzala na faculdade,RACISMO
+mandaram eu voltar pra senzala num comentário,RACISMO
+mandaram eu voltar pra senzala por DM,RACISMO
+mandaram eu voltar pra senzala num post,RACISMO
+mandaram eu voltar pra senzala num story,RACISMO
+mandaram eu voltar pra senzala em live,RACISMO
+mandaram eu voltar pra senzala no tiktok,RACISMO
+mandaram eu voltar pra senzala num áudio,RACISMO
+fizeram piada racista comigo no insta,RACISMO
+fizeram piada racista comigo no facebook,RACISMO
+fizeram piada racista comigo no trabalho,RACISMO
+fizeram piada racista comigo na escola,RACISMO
+fizeram piada racista comigo no grupo da família,RACISMO
+fizeram piada racista comigo no whatsapp,RACISMO
+fizeram piada racista comigo no zap,RACISMO
+fizeram piada racista comigo no twitter,RACISMO
+fizeram piada racista comigo no jogo online,RACISMO
+fizeram piada racista comigo em público,RACISMO
+fizeram piada racista comigo no estádio,RACISMO
+fizeram piada racista comigo na rua,RACISMO
+fizeram piada racista comigo na faculdade,RACISMO
+fizeram piada racista comigo num comentário,RACISMO
+fizeram piada racista comigo por DM,RACISMO
+fizeram piada racista comigo num post,RACISMO
+fizeram piada racista comigo num story,RACISMO
+fizeram piada racista comigo em live,RACISMO
+fizeram piada racista comigo no tiktok,RACISMO
+fizeram piada racista comigo num áudio,RACISMO
+me compararam com animal por ser negro no insta,RACISMO
+me compararam com animal por ser negro no facebook,RACISMO
+me compararam com animal por ser negro no trabalho,RACISMO
+me compararam com animal por ser negro na escola,RACISMO
+me compararam com animal por ser negro no grupo da família,RACISMO
+me compararam com animal por ser negro no whatsapp,RACISMO
+me compararam com animal por ser negro no zap,RACISMO
+me compararam com animal por ser negro no twitter,RACISMO
+me compararam com animal por ser negro no jogo online,RACISMO
+me compararam com animal por ser negro em público,RACISMO
+me compararam com animal por ser negro no estádio,RACISMO
+me compararam com animal por ser negro na rua,RACISMO
+me compararam com animal por ser negro na faculdade,RACISMO
+me compararam com animal por ser negro num comentário,RACISMO
+me compararam com animal por ser negro por DM,RACISMO
+me compararam com animal por ser negro num post,RACISMO
+me compararam com animal por ser negro num story,RACISMO
+me compararam com animal por ser negro em live,RACISMO
+me compararam com animal por ser negro no tiktok,RACISMO
+me compararam com animal por ser negro num áudio,RACISMO
+
+
 
 
 "disseram que vão me bater",AMEACA
@@ -162,6 +264,106 @@ texto,intent
 "um cara mandou q ia me caçar",AMEACA
 "me ameaçaram de agressão pesada",AMEACA
 "falaram q iam me matar se denunciasse",AMEACA
+disseram que vão me matar na escola,AMEACA
+disseram que vão me matar no trabalho,AMEACA
+disseram que vão me matar no bairro,AMEACA
+disseram que vão me matar no estádio,AMEACA
+disseram que vão me matar no bar,AMEACA
+disseram que vão me matar no whatsapp,AMEACA
+disseram que vão me matar por ligação,AMEACA
+disseram que vão me matar por áudio,AMEACA
+disseram que vão me matar no insta,AMEACA
+disseram que vão me matar no jogo,AMEACA
+disseram que vão me matar na rua,AMEACA
+disseram que vão me matar na academia,AMEACA
+disseram que vão me matar na faculdade,AMEACA
+disseram que vão me matar no estacionamento,AMEACA
+disseram que vão me matar em casa,AMEACA
+disseram que vão me matar no condomínio,AMEACA
+disseram que vão me matar no facebook,AMEACA
+disseram que vão me matar no grupo do zap,AMEACA
+disseram que vão me matar no mercado,AMEACA
+disseram que vão me matar no ponto de ônibus,AMEACA
+me ameaçaram de morte na escola,AMEACA
+me ameaçaram de morte no trabalho,AMEACA
+me ameaçaram de morte no bairro,AMEACA
+me ameaçaram de morte no estádio,AMEACA
+me ameaçaram de morte no bar,AMEACA
+me ameaçaram de morte no whatsapp,AMEACA
+me ameaçaram de morte por ligação,AMEACA
+me ameaçaram de morte por áudio,AMEACA
+me ameaçaram de morte no insta,AMEACA
+me ameaçaram de morte no jogo,AMEACA
+me ameaçaram de morte na rua,AMEACA
+me ameaçaram de morte na academia,AMEACA
+me ameaçaram de morte na faculdade,AMEACA
+me ameaçaram de morte no estacionamento,AMEACA
+me ameaçaram de morte em casa,AMEACA
+me ameaçaram de morte no condomínio,AMEACA
+me ameaçaram de morte no facebook,AMEACA
+me ameaçaram de morte no grupo do zap,AMEACA
+me ameaçaram de morte no mercado,AMEACA
+me ameaçaram de morte no ponto de ônibus,AMEACA
+falaram que iam me bater na escola,AMEACA
+falaram que iam me bater no trabalho,AMEACA
+falaram que iam me bater no bairro,AMEACA
+falaram que iam me bater no estádio,AMEACA
+falaram que iam me bater no bar,AMEACA
+falaram que iam me bater no whatsapp,AMEACA
+falaram que iam me bater por ligação,AMEACA
+falaram que iam me bater por áudio,AMEACA
+falaram que iam me bater no insta,AMEACA
+falaram que iam me bater no jogo,AMEACA
+falaram que iam me bater na rua,AMEACA
+falaram que iam me bater na academia,AMEACA
+falaram que iam me bater na faculdade,AMEACA
+falaram que iam me bater no estacionamento,AMEACA
+falaram que iam me bater em casa,AMEACA
+falaram que iam me bater no condomínio,AMEACA
+falaram que iam me bater no facebook,AMEACA
+falaram que iam me bater no grupo do zap,AMEACA
+falaram que iam me bater no mercado,AMEACA
+falaram que iam me bater no ponto de ônibus,AMEACA
+prometeram me agredir na escola,AMEACA
+prometeram me agredir no trabalho,AMEACA
+prometeram me agredir no bairro,AMEACA
+prometeram me agredir no estádio,AMEACA
+prometeram me agredir no bar,AMEACA
+prometeram me agredir no whatsapp,AMEACA
+prometeram me agredir por ligação,AMEACA
+prometeram me agredir por áudio,AMEACA
+prometeram me agredir no insta,AMEACA
+prometeram me agredir no jogo,AMEACA
+prometeram me agredir na rua,AMEACA
+prometeram me agredir na academia,AMEACA
+prometeram me agredir na faculdade,AMEACA
+prometeram me agredir no estacionamento,AMEACA
+prometeram me agredir em casa,AMEACA
+prometeram me agredir no condomínio,AMEACA
+prometeram me agredir no facebook,AMEACA
+prometeram me agredir no grupo do zap,AMEACA
+prometeram me agredir no mercado,AMEACA
+prometeram me agredir no ponto de ônibus,AMEACA
+mandaram recado que vão me pegar na escola,AMEACA
+mandaram recado que vão me pegar no trabalho,AMEACA
+mandaram recado que vão me pegar no bairro,AMEACA
+mandaram recado que vão me pegar no estádio,AMEACA
+mandaram recado que vão me pegar no bar,AMEACA
+mandaram recado que vão me pegar no whatsapp,AMEACA
+mandaram recado que vão me pegar por ligação,AMEACA
+mandaram recado que vão me pegar por áudio,AMEACA
+mandaram recado que vão me pegar no insta,AMEACA
+mandaram recado que vão me pegar no jogo,AMEACA
+mandaram recado que vão me pegar na rua,AMEACA
+mandaram recado que vão me pegar na academia,AMEACA
+mandaram recado que vão me pegar na faculdade,AMEACA
+mandaram recado que vão me pegar no estacionamento,AMEACA
+mandaram recado que vão me pegar em casa,AMEACA
+mandaram recado que vão me pegar no condomínio,AMEACA
+mandaram recado que vão me pegar no facebook,AMEACA
+mandaram recado que vão me pegar no grupo do zap,AMEACA
+mandaram recado que vão me pegar no mercado,AMEACA
+mandaram recado que vão me pegar no ponto de ônibus,AMEACA
 
 "espalharam mentiras sobre mim",HONRA
 "me chamaram de ladrão sem eu ser",HONRA
@@ -243,6 +445,107 @@ texto,intent
 "me chamaram de porcaria",HONRA
 "falaram q eu era falido",HONRA
 "espalharam boato nojento sobre mim",HONRA
+me chamaram de vagabunda no grupo da família,HONRA
+me chamaram de vagabunda no insta,HONRA
+me chamaram de vagabunda no facebook,HONRA
+me chamaram de vagabunda no trabalho,HONRA
+me chamaram de vagabunda na escola,HONRA
+me chamaram de vagabunda na faculdade,HONRA
+me chamaram de vagabunda no condomínio,HONRA
+me chamaram de vagabunda em público,HONRA
+me chamaram de vagabunda no whatsapp,HONRA
+me chamaram de vagabunda no zap,HONRA
+me chamaram de vagabunda num comentário,HONRA
+me chamaram de vagabunda num story,HONRA
+me chamaram de vagabunda por áudio,HONRA
+me chamaram de vagabunda num post,HONRA
+me chamaram de vagabunda no jogo online,HONRA
+me chamaram de vagabunda na rua,HONRA
+me chamaram de vagabunda na festa,HONRA
+me chamaram de vagabunda na igreja,HONRA
+me chamaram de vagabunda no mercado,HONRA
+me chamaram de vagabunda no bar,HONRA
+me chamaram de vadia no grupo da família,HONRA
+me chamaram de vadia no insta,HONRA
+me chamaram de vadia no facebook,HONRA
+me chamaram de vadia no trabalho,HONRA
+me chamaram de vadia na escola,HONRA
+me chamaram de vadia na faculdade,HONRA
+me chamaram de vadia no condomínio,HONRA
+me chamaram de vadia em público,HONRA
+me chamaram de vadia no whatsapp,HONRA
+me chamaram de vadia no zap,HONRA
+me chamaram de vadia num comentário,HONRA
+me chamaram de vadia num story,HONRA
+me chamaram de vadia por áudio,HONRA
+me chamaram de vadia num post,HONRA
+me chamaram de vadia no jogo online,HONRA
+me chamaram de vadia na rua,HONRA
+me chamaram de vadia na festa,HONRA
+me chamaram de vadia na igreja,HONRA
+me chamaram de vadia no mercado,HONRA
+me chamaram de vadia no bar,HONRA
+me chamaram de pilantra no grupo da família,HONRA
+me chamaram de pilantra no insta,HONRA
+me chamaram de pilantra no facebook,HONRA
+me chamaram de pilantra no trabalho,HONRA
+me chamaram de pilantra na escola,HONRA
+me chamaram de pilantra na faculdade,HONRA
+me chamaram de pilantra no condomínio,HONRA
+me chamaram de pilantra em público,HONRA
+me chamaram de pilantra no whatsapp,HONRA
+me chamaram de pilantra no zap,HONRA
+me chamaram de pilantra num comentário,HONRA
+me chamaram de pilantra num story,HONRA
+me chamaram de pilantra por áudio,HONRA
+me chamaram de pilantra num post,HONRA
+me chamaram de pilantra no jogo online,HONRA
+me chamaram de pilantra na rua,HONRA
+me chamaram de pilantra na festa,HONRA
+me chamaram de pilantra na igreja,HONRA
+me chamaram de pilantra no mercado,HONRA
+me chamaram de pilantra no bar,HONRA
+espalharam mentira sobre mim no grupo da família,HONRA
+espalharam mentira sobre mim no insta,HONRA
+espalharam mentira sobre mim no facebook,HONRA
+espalharam mentira sobre mim no trabalho,HONRA
+espalharam mentira sobre mim na escola,HONRA
+espalharam mentira sobre mim na faculdade,HONRA
+espalharam mentira sobre mim no condomínio,HONRA
+espalharam mentira sobre mim em público,HONRA
+espalharam mentira sobre mim no whatsapp,HONRA
+espalharam mentira sobre mim no zap,HONRA
+espalharam mentira sobre mim num comentário,HONRA
+espalharam mentira sobre mim num story,HONRA
+espalharam mentira sobre mim por áudio,HONRA
+espalharam mentira sobre mim num post,HONRA
+espalharam mentira sobre mim no jogo online,HONRA
+espalharam mentira sobre mim na rua,HONRA
+espalharam mentira sobre mim na festa,HONRA
+espalharam mentira sobre mim na igreja,HONRA
+espalharam mentira sobre mim no mercado,HONRA
+espalharam mentira sobre mim no bar,HONRA
+postaram difamação contra mim no grupo da família,HONRA
+postaram difamação contra mim no insta,HONRA
+postaram difamação contra mim no facebook,HONRA
+postaram difamação contra mim no trabalho,HONRA
+postaram difamação contra mim na escola,HONRA
+postaram difamação contra mim na faculdade,HONRA
+postaram difamação contra mim no condomínio,HONRA
+postaram difamação contra mim em público,HONRA
+postaram difamação contra mim no whatsapp,HONRA
+postaram difamação contra mim no zap,HONRA
+postaram difamação contra mim num comentário,HONRA
+postaram difamação contra mim num story,HONRA
+postaram difamação contra mim por áudio,HONRA
+postaram difamação contra mim num post,HONRA
+postaram difamação contra mim no jogo online,HONRA
+postaram difamação contra mim na rua,HONRA
+postaram difamação contra mim na festa,HONRA
+postaram difamação contra mim na igreja,HONRA
+postaram difamação contra mim no mercado,HONRA
+postaram difamação contra mim no bar,HONRA
+
 
 "um cara fica me seguindo todo dia",PERSEGUICAO
 "estão me perseguindo no instagram",PERSEGUICAO
@@ -323,6 +626,107 @@ texto,intent
 "um estranho aparece na rua sempre",PERSEGUICAO
 "um cara fica me stalkeando",PERSEGUICAO
 "um homem fica de olho em mim",PERSEGUICAO
+um ex não para de me mandar mensagem todo dia,PERSEGUICAO
+um ex não para de me mandar mensagem toda semana,PERSEGUICAO
+um ex não para de me mandar mensagem de madrugada,PERSEGUICAO
+um ex não para de me mandar mensagem de manhã cedo,PERSEGUICAO
+um ex não para de me mandar mensagem à noite,PERSEGUICAO
+um ex não para de me mandar mensagem no metrô,PERSEGUICAO
+um ex não para de me mandar mensagem no ônibus,PERSEGUICAO
+um ex não para de me mandar mensagem no mercado,PERSEGUICAO
+um ex não para de me mandar mensagem na academia,PERSEGUICAO
+um ex não para de me mandar mensagem na igreja,PERSEGUICAO
+um ex não para de me mandar mensagem no shopping,PERSEGUICAO
+um ex não para de me mandar mensagem na faculdade,PERSEGUICAO
+um ex não para de me mandar mensagem na escola,PERSEGUICAO
+um ex não para de me mandar mensagem no trabalho,PERSEGUICAO
+um ex não para de me mandar mensagem na rua,PERSEGUICAO
+um ex não para de me mandar mensagem no estacionamento,PERSEGUICAO
+um ex não para de me mandar mensagem no parque,PERSEGUICAO
+um ex não para de me mandar mensagem na praça,PERSEGUICAO
+um ex não para de me mandar mensagem no condomínio,PERSEGUICAO
+um ex não para de me mandar mensagem no prédio,PERSEGUICAO
+um homem fica me seguindo todo dia,PERSEGUICAO
+um homem fica me seguindo toda semana,PERSEGUICAO
+um homem fica me seguindo de madrugada,PERSEGUICAO
+um homem fica me seguindo de manhã cedo,PERSEGUICAO
+um homem fica me seguindo à noite,PERSEGUICAO
+um homem fica me seguindo no metrô,PERSEGUICAO
+um homem fica me seguindo no ônibus,PERSEGUICAO
+um homem fica me seguindo no mercado,PERSEGUICAO
+um homem fica me seguindo na academia,PERSEGUICAO
+um homem fica me seguindo na igreja,PERSEGUICAO
+um homem fica me seguindo no shopping,PERSEGUICAO
+um homem fica me seguindo na faculdade,PERSEGUICAO
+um homem fica me seguindo na escola,PERSEGUICAO
+um homem fica me seguindo no trabalho,PERSEGUICAO
+um homem fica me seguindo na rua,PERSEGUICAO
+um homem fica me seguindo no estacionamento,PERSEGUICAO
+um homem fica me seguindo no parque,PERSEGUICAO
+um homem fica me seguindo na praça,PERSEGUICAO
+um homem fica me seguindo no condomínio,PERSEGUICAO
+um homem fica me seguindo no prédio,PERSEGUICAO
+um carro vive me seguindo todo dia,PERSEGUICAO
+um carro vive me seguindo toda semana,PERSEGUICAO
+um carro vive me seguindo de madrugada,PERSEGUICAO
+um carro vive me seguindo de manhã cedo,PERSEGUICAO
+um carro vive me seguindo à noite,PERSEGUICAO
+um carro vive me seguindo no metrô,PERSEGUICAO
+um carro vive me seguindo no ônibus,PERSEGUICAO
+um carro vive me seguindo no mercado,PERSEGUICAO
+um carro vive me seguindo na academia,PERSEGUICAO
+um carro vive me seguindo na igreja,PERSEGUICAO
+um carro vive me seguindo no shopping,PERSEGUICAO
+um carro vive me seguindo na faculdade,PERSEGUICAO
+um carro vive me seguindo na escola,PERSEGUICAO
+um carro vive me seguindo no trabalho,PERSEGUICAO
+um carro vive me seguindo na rua,PERSEGUICAO
+um carro vive me seguindo no estacionamento,PERSEGUICAO
+um carro vive me seguindo no parque,PERSEGUICAO
+um carro vive me seguindo na praça,PERSEGUICAO
+um carro vive me seguindo no condomínio,PERSEGUICAO
+um carro vive me seguindo no prédio,PERSEGUICAO
+um vizinho me persegue todo dia,PERSEGUICAO
+um vizinho me persegue toda semana,PERSEGUICAO
+um vizinho me persegue de madrugada,PERSEGUICAO
+um vizinho me persegue de manhã cedo,PERSEGUICAO
+um vizinho me persegue à noite,PERSEGUICAO
+um vizinho me persegue no metrô,PERSEGUICAO
+um vizinho me persegue no ônibus,PERSEGUICAO
+um vizinho me persegue no mercado,PERSEGUICAO
+um vizinho me persegue na academia,PERSEGUICAO
+um vizinho me persegue na igreja,PERSEGUICAO
+um vizinho me persegue no shopping,PERSEGUICAO
+um vizinho me persegue na faculdade,PERSEGUICAO
+um vizinho me persegue na escola,PERSEGUICAO
+um vizinho me persegue no trabalho,PERSEGUICAO
+um vizinho me persegue na rua,PERSEGUICAO
+um vizinho me persegue no estacionamento,PERSEGUICAO
+um vizinho me persegue no parque,PERSEGUICAO
+um vizinho me persegue na praça,PERSEGUICAO
+um vizinho me persegue no condomínio,PERSEGUICAO
+um vizinho me persegue no prédio,PERSEGUICAO
+alguém aparece em todos os lugares que eu vou todo dia,PERSEGUICAO
+alguém aparece em todos os lugares que eu vou toda semana,PERSEGUICAO
+alguém aparece em todos os lugares que eu vou de madrugada,PERSEGUICAO
+alguém aparece em todos os lugares que eu vou de manhã cedo,PERSEGUICAO
+alguém aparece em todos os lugares que eu vou à noite,PERSEGUICAO
+alguém aparece em todos os lugares que eu vou no metrô,PERSEGUICAO
+alguém aparece em todos os lugares que eu vou no ônibus,PERSEGUICAO
+alguém aparece em todos os lugares que eu vou no mercado,PERSEGUICAO
+alguém aparece em todos os lugares que eu vou na academia,PERSEGUICAO
+alguém aparece em todos os lugares que eu vou na igreja,PERSEGUICAO
+alguém aparece em todos os lugares que eu vou no shopping,PERSEGUICAO
+alguém aparece em todos os lugares que eu vou na faculdade,PERSEGUICAO
+alguém aparece em todos os lugares que eu vou na escola,PERSEGUICAO
+alguém aparece em todos os lugares que eu vou no trabalho,PERSEGUICAO
+alguém aparece em todos os lugares que eu vou na rua,PERSEGUICAO
+alguém aparece em todos os lugares que eu vou no estacionamento,PERSEGUICAO
+alguém aparece em todos os lugares que eu vou no parque,PERSEGUICAO
+alguém aparece em todos os lugares que eu vou na praça,PERSEGUICAO
+alguém aparece em todos os lugares que eu vou no condomínio,PERSEGUICAO
+alguém aparece em todos os lugares que eu vou no prédio,PERSEGUICAO
+
 
 "caí em um golpe de pix",ESTELIONATO
 "me enganaram pedindo transferência",ESTELIONATO
@@ -404,6 +808,107 @@ texto,intent
 "recebi e-mail com cobrança falsa",ESTELIONATO
 "me enganaram no cartão",ESTELIONATO
 "um falso corretor aplicou golpe",ESTELIONATO
+um cara pediu adiantamento e sumiu no marketplace,ESTELIONATO
+um cara pediu adiantamento e sumiu no insta,ESTELIONATO
+um cara pediu adiantamento e sumiu no facebook,ESTELIONATO
+um cara pediu adiantamento e sumiu no OLX,ESTELIONATO
+um cara pediu adiantamento e sumiu no whatsapp,ESTELIONATO
+um cara pediu adiantamento e sumiu por DM,ESTELIONATO
+um cara pediu adiantamento e sumiu por e-mail,ESTELIONATO
+um cara pediu adiantamento e sumiu por ligação,ESTELIONATO
+um cara pediu adiantamento e sumiu no site fake,ESTELIONATO
+um cara pediu adiantamento e sumiu no app,ESTELIONATO
+um cara pediu adiantamento e sumiu no anúncio,ESTELIONATO
+um cara pediu adiantamento e sumiu no grupo do zap,ESTELIONATO
+um cara pediu adiantamento e sumiu no direct,ESTELIONATO
+um cara pediu adiantamento e sumiu por SMS,ESTELIONATO
+um cara pediu adiantamento e sumiu no chat,ESTELIONATO
+um cara pediu adiantamento e sumiu num link encurtado,ESTELIONATO
+um cara pediu adiantamento e sumiu no anúncio patrocinado,ESTELIONATO
+um cara pediu adiantamento e sumiu no telegram,ESTELIONATO
+um cara pediu adiantamento e sumiu no tiktok,ESTELIONATO
+um cara pediu adiantamento e sumiu no twitter,ESTELIONATO
+me mandaram link falso de pagamento no marketplace,ESTELIONATO
+me mandaram link falso de pagamento no insta,ESTELIONATO
+me mandaram link falso de pagamento no facebook,ESTELIONATO
+me mandaram link falso de pagamento no OLX,ESTELIONATO
+me mandaram link falso de pagamento no whatsapp,ESTELIONATO
+me mandaram link falso de pagamento por DM,ESTELIONATO
+me mandaram link falso de pagamento por e-mail,ESTELIONATO
+me mandaram link falso de pagamento por ligação,ESTELIONATO
+me mandaram link falso de pagamento no site fake,ESTELIONATO
+me mandaram link falso de pagamento no app,ESTELIONATO
+me mandaram link falso de pagamento no anúncio,ESTELIONATO
+me mandaram link falso de pagamento no grupo do zap,ESTELIONATO
+me mandaram link falso de pagamento no direct,ESTELIONATO
+me mandaram link falso de pagamento por SMS,ESTELIONATO
+me mandaram link falso de pagamento no chat,ESTELIONATO
+me mandaram link falso de pagamento num link encurtado,ESTELIONATO
+me mandaram link falso de pagamento no anúncio patrocinado,ESTELIONATO
+me mandaram link falso de pagamento no telegram,ESTELIONATO
+me mandaram link falso de pagamento no tiktok,ESTELIONATO
+me mandaram link falso de pagamento no twitter,ESTELIONATO
+fiz pix e não recebi nada no marketplace,ESTELIONATO
+fiz pix e não recebi nada no insta,ESTELIONATO
+fiz pix e não recebi nada no facebook,ESTELIONATO
+fiz pix e não recebi nada no OLX,ESTELIONATO
+fiz pix e não recebi nada no whatsapp,ESTELIONATO
+fiz pix e não recebi nada por DM,ESTELIONATO
+fiz pix e não recebi nada por e-mail,ESTELIONATO
+fiz pix e não recebi nada por ligação,ESTELIONATO
+fiz pix e não recebi nada no site fake,ESTELIONATO
+fiz pix e não recebi nada no app,ESTELIONATO
+fiz pix e não recebi nada no anúncio,ESTELIONATO
+fiz pix e não recebi nada no grupo do zap,ESTELIONATO
+fiz pix e não recebi nada no direct,ESTELIONATO
+fiz pix e não recebi nada por SMS,ESTELIONATO
+fiz pix e não recebi nada no chat,ESTELIONATO
+fiz pix e não recebi nada num link encurtado,ESTELIONATO
+fiz pix e não recebi nada no anúncio patrocinado,ESTELIONATO
+fiz pix e não recebi nada no telegram,ESTELIONATO
+fiz pix e não recebi nada no tiktok,ESTELIONATO
+fiz pix e não recebi nada no twitter,ESTELIONATO
+comprei online e não entregaram no marketplace,ESTELIONATO
+comprei online e não entregaram no insta,ESTELIONATO
+comprei online e não entregaram no facebook,ESTELIONATO
+comprei online e não entregaram no OLX,ESTELIONATO
+comprei online e não entregaram no whatsapp,ESTELIONATO
+comprei online e não entregaram por DM,ESTELIONATO
+comprei online e não entregaram por e-mail,ESTELIONATO
+comprei online e não entregaram por ligação,ESTELIONATO
+comprei online e não entregaram no site fake,ESTELIONATO
+comprei online e não entregaram no app,ESTELIONATO
+comprei online e não entregaram no anúncio,ESTELIONATO
+comprei online e não entregaram no grupo do zap,ESTELIONATO
+comprei online e não entregaram no direct,ESTELIONATO
+comprei online e não entregaram por SMS,ESTELIONATO
+comprei online e não entregaram no chat,ESTELIONATO
+comprei online e não entregaram num link encurtado,ESTELIONATO
+comprei online e não entregaram no anúncio patrocinado,ESTELIONATO
+comprei online e não entregaram no telegram,ESTELIONATO
+comprei online e não entregaram no tiktok,ESTELIONATO
+comprei online e não entregaram no twitter,ESTELIONATO
+me venderam produto falso no marketplace,ESTELIONATO
+me venderam produto falso no insta,ESTELIONATO
+me venderam produto falso no facebook,ESTELIONATO
+me venderam produto falso no OLX,ESTELIONATO
+me venderam produto falso no whatsapp,ESTELIONATO
+me venderam produto falso por DM,ESTELIONATO
+me venderam produto falso por e-mail,ESTELIONATO
+me venderam produto falso por ligação,ESTELIONATO
+me venderam produto falso no site fake,ESTELIONATO
+me venderam produto falso no app,ESTELIONATO
+me venderam produto falso no anúncio,ESTELIONATO
+me venderam produto falso no grupo do zap,ESTELIONATO
+me venderam produto falso no direct,ESTELIONATO
+me venderam produto falso por SMS,ESTELIONATO
+me venderam produto falso no chat,ESTELIONATO
+me venderam produto falso num link encurtado,ESTELIONATO
+me venderam produto falso no anúncio patrocinado,ESTELIONATO
+me venderam produto falso no telegram,ESTELIONATO
+me venderam produto falso no tiktok,ESTELIONATO
+me venderam produto falso no twitter,ESTELIONATO
+
 
 "meu marido me bateu",VIOLENCIA_DOMESTICA
 "sofri agressão do meu parceiro",VIOLENCIA_DOMESTICA
@@ -463,6 +968,106 @@ texto,intent
 "meu esposo me socou",VIOLENCIA_DOMESTICA
 "apanhei e fiquei machucada",VIOLENCIA_DOMESTICA
 "meu companheiro me agrediu com violência",VIOL
+meu marido me bateu hoje,VIOLENCIA_DOMESTICA
+meu marido me bateu ontem,VIOLENCIA_DOMESTICA
+meu marido me bateu essa semana,VIOLENCIA_DOMESTICA
+meu marido me bateu de madrugada,VIOLENCIA_DOMESTICA
+meu marido me bateu de manhã,VIOLENCIA_DOMESTICA
+meu marido me bateu na sala,VIOLENCIA_DOMESTICA
+meu marido me bateu no quarto,VIOLENCIA_DOMESTICA
+meu marido me bateu na cozinha,VIOLENCIA_DOMESTICA
+meu marido me bateu no quintal,VIOLENCIA_DOMESTICA
+meu marido me bateu no corredor,VIOLENCIA_DOMESTICA
+meu marido me bateu depois de discutir,VIOLENCIA_DOMESTICA
+meu marido me bateu quando cheguei do trabalho,VIOLENCIA_DOMESTICA
+meu marido me bateu quando ele bebeu,VIOLENCIA_DOMESTICA
+meu marido me bateu durante a madrugada,VIOLENCIA_DOMESTICA
+meu marido me bateu antes de sair de casa,VIOLENCIA_DOMESTICA
+meu marido me bateu no domingo,VIOLENCIA_DOMESTICA
+meu marido me bateu no feriado,VIOLENCIA_DOMESTICA
+meu marido me bateu na hora do jantar,VIOLENCIA_DOMESTICA
+meu marido me bateu na hora do almoço,VIOLENCIA_DOMESTICA
+meu marido me bateu quando as crianças estavam em casa,VIOLENCIA_DOMESTICA
+meu namorado me agrediu hoje,VIOLENCIA_DOMESTICA
+meu namorado me agrediu ontem,VIOLENCIA_DOMESTICA
+meu namorado me agrediu essa semana,VIOLENCIA_DOMESTICA
+meu namorado me agrediu de madrugada,VIOLENCIA_DOMESTICA
+meu namorado me agrediu de manhã,VIOLENCIA_DOMESTICA
+meu namorado me agrediu na sala,VIOLENCIA_DOMESTICA
+meu namorado me agrediu no quarto,VIOLENCIA_DOMESTICA
+meu namorado me agrediu na cozinha,VIOLENCIA_DOMESTICA
+meu namorado me agrediu no quintal,VIOLENCIA_DOMESTICA
+meu namorado me agrediu no corredor,VIOLENCIA_DOMESTICA
+meu namorado me agrediu depois de discutir,VIOLENCIA_DOMESTICA
+meu namorado me agrediu quando cheguei do trabalho,VIOLENCIA_DOMESTICA
+meu namorado me agrediu quando ele bebeu,VIOLENCIA_DOMESTICA
+meu namorado me agrediu durante a madrugada,VIOLENCIA_DOMESTICA
+meu namorado me agrediu antes de sair de casa,VIOLENCIA_DOMESTICA
+meu namorado me agrediu no domingo,VIOLENCIA_DOMESTICA
+meu namorado me agrediu no feriado,VIOLENCIA_DOMESTICA
+meu namorado me agrediu na hora do jantar,VIOLENCIA_DOMESTICA
+meu namorado me agrediu na hora do almoço,VIOLENCIA_DOMESTICA
+meu namorado me agrediu quando as crianças estavam em casa,VIOLENCIA_DOMESTICA
+meu companheiro me puxou pelo cabelo hoje,VIOLENCIA_DOMESTICA
+meu companheiro me puxou pelo cabelo ontem,VIOLENCIA_DOMESTICA
+meu companheiro me puxou pelo cabelo essa semana,VIOLENCIA_DOMESTICA
+meu companheiro me puxou pelo cabelo de madrugada,VIOLENCIA_DOMESTICA
+meu companheiro me puxou pelo cabelo de manhã,VIOLENCIA_DOMESTICA
+meu companheiro me puxou pelo cabelo na sala,VIOLENCIA_DOMESTICA
+meu companheiro me puxou pelo cabelo no quarto,VIOLENCIA_DOMESTICA
+meu companheiro me puxou pelo cabelo na cozinha,VIOLENCIA_DOMESTICA
+meu companheiro me puxou pelo cabelo no quintal,VIOLENCIA_DOMESTICA
+meu companheiro me puxou pelo cabelo no corredor,VIOLENCIA_DOMESTICA
+meu companheiro me puxou pelo cabelo depois de discutir,VIOLENCIA_DOMESTICA
+meu companheiro me puxou pelo cabelo quando cheguei do trabalho,VIOLENCIA_DOMESTICA
+meu companheiro me puxou pelo cabelo quando ele bebeu,VIOLENCIA_DOMESTICA
+meu companheiro me puxou pelo cabelo durante a madrugada,VIOLENCIA_DOMESTICA
+meu companheiro me puxou pelo cabelo antes de sair de casa,VIOLENCIA_DOMESTICA
+meu companheiro me puxou pelo cabelo no domingo,VIOLENCIA_DOMESTICA
+meu companheiro me puxou pelo cabelo no feriado,VIOLENCIA_DOMESTICA
+meu companheiro me puxou pelo cabelo na hora do jantar,VIOLENCIA_DOMESTICA
+meu companheiro me puxou pelo cabelo na hora do almoço,VIOLENCIA_DOMESTICA
+meu companheiro me puxou pelo cabelo quando as crianças estavam em casa,VIOLENCIA_DOMESTICA
+apanhei dentro de casa hoje,VIOLENCIA_DOMESTICA
+apanhei dentro de casa ontem,VIOLENCIA_DOMESTICA
+apanhei dentro de casa essa semana,VIOLENCIA_DOMESTICA
+apanhei dentro de casa de madrugada,VIOLENCIA_DOMESTICA
+apanhei dentro de casa de manhã,VIOLENCIA_DOMESTICA
+apanhei dentro de casa na sala,VIOLENCIA_DOMESTICA
+apanhei dentro de casa no quarto,VIOLENCIA_DOMESTICA
+apanhei dentro de casa na cozinha,VIOLENCIA_DOMESTICA
+apanhei dentro de casa no quintal,VIOLENCIA_DOMESTICA
+apanhei dentro de casa no corredor,VIOLENCIA_DOMESTICA
+apanhei dentro de casa depois de discutir,VIOLENCIA_DOMESTICA
+apanhei dentro de casa quando cheguei do trabalho,VIOLENCIA_DOMESTICA
+apanhei dentro de casa quando ele bebeu,VIOLENCIA_DOMESTICA
+apanhei dentro de casa durante a madrugada,VIOLENCIA_DOMESTICA
+apanhei dentro de casa antes de sair de casa,VIOLENCIA_DOMESTICA
+apanhei dentro de casa no domingo,VIOLENCIA_DOMESTICA
+apanhei dentro de casa no feriado,VIOLENCIA_DOMESTICA
+apanhei dentro de casa na hora do jantar,VIOLENCIA_DOMESTICA
+apanhei dentro de casa na hora do almoço,VIOLENCIA_DOMESTICA
+apanhei dentro de casa quando as crianças estavam em casa,VIOLENCIA_DOMESTICA
+ele me ameaçou dentro de casa hoje,VIOLENCIA_DOMESTICA
+ele me ameaçou dentro de casa ontem,VIOLENCIA_DOMESTICA
+ele me ameaçou dentro de casa essa semana,VIOLENCIA_DOMESTICA
+ele me ameaçou dentro de casa de madrugada,VIOLENCIA_DOMESTICA
+ele me ameaçou dentro de casa de manhã,VIOLENCIA_DOMESTICA
+ele me ameaçou dentro de casa na sala,VIOLENCIA_DOMESTICA
+ele me ameaçou dentro de casa no quarto,VIOLENCIA_DOMESTICA
+ele me ameaçou dentro de casa na cozinha,VIOLENCIA_DOMESTICA
+ele me ameaçou dentro de casa no quintal,VIOLENCIA_DOMESTICA
+ele me ameaçou dentro de casa no corredor,VIOLENCIA_DOMESTICA
+ele me ameaçou dentro de casa depois de discutir,VIOLENCIA_DOMESTICA
+ele me ameaçou dentro de casa quando cheguei do trabalho,VIOLENCIA_DOMESTICA
+ele me ameaçou dentro de casa quando ele bebeu,VIOLENCIA_DOMESTICA
+ele me ameaçou dentro de casa durante a madrugada,VIOLENCIA_DOMESTICA
+ele me ameaçou dentro de casa antes de sair de casa,VIOLENCIA_DOMESTICA
+ele me ameaçou dentro de casa no domingo,VIOLENCIA_DOMESTICA
+ele me ameaçou dentro de casa no feriado,VIOLENCIA_DOMESTICA
+ele me ameaçou dentro de casa na hora do jantar,VIOLENCIA_DOMESTICA
+ele me ameaçou dentro de casa na hora do almoço,VIOLENCIA_DOMESTICA
+ele me ameaçou dentro de casa quando as crianças estavam em casa,VIOLENCIA_DOMESTICA
 
 "não sei explicar o que aconteceu",DESCONHECIDO
 "tô confuso, não sei qual é o problema",DESCONHECIDO
