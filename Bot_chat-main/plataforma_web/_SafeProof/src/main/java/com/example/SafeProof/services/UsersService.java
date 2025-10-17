@@ -2,6 +2,8 @@ package com.example.SafeProof.services;
 
 import com.example.SafeProof.models.UsersModel;
 import com.example.SafeProof.repositories.UsersRepository;
+
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +30,8 @@ public class UsersService {
     }
 
     public UsersModel save(UsersModel body) {
+        String senha_hash = BCrypt.hashpw(body.getSenha_hash(), BCrypt.gensalt());
+        body.setSenha_hash(senha_hash);
         return usersRepository.save(body);
     }
 

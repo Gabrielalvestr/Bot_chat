@@ -9,6 +9,7 @@ import com.example.SafeProof.services.UsersService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.mindrot.jbcrypt.BCrypt;
@@ -37,8 +38,6 @@ public class UsersController {
     public ResponseEntity<?> registrarUsuario(@RequestBody UsersRequest body) {
         var usersModel = new UsersModel();
         BeanUtils.copyProperties(body, usersModel);// Convertendo a request para Model
-        String senha_hash = BCrypt.hashpw(body.senha_hash(), BCrypt.gensalt());
-        usersModel.setSenha_hash(senha_hash);
         var bodyReturn = userService.getErros(usersModel);
         if (bodyReturn.containsKey("erro_email") || bodyReturn.containsKey("erro_documento"))
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bodyReturn);
@@ -58,6 +57,17 @@ public class UsersController {
                 userOptional.get().getNome());
 
         return ResponseEntity.ok(bodyReturn);
+    }
+
+    @PutMapping("/editar_usuario/{id}")
+    public ResponseEntity<?> editarUsuario(@PathVariable(value = "id") Integer id, @RequestBody UsersRequest body) {
+        Optional<UsersModel> findUsuario = userService.findById(id);
+        if (findUsuario.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado.");
+        }
+        var usuario = findUsuario.get();
+        BeanUtils.copyProperties(body, usuario);
+        return ResponseEntity.status(HttpStatus.OK).body(userService.save(usuario));
     }
 
     @DeleteMapping("/deletar_usuario/{id}")

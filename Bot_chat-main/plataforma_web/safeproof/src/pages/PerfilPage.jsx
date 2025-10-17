@@ -16,6 +16,7 @@ const PerfilPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const [cpfError, setCpfError] = useState('');
 
   const API_URL = 'http://localhost:8080/api/v1/safe_proof'; // Sua API Backend
 
@@ -48,10 +49,85 @@ const PerfilPage = () => {
 
     fetchUserData();
   }, []); // O array vazio [] garante que isso só rode uma vez
+  function validaCPF(cpf) {
+    // 1. Limpa o CPF, removendo pontos, traços e espaços
+    const cpfLimpo = String(cpf).replace(/[^\d]/g, '');
 
+    // 2. Verifica se o tamanho é 11 ou se é uma sequência de números iguais
+    if (cpfLimpo.length !== 11 || /^(\d)\1{10}$/.test(cpfLimpo)) {
+      return false;
+    }
+
+    // 3. Validação do primeiro dígito verificador
+    let soma = 0;
+    for (let i = 0; i < 9; i++) {
+      soma += parseInt(cpfLimpo.charAt(i)) * (10 - i);
+    }
+    let resto = (soma * 10) % 11;
+    if (resto === 10 || resto === 11) {
+      resto = 0;
+    }
+    if (resto !== parseInt(cpfLimpo.charAt(9))) {
+      return false;
+    }
+
+    // 4. Validação do segundo dígito verificador
+    soma = 0;
+    for (let i = 0; i < 10; i++) {
+      soma += parseInt(cpfLimpo.charAt(i)) * (11 - i);
+    }
+    resto = (soma * 10) % 11;
+    if (resto === 10 || resto === 11) {
+      resto = 0;
+    }
+    if (resto !== parseInt(cpfLimpo.charAt(10))) {
+      return false;
+    }
+
+    // 5. Se todas as verificações passaram, o CPF é válido
+    return true;
+  }
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+
+    if (name === 'documento') {
+      // --- Lógica da Máscara de CPF ---
+      const cpfLimpo = value.replace(/[^\d]/g, ''); // Remove tudo que não é número
+      let cpfMascarado = cpfLimpo;
+      if (cpfLimpo.length > 3) {
+        cpfMascarado = `${cpfLimpo.slice(0, 3)}.${cpfLimpo.slice(3)}`;
+      }
+      if (cpfLimpo.length > 6) {
+        cpfMascarado = `${cpfLimpo.slice(0, 3)}.${cpfLimpo.slice(3, 6)}.${cpfLimpo.slice(6)}`;
+      }
+      if (cpfLimpo.length > 9) {
+        cpfMascarado = `${cpfLimpo.slice(0, 3)}.${cpfLimpo.slice(3, 6)}.${cpfLimpo.slice(6, 9)}-${cpfLimpo.slice(9, 11)}`;
+      }
+
+      setFormData(prev => ({ ...prev, [name]: cpfMascarado }));
+
+
+      // --- Lógica da Validação ---
+      // Valida apenas quando o CPF está completamente preenchido
+      if (cpfLimpo.length === 11) {
+        if (!validaCPF(cpfLimpo)) {
+          setCpfError('CPF inválido.');
+        } else {
+          setCpfError(''); // Limpa o erro se for válido
+        }
+      } else if (cpfLimpo.length > 0) {
+        setCpfError('CPF incompleto.');
+      } else {
+        setCpfError(''); // Campo vazio, sem erro
+      }
+
+    } else {
+      setFormData(prev => ({ ...prev, [name]: value }));
+    }
+
+
     setFormData(prev => ({ ...prev, [name]: value }));
+
   };
 
   const handleEditToggle = (e) => {
@@ -74,7 +150,7 @@ const PerfilPage = () => {
     try {
       const token = localStorage.getItem('authToken');
       // **AÇÃO DO BACKEND NECESSÁRIA:** Criar um endpoint PUT /api/perfil/me
-      const response = await fetch(`${API_URL}/perfil/me`, {
+      const response = await fetch(`${API_URL}/editar_usuario/${userData.id_usuario}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -183,13 +259,15 @@ const PerfilPage = () => {
           </div>
 
           <div className="form-group">
-            <label>Documento (CPF/RG)</label>
+            <label>Documento CPF</label>
             {/* Documento geralmente não é editável, mas aqui permitimos para exemplo */}
             {isEditing ? (
-              <input type="text" name="documento" value={formData.documento || ''} onChange={handleInputChange} />
+              <input type="text" id="documento" name="documento" value={formData.documento} onChange={handleInputChange} required />
+
             ) : (
               <p className="display-value">{userData?.documento}</p>
             )}
+            {cpfError && <span className="error-message">{cpfError}</span>}
           </div>
 
           <div className="form-group">
@@ -232,4 +310,4 @@ const PerfilPage = () => {
   );
 };
 
-export default PerfilPage;
+export default PerfilPage
