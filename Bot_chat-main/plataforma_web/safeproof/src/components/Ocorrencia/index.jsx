@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import './Ocorrencia.css';
 
 export default function Ocorrencia({ ocorrencia, evidencias }) {
@@ -6,8 +7,28 @@ export default function Ocorrencia({ ocorrencia, evidencias }) {
         return new Date(dateString).toLocaleDateString('pt-BR', options);
     };
 
+    const [visibilityControl, setvisibilityControl] = useState(false)
 
-    console.log(evidencias)
+    const API_URL = 'http://localhost:8080/api/v1/safe_proof'; // Sua API Backend
+
+
+    const handleVisibility = async () => {
+
+        const newVisibility = !ocorrencia.visibilidade
+
+        const alterVisibility = await fetch(`${API_URL}/alterar_visibilidade/${ocorrencia.id_ocorrencia}`, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: newVisibility
+        })
+
+        setvisibilityControl(true)
+
+        window.location.href = '/minhas-ocorrencias'
+    }
+
 
     return (
         <div className="ocorrencia-card">
@@ -26,14 +47,19 @@ export default function Ocorrencia({ ocorrencia, evidencias }) {
             <div className={`visibility-badge visibility-${ocorrencia.visibilidade ? 'publica' : 'privada'}`}>
                 {ocorrencia.visibilidade ? 'Pública' : 'Privada'}
             </div>
+            <div>
+                <button onClick={handleVisibility} disabled={visibilityControl}>
+                    Alterar privacidade
+
+                </button>
+            </div>
             <div className='evidencias'>
                 <h3>Evidências da ocorrência: </h3>
                 {evidencias?.map(e =>
                     <div key={e.id_evidencia} className='evidencias-container'>
                         <span>URL: {e.url_pagina}</span>
-
                         <span>Data coleta da evidência: {e.created_at}</span>
-                        <img src={e.imagem_url} alt='Print da evidência coletada' width={600}/>
+                        <img src={e.imagem_url} alt='Print da evidência coletada' width={600} />
                         <span>Hash da imagem: {e.hash}</span>
                         <span>WaybackMachine: {e.wayback_url}</span>
                     </div>
