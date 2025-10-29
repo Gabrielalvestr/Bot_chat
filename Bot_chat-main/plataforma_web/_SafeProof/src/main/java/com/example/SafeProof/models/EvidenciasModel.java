@@ -8,13 +8,14 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="tb_evidencias")
+@Table(name = "tb_evidencias")
 @EntityListeners(AuditingEntityListener.class)
 public class EvidenciasModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_evidencia;
     private String imagem_url;
+    private Integer id_ocorrencia;
     private String hash;
     private String url_pagina;
     @CreatedDate
@@ -36,6 +37,14 @@ public class EvidenciasModel {
 
     public void setImagem_url(String imagem_url) {
         this.imagem_url = imagem_url;
+    }
+
+    public Integer getId_ocorrencia() {
+        return id_ocorrencia;
+    }
+
+    public void setId_ocorrencia(Integer id_ocorrencia) {
+        this.id_ocorrencia = id_ocorrencia;
     }
 
     public String getHash() {

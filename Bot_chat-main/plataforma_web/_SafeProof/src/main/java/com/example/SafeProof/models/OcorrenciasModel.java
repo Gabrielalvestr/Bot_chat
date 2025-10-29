@@ -16,7 +16,6 @@ public class OcorrenciasModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_ocorrencia;
-    private Integer id_evidencia;
     private Integer id_usuario; // 'Usuário que criou a ocorrência',
     private Integer id_responsavel; // 'Profissional associado (opcional)',
     private Integer id_crime;
@@ -30,14 +29,6 @@ public class OcorrenciasModel {
     @LastModifiedDate
     private Instant updated_at;
     private boolean visibilidade;
-
-    public Integer getId_evidencia() {
-        return id_evidencia;
-    }
-
-    public void setId_evidencia(Integer id_evidencia) {
-        this.id_evidencia = id_evidencia;
-    }
 
     public Integer getId_ocorrencia() {
         return id_ocorrencia;

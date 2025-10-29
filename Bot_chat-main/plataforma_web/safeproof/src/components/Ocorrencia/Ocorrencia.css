@@ -118,3 +118,11 @@
     background-color: #6c757d;
     /* Cinza */
 }
+
+.evidencias-container{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    border-top: 1px solid rgb(87, 87, 255);
+    padding: 8px;
+}

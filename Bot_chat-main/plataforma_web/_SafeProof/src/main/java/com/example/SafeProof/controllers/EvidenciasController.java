@@ -30,9 +30,11 @@ public class EvidenciasController {
     }
 
     @PostMapping("/registrar_evidencia")
-    public ResponseEntity<?> registrarEvidencia(@RequestBody EvidenciasRequest body) {
+    public ResponseEntity<?> registrarEvidencia(@RequestBody EvidenciasRequest body) throws Exception {
         var evidenciasModel = new EvidenciasModel();
+        String hashT = evidenciasService.gerarHash();
         BeanUtils.copyProperties(body, evidenciasModel);
+        evidenciasModel.setHash(hashT);
         return ResponseEntity.status(HttpStatus.OK).body(evidenciasService.save(evidenciasModel));
     }
 

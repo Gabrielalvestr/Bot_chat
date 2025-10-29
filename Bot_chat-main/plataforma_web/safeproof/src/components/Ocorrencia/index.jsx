@@ -1,11 +1,13 @@
 import './Ocorrencia.css';
-import { Link } from 'react-router-dom'; // Importe o Link
 
-export default function Ocorrencia({ ocorrencia }) {
+export default function Ocorrencia({ ocorrencia, evidencias }) {
     const formatDate = (dateString) => {
         const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
         return new Date(dateString).toLocaleDateString('pt-BR', options);
     };
+
+
+    console.log(evidencias)
 
     return (
         <div className="ocorrencia-card">
@@ -14,26 +16,28 @@ export default function Ocorrencia({ ocorrencia }) {
             </div>
             <h3>{ocorrencia.tipo_crime}</h3>
             <div className="info-group">
-                <strong>URL da Evidência:</strong>
-                <a href={ocorrencia.url} target="_blank" rel="noopener noreferrer">{ocorrencia.url}</a>
-            </div>
-            <div className="info-group">
                 <strong>Data da Coleta:</strong>
-                <span>{formatDate(ocorrencia.data_criacao)}</span>
+                <span>{formatDate(ocorrencia.created_at)}</span>
             </div>
             <div className="info-group">
                 <strong>Gravidade:</strong>
                 <span className={`gravidade gravidade-${ocorrencia.gravidade}`}>{ocorrencia.gravidade ? ocorrencia.gravidade : 'Indefinida'}</span>
             </div>
-            <div className="info-group">
-                <img src={ocorrencia.imagem} alt='Print da ocorrência registrada' width={800} />
+            <div className={`visibility-badge visibility-${ocorrencia.visibilidade ? 'publica' : 'privada'}`}>
+                {ocorrencia.visibilidade ? 'Pública' : 'Privada'}
             </div>
-            <div className="info-group hash">
-                <strong>Hash (SHA-256):</strong>
-                <span>{ocorrencia.hash}</span>
-            </div>
-            <div className={`visibility-badge visibility-${ocorrencia.publica ? 'publica' : 'privada'}`}>
-                {ocorrencia.publica ? 'Pública' : 'Privada'}
+            <div className='evidencias'>
+                <h3>Evidências da ocorrência: </h3>
+                {evidencias?.map(e =>
+                    <div key={e.id_evidencia} className='evidencias-container'>
+                        <span>URL: {e.url_pagina}</span>
+
+                        <span>Data coleta da evidência: {e.created_at}</span>
+                        <img src={e.imagem_url} alt='Print da evidência coletada' width={600}/>
+                        <span>Hash da imagem: {e.hash}</span>
+                        <span>WaybackMachine: {e.wayback_url}</span>
+                    </div>
+                )}
             </div>
         </div>
     );

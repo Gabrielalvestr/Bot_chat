@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Criar Ocorrência</title>
     <link rel="stylesheet" href="popup.css">
     <meta charset="utf-8" />
 </head>
+
 <body>
     <div class="container">
         <div class="header">
@@ -14,7 +16,14 @@
         <p>Clique no botão abaixo para capturar a página atual como evidência.</p>
         <button id="create-occurrence-btn">Criar Ocorrência</button>
         <p id="status-message" class="status"></p>
+        <form id="ocorrencias">
+            <span id="ocorrencias-alert" style="color: red"></span>
+            <BR>
+            <button id="collect-evidence-btn" type='submit'>Coletar Evidência</button>
+        </form>
+
     </div>
     <script src="popup.js"></script>
 </body>
+
 </html>

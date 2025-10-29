@@ -17,63 +17,18 @@ const OcorrenciasPage = () => {
             setError(null); // Limpa erros anteriores
 
             try {
-                const token = localStorage.getItem('authToken');
-                const id = localStorage.getItem('id'); // Pegar o ID uma vez
-                if (!token || !id) throw new Error('Você não está autenticado.');
+                const id = localStorage.getItem('id');
+            
+                const getOcorrencias = await fetch(`${API_URL}/get_ocorrencias_com_evicendencias/${id}`, {
+                    method: "GET"
+                })
 
-                // 1. Primeira chamada: Busca a lista de ocorrências base
-                const response = await fetch(`${API_URL}/ocorrencia/${id}`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
+                const ocorrencias = await getOcorrencias.json()
 
-                if (!response.ok) throw new Error('Falha ao buscar as ocorrências.');
+                console.log(ocorrencias)
 
-                const data = await response.json();
-                console.log("Dados base recebidos:", data);
+                setOcorrencias(ocorrencias.ocorrencias)
 
-                // Se não houver dados, definimos como um array vazio e encerramos.
-                if (!data || data.length === 0) {
-                    setOcorrencias([]);
-                    return; // Sai da função
-                }
-
-                // 2. Mapeia o array de dados para um array de Promises
-                // Cada promise será uma chamada fetch para buscar a evidência correspondente
-                const promises = data.map(async (ocorrencia) => {
-                    const responseEv = await fetch(`${API_URL}/get_evidencia/${ocorrencia.id_evidencia}`, {
-                        headers: { 'Authorization': `Bearer ${token}` }
-                    });
-
-                    if (!responseEv.ok) {
-                        // Logamos o erro específico mas continuamos, ou podemos falhar tudo
-                        console.error(`Falha ao buscar evidência para ocorrência ID: ${ocorrencia.id_ocorrencia}`);
-                        // Retornar null para que possamos filtrar depois, ou lançar um erro para parar tudo
-                        // Lançar o erro é mais seguro para garantir consistência dos dados.
-                        throw new Error(`Falha ao buscar evidência ${ocorrencia.id_evidencia}`);
-                    }
-
-                    const ev = await responseEv.json();
-
-                    // Retorna o objeto final combinado para esta ocorrência
-                    return {
-                        id: ocorrencia.id_ocorrencia,
-                        tipo: ocorrencia.id_crime,
-                        status: ocorrencia.status,
-                        gravidade: ocorrencia.gravidade,
-                        data_criacao: ev.created_at,
-                        hash: ev.hash,
-                        url: ev.url_pagina,
-                        imagem: ev.imagem_url,
-                        visibilidade: ocorrencia.visibilidade,
-                        id_evidencia: ev.id_evidencia
-                    };
-                });
-
-                // 3. Espera TODAS as promises (chamadas de fetch) serem resolvidas
-                const ocorrenciasCompletas = await Promise.all(promises);
-
-                // 4. Atualiza o estado UMA ÚNICA VEZ com o array completo de dados
-                setOcorrencias(ocorrenciasCompletas);
 
             } catch (err) {
                 setError(err.message);
@@ -104,7 +59,7 @@ const OcorrenciasPage = () => {
                 <section className='minhas_ocorrencias'>
                     {ocorrencias.map((ocorrencia) => (
                         // Usar o ID da ocorrência como chave é a melhor prática
-                        <Ocorrencia ocorrencia={ocorrencia} key={ocorrencia.id_ocorrencia} />
+                        <Ocorrencia ocorrencia={ocorrencia.ocorrencia} evidencias={ocorrencia.evidencias} key={ocorrencia.id_ocorrencia} />
                     ))}
                 </section>
             )}
