@@ -8,6 +8,11 @@ import com.example.SafeProof.services.OcorrenciasService;
 import com.example.SafeProof.services.UsersService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.HttpStatus;
@@ -25,8 +30,12 @@ public class UsersController {
     private OcorrenciasService ocorrenciasService;
 
     @GetMapping("/listar_usuarios")
-    public ResponseEntity<?> listarTodosUsuarios() {
-        return ResponseEntity.status(HttpStatus.OK).body(userService.listarTodos());
+    public ResponseEntity<?> listarTodosUsuarios(@RequestParam(defaultValue = "0") int pageNumber,
+                                                 @RequestParam(defaultValue = "10") int pageSize) {
+        int maxPageSize = 50;
+        int pageSizeLimiter = Math.min(pageSize, maxPageSize); // limita o pageSize
+        Pageable pageable = PageRequest.of(pageNumber, pageSizeLimiter);
+        return ResponseEntity.status(HttpStatus.OK).body(userService.listarTodos(pageable));
     }
 
     @GetMapping("/usuario/{id}")

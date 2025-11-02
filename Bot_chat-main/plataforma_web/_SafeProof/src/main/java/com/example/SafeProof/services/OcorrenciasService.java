@@ -4,6 +4,8 @@ import com.example.SafeProof.models.OcorrenciasModel;
 import com.example.SafeProof.repositories.OcorrenciasRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,8 +22,9 @@ public class OcorrenciasService {
     @Autowired
     private EvidenciasService evidenciasService;
 
-    public List<OcorrenciasModel> findAll() {
-        return ocorrenciasRepository.findAll();
+    public List<OcorrenciasModel> findAll(Pageable pageable) {
+        Page<OcorrenciasModel> result = ocorrenciasRepository.findAll(pageable);
+        return result.getContent();
     }
 
     public OcorrenciasModel save(OcorrenciasModel body) {
@@ -46,23 +49,13 @@ public class OcorrenciasService {
         ocorrenciasRepository.deleteByIdUsuario(id);
     }
 
-    public HashMap returnOcorrenciasComEvidencias(List<OcorrenciasModel> listaOcorrencias) {
+    public HashMap returnOcorrenciasComEvidenciasOLD
+            (List<OcorrenciasModel> listaOcorrencias) {
         var result = new HashMap<>();
         var ocorrenciasResult = new ArrayList<>();
 
         for (var ocorrencia : listaOcorrencias) {
             var listaDeEvidencias = evidenciasService.findByIdOcorrencia(ocorrencia.getId_ocorrencia());
-            // result.put("id_ocorrencia",x.getId_ocorrencia());
-            // result.put("id_usuario",x.getId_usuario());
-            // result.put("id_responsavel",x.getId_responsavel());
-            // result.put("id_crime",x.getId_crime());
-            // result.put("created_at",x.getCreated_at());
-            // result.put("updated_at", x.getUpdated_at());
-            // result.put("visibilidade",x.isVisibilidade());
-            // result.put("gravidade",x.getGravidade());
-            // result.put("status",x.getStatus());
-            // result.put("titulo",x.getTitulo());
-            // result.put("evidencias", listaDeEvidencias);
             var ocorrenciaMap = new HashMap<>();
             ocorrenciaMap.put("ocorrencia", ocorrencia);
             ocorrenciaMap.put("evidencias", listaDeEvidencias);
@@ -70,6 +63,29 @@ public class OcorrenciasService {
             ocorrenciasResult.add(ocorrenciaMap);
         }
         result.put("ocorrencias", ocorrenciasResult);
+        return result;
+    }
+
+    public HashMap returnOcorrenciasComEvidencias(List<OcorrenciasModel> listaOcorrencias, Pageable pageable) {
+        var result = new HashMap<>();
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), listaOcorrencias.size());
+        List<OcorrenciasModel> sublist = listaOcorrencias.subList(start, end);
+
+        var ocorrenciasResult = new ArrayList<>();
+        for (var ocorrencia : sublist) {
+            var listaDeEvidencias = evidenciasService.findByIdOcorrencia(ocorrencia.getId_ocorrencia());
+            var ocorrenciaMap = new HashMap<>();
+            ocorrenciaMap.put("ocorrencia", ocorrencia);
+            ocorrenciaMap.put("evidencias", listaDeEvidencias);
+            ocorrenciasResult.add(ocorrenciaMap);
+        }
+
+        result.put("ocorrencias", ocorrenciasResult);
+        result.put("totalElements", listaOcorrencias.size());
+        result.put("totalPages", (int) Math.ceil((double) listaOcorrencias.size() / pageable.getPageSize()));
+        result.put("currentPage", pageable.getPageNumber());
+
         return result;
     }
 

@@ -11,6 +11,8 @@ import java.util.HashMap;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,8 +35,12 @@ public class OcorrenciasController {
     private EvidenciasService evidenciasService;
 
     @GetMapping("/listar_ocorrencias")
-    public ResponseEntity<?> listarOcorrencias() {
-        return ResponseEntity.status(HttpStatus.OK).body(ocorrenciasService.findAll());
+    public ResponseEntity<?> listarOcorrencias(@RequestParam(defaultValue = "0") int pageNumber,
+                                               @RequestParam(defaultValue = "10") int pageSize) {
+        int maxPageSize = 50;
+        int pageSizeLimiter = Math.min(pageSize, maxPageSize); // limita o pageSize
+        Pageable pageable = PageRequest.of(pageNumber, pageSizeLimiter);
+        return ResponseEntity.status(HttpStatus.OK).body(ocorrenciasService.findAll(pageable));
     }
 
     @GetMapping("/ocorrencia/{id_usuario}")
@@ -45,12 +51,26 @@ public class OcorrenciasController {
 
     @GetMapping("/get_ocorrencias_com_evicendencias/{id_usuario}")
     public ResponseEntity<?> getOcorrenciasComEvidenciasAtreladas(
-            @PathVariable(value = "id_usuario") Integer id_usuario) {
+            @PathVariable(value = "id_usuario") Integer id_usuario,
+            @RequestParam(defaultValue = "0") int pageNumber,
+            @RequestParam(defaultValue = "10") int pageSize) {
+        int maxPageSize = 50;
+        pageSize = Math.min(pageSize, maxPageSize); // limita o pageSize
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
         var listaOcorrencias = ocorrenciasService.getOcorrenciasPorIdUsuario(id_usuario);
-        // var result = new HashMap<>();
-        var result = ocorrenciasService.returnOcorrenciasComEvidencias(listaOcorrencias);
+        var result = ocorrenciasService.returnOcorrenciasComEvidencias(listaOcorrencias,pageable);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
+
+//    @GetMapping("/teste/{id_usuario}")
+//    public ResponseEntity<?> teste(@PathVariable(value = "id_usuario") Integer id_usuario,
+//                                   @RequestParam(defaultValue = "0") int pageNumber,
+//                                   @RequestParam(defaultValue = "10") int pageSize){
+//        var listaOcorrencias = ocorrenciasService.getOcorrenciasPorIdUsuario(id_usuario);
+//        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+//        var result = ocorrenciasService.returnOcorrenciasComEvidencias(listaOcorrencias, pageable);
+//        return ResponseEntity.status(HttpStatus.OK).body(result);
+//    }
 
     @PostMapping("/registrar_ocorrencia")
     public ResponseEntity<?> registrarOcorrencia(@RequestBody OcorrenciasRequest body) {

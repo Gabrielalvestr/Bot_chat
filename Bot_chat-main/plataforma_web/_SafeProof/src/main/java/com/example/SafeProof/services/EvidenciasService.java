@@ -1,9 +1,12 @@
 package com.example.SafeProof.services;
 
 import com.example.SafeProof.models.EvidenciasModel;
+import com.example.SafeProof.models.UsersModel;
 import com.example.SafeProof.repositories.EvidenciasRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.security.MessageDigest;
@@ -28,8 +31,9 @@ public class EvidenciasService {
         return hex.toString();
     }
 
-    public List<EvidenciasModel> listarTodos() {
-        return evidenciasRepository.findAll();
+    public List<EvidenciasModel> listarTodos(Pageable pageable) {
+        Page<EvidenciasModel> result = evidenciasRepository.findAll(pageable);
+        return result.getContent();
     }
 
     public List<EvidenciasModel> findByIdOcorrencia(Integer id) {

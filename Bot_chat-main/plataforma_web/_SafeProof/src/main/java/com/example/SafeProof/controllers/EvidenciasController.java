@@ -8,6 +8,8 @@ import java.util.Base64;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +22,12 @@ public class EvidenciasController {
     private EvidenciasService evidenciasService;
 
     @GetMapping("/listar_evidencias")
-    public ResponseEntity<?> listarTodasEvidencias() {
-        return ResponseEntity.status(HttpStatus.OK).body(evidenciasService.listarTodos());
+    public ResponseEntity<?> listarTodasEvidencias(@RequestParam(defaultValue = "0") int pageNumber,
+                                                   @RequestParam(defaultValue = "10") int pageSize) {
+        int maxPageSize = 50;
+        int pageSizeLimiter = Math.min(pageSize, maxPageSize); // limita o pageSize
+        Pageable pageable = PageRequest.of(pageNumber, pageSizeLimiter);
+        return ResponseEntity.status(HttpStatus.OK).body(evidenciasService.listarTodos(pageable));
     }
 
     @GetMapping("/get_evidencia/{id}")
