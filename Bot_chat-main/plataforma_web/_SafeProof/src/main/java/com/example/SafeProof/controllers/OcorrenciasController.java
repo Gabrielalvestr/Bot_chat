@@ -1,5 +1,6 @@
 package com.example.SafeProof.controllers;
 
+import com.example.SafeProof.enums.Status;
 import com.example.SafeProof.models.OcorrenciasModel;
 import com.example.SafeProof.requests.OcorrenciasRequest;
 import com.example.SafeProof.services.EvidenciasService;
@@ -62,6 +63,32 @@ public class OcorrenciasController {
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
+
+    @GetMapping("/get_ocorrencias_com_evicendencias_ativa/{id_usuario}")
+    public ResponseEntity<?> getOcorrenciasComEvidenciasAtreladasAtivas(
+            @PathVariable(value = "id_usuario") Integer id_usuario,
+            @RequestParam(defaultValue = "0") int pageNumber,
+            @RequestParam(defaultValue = "10") int pageSize) {
+        int maxPageSize = 50;
+        pageSize = Math.min(pageSize, maxPageSize); // limita o pageSize
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        var listaOcorrencias = ocorrenciasService.getOcorrenciasPorIdUsuario(id_usuario);
+        var result = ocorrenciasService.returnOcorrenciasComEvidenciasAtiva(listaOcorrencias,pageable);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+    @GetMapping("/get_home")
+    public ResponseEntity<?> getHome(
+            @RequestParam(defaultValue = "0") int pageNumber,
+            @RequestParam(defaultValue = "10") int pageSize) {
+        int maxPageSize = 50;
+        pageSize = Math.min(pageSize, maxPageSize); // limita o pageSize
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        var listarOcorrencias = ocorrenciasService.findAll(pageable);
+        var result = ocorrenciasService.returnHome(listarOcorrencias,pageable);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
 //    @GetMapping("/teste/{id_usuario}")
 //    public ResponseEntity<?> teste(@PathVariable(value = "id_usuario") Integer id_usuario,
 //                                   @RequestParam(defaultValue = "0") int pageNumber,
@@ -101,6 +128,32 @@ public class OcorrenciasController {
         }
         var ocorrenciaToSave = ocorrencia.get();
         ocorrenciaToSave.setVisibilidade(visibilidade);
+        return ResponseEntity.status(HttpStatus.OK).body(ocorrenciasService.save(ocorrenciaToSave));
+    }
+
+    @PutMapping("/alterar_status/{id_ocorrencia}")
+    public ResponseEntity<?> alterarStatusOcorrencia(
+            @PathVariable(value = "id_ocorrencia") Integer id_ocorrencia,
+            @RequestBody Status status) {
+        var ocorrencia = ocorrenciasService.getById(id_ocorrencia);
+        if (ocorrencia.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Ocorrência não encontrada.");
+        }
+        var ocorrenciaToSave = ocorrencia.get();
+        ocorrenciaToSave.setStatus(status);
+        return ResponseEntity.status(HttpStatus.OK).body(ocorrenciasService.save(ocorrenciaToSave));
+    }
+
+    @PutMapping("/alterar_id_responsavel/{id_ocorrencia}")
+    public ResponseEntity<?> alterarIdResponsavelOcorrencia(
+            @PathVariable(value = "id_ocorrencia") Integer id_ocorrencia,
+            @RequestBody Integer id_responsavel) {
+        var ocorrencia = ocorrenciasService.getById(id_ocorrencia);
+        if (ocorrencia.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Ocorrência não encontrada.");
+        }
+        var ocorrenciaToSave = ocorrencia.get();
+        ocorrenciaToSave.setId_responsavel(id_responsavel);
         return ResponseEntity.status(HttpStatus.OK).body(ocorrenciasService.save(ocorrenciaToSave));
     }
 }

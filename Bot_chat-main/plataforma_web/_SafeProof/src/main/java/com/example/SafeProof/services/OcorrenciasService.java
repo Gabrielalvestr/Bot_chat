@@ -89,4 +89,56 @@ public class OcorrenciasService {
         return result;
     }
 
+    public HashMap returnHome(List<OcorrenciasModel> listaOcorrencias, Pageable pageable) {
+        var result = new HashMap<>();
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), listaOcorrencias.size());
+        List<OcorrenciasModel> sublist = listaOcorrencias.subList(start, end);
+
+        var ocorrenciasResult = new ArrayList<>();
+        for (var ocorrencia : sublist) {
+            if(ocorrencia.getStatus().toString() == "ATIVA" && ocorrencia.isVisibilidade()){
+                var listaDeEvidencias = evidenciasService.findByIdOcorrencia(ocorrencia.getId_ocorrencia());
+                var ocorrenciaMap = new HashMap<>();
+                ocorrenciaMap.put("ocorrencia", ocorrencia);
+                ocorrenciaMap.put("evidencias", listaDeEvidencias);
+                ocorrenciasResult.add(ocorrenciaMap);
+            }
+        }
+
+        result.put("ocorrencias", ocorrenciasResult);
+        result.put("totalElements", listaOcorrencias.size());
+        result.put("totalPages", (int) Math.ceil((double) listaOcorrencias.size() / pageable.getPageSize()));
+        result.put("currentPage", pageable.getPageNumber());
+
+        return result;
+    }
+
+
+    //! Esse endpoint  e o returnHome fazem exatamente a msm coisa
+    public HashMap returnOcorrenciasComEvidenciasAtiva(List<OcorrenciasModel> listaOcorrencias, Pageable pageable) {
+        var result = new HashMap<>();
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), listaOcorrencias.size());
+        List<OcorrenciasModel> sublist = listaOcorrencias.subList(start, end);
+
+        var ocorrenciasResult = new ArrayList<>();
+        for (var ocorrencia : sublist) {
+            var listaDeEvidencias = evidenciasService.findByIdOcorrencia(ocorrencia.getId_ocorrencia());
+            if(ocorrencia.getStatus().toString() == "ATIVA" && ocorrencia.isVisibilidade()){
+                var ocorrenciaMap = new HashMap<>();
+                ocorrenciaMap.put("ocorrencia", ocorrencia);
+                ocorrenciaMap.put("evidencias", listaDeEvidencias);
+                ocorrenciasResult.add(ocorrenciaMap);
+            }
+        }
+
+        result.put("ocorrencias", ocorrenciasResult);
+        result.put("totalElements", listaOcorrencias.size());
+        result.put("totalPages", (int) Math.ceil((double) listaOcorrencias.size() / pageable.getPageSize()));
+        result.put("currentPage", pageable.getPageNumber());
+
+        return result;
+    }
+
 }
