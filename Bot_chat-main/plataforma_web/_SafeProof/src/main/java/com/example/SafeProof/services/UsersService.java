@@ -83,13 +83,15 @@ public class UsersService {
         return bodyReturn;
     }
 
-    public HashMap returnLogin(Integer id, String token, String nome, TipoUsuario tipo) {
+    public HashMap returnLogin(Integer id, String token, String nome, TipoUsuario tipo, String email, String contato) {
         var bodyReturn = new HashMap<>();
         // Integer id = usersModel.getId_usuario();
         bodyReturn.put("id_usuario", id);
         bodyReturn.put("nome", nome);
         bodyReturn.put("token", token);
         bodyReturn.put("tipo_usuario", tipo);
+        bodyReturn.put("email", email);
+        bodyReturn.put("contato", contato);
 
         return bodyReturn;
     }

@@ -19,6 +19,9 @@ public class OcorrenciasModel {
     private Integer id_usuario; // 'Usuário que criou a ocorrência',
     private Integer id_responsavel; // 'Profissional associado (opcional)',
     private Integer id_crime;
+    private String nome_usuario;
+    private String email_usuario;
+    private String contato_usuario;
     @Enumerated(EnumType.STRING)
     private Gravidade gravidade;
     @Enumerated(EnumType.STRING)
@@ -60,6 +63,30 @@ public class OcorrenciasModel {
 
     public void setId_crime(Integer id_crime) {
         this.id_crime = id_crime;
+    }
+
+    public String getNome_usuario() {
+        return nome_usuario;
+    }
+
+    public void setNome_usuario(String nome_usuario) {
+        this.nome_usuario = nome_usuario;
+    }
+
+    public String getEmail_usuario() {
+        return email_usuario;
+    }
+
+    public void setEmail_usuario(String email_usuario) {
+        this.email_usuario = email_usuario;
+    }
+
+    public String getContato_usuario() {
+        return contato_usuario;
+    }
+
+    public void setContato_usuario(String contato_usuario) {
+        this.contato_usuario = contato_usuario;
     }
 
     public Gravidade getGravidade() {

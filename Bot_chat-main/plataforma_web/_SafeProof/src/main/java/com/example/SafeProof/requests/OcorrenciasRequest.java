@@ -10,5 +10,8 @@ public record OcorrenciasRequest(
         Integer id_crime,
         Gravidade gravidade,
         Status status,
-        boolean visibilidade) {
+        boolean visibilidade,
+        @NotBlank  String nome_usuario,
+        @NotBlank  String email_usuario,
+        String contato_usuario) {
 }
