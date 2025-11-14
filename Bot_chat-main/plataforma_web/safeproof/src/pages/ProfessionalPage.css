@@ -1,0 +1,46 @@
+.container_ocorrencias {
+    color: black;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 30px;
+    justify-content: center;
+    margin-top: 48px;
+}
+
+.ocorrencias_card {
+    width: 600px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.ocorrencias_card .contato_infos {
+    display: flex;
+    flex-direction: column;
+}
+
+.ocorrencia_BAIXA {
+    padding: 6px;
+    border-radius: 16px;
+    width: fit-content;
+    background-color: blue;
+    color: white;
+}
+
+.ocorrencia_MEDIA {
+    padding: 6px;
+    border-radius: 16px;
+    width: fit-content;
+    background-color: yellow;
+}
+
+.ocorrencia_ALTA {
+    padding: 6px;
+    border-radius: 16px;
+    width: fit-content;
+    background-color: red;
+    color: white;
+
+}

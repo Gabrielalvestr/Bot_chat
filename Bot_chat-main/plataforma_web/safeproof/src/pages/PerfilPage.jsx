@@ -1,6 +1,6 @@
 // src/pages/PerfilPage/PerfilPage.jsx
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; // Para o botão "Minhas Denúncias"
 import './PerfilPage.css';
 

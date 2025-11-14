@@ -1,15 +1,13 @@
 // src/pages/AuthPage/AuthPage.jsx
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './AuthPage.css';
-import { useNavigate } from 'react-router-dom';
 
 // No seu app real, você provavelmente passaria uma função para atualizar o estado de login no App.jsx
 // Ex: const AuthPage = ({ onLoginSuccess }) => { ... }
 const AuthPage = () => {
     // Estado para controlar se estamos no modo 'login' (true) ou 'registro' (false)
     const [isLoginMode, setIsLoginMode] = useState(true);
-    const navigate = useNavigate();
 
     // Estado unificado para todos os campos do formulário
     const [formData, setFormData] = useState({
@@ -72,10 +70,10 @@ const AuthPage = () => {
             }
 
             if (isLoginMode) {
-                // Se for login, salve o token e informe o sucesso
-                // No app real, você salvaria o token e redirecionaria o usuário
                 localStorage.setItem('authToken', data.token);
                 localStorage.setItem('id', data.id_usuario)
+                localStorage.setItem('tipo_usuario', data.tipo_usuario)
+
                 setSuccess('Login bem-sucedido! Redirecionando...');
                 window.location.href = '/perfil'
             } else {

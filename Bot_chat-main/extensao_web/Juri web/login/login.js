@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Salva o token e redireciona  
 
-            chrome.storage.local.set({ authToken: data.token, id: data.id_usuario, nome: data.nome }, () => {
+            chrome.storage.local.set({ authToken: data.token, id: data.id_usuario, nome: data.nome, email: data.email, contato: data.contato }, () => {
                 window.location.href = '../popup/popup.html';
             });
 

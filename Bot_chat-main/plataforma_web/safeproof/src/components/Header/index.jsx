@@ -1,11 +1,11 @@
-import React from 'react';
 // Importa o Link e o useNavigate
 import { Link, useNavigate } from 'react-router-dom';
 import './Header.css';
 
 // Recebe a prop onLogout para executar a função de logout do App.jsx
-const Header = ({ usuarioLogado, onLogout }) => {
+const Header = ({ usuarioLogado, onLogout, userType }) => {
     const navigate = useNavigate();
+    const prof = userType === "PROFISSIONAL"
 
     const handleLogout = () => {
         onLogout(); // Executa a lógica de logout (limpar localStorage, etc.)
@@ -23,6 +23,12 @@ const Header = ({ usuarioLogado, onLogout }) => {
                     {usuarioLogado && (
                         <li><Link to="/minhas-ocorrencias">Minhas Ocorrências</Link></li>
                     )}
+                    {prof &&
+                        <li>
+                            <Link to='/buscar-ocorrencias'>
+                                Procurar Ocorrências
+                            </Link>
+                        </li>}
                 </ul>
             </nav>
             <div className="user-actions">
@@ -36,14 +42,12 @@ const Header = ({ usuarioLogado, onLogout }) => {
                         </div>
                     </div>
                 ) : (
-                    // ... (código anterior)
                     <div className="auth-links">
                         <Link to="/login" className="login-button">Login</Link>
-                        {/* ATUALIZADO AQUI */}
                         <Link to="/registrar" className="register-button">Registrar</Link>
                     </div>
-                    // ... (código posterior)
                 )}
+
             </div>
         </header>
     );

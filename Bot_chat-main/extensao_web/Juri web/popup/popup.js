@@ -9,7 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const statusMessage = document.getElementById('status-message');
     const ocorrenciasForm = document.getElementById("ocorrencias")
     let id = null;
-
+    let nome = null;
+    let contato = null;
     chrome.storage.local.get(['id'], (result) => {
         if (!result.id) {
             window.location.href = '../login/login.html';
@@ -68,6 +69,23 @@ document.addEventListener('DOMContentLoaded', () => {
             userNameContainer.innerText = result.nome
         }
     });
+
+    chrome.storage.local.get(['email'], (result) => {
+        if (!result.email) {
+            email = null
+        } else {
+            email = result.email;
+        }
+    });
+
+    chrome.storage.local.get(['contato'], (result) => {
+        if (!result.contato) {
+            contato = null
+        } else {
+            contato = result.contato;
+        }
+    });
+
     // Verifica se o usuário está logado. Se não, volta para a tela de login.
     chrome.storage.local.get(['authToken'], (result) => {
         if (!result.authToken) {
@@ -99,7 +117,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 id_crime: 5,
                 gravidade: 'BAIXA',
                 status: "ATIVA",
-                visibilidade: false
+                visibilidade: false,
+                nome_usuario: nome,
+                email_usuario: email,
+                contato_usuario: contato
             }
             try {
                 const responseO = await fetch(`${API_URL}/registrar_ocorrencia`, {
@@ -169,12 +190,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         createBtn.disabled = false;
                         return;
                     }
-                    try {
+                    try{
                         const evidenciaData = {
                             url_pagina: currentTab.url,
                             created_at: new Date().toISOString(),
                             imagem_url: screenshotDataUrl, // Imagem em formato Base64
-                            wayback_url: "string",
+                            wayback_url: waybackUrl,
                             id_ocorrencia: ocorrenciaSelecionada
 
                         };

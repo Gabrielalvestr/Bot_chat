@@ -14,24 +14,28 @@ import OcorrenciasPage from './pages/OcorrenciasPage';
 import PerfilPage from './pages/PerfilPage';
 import RegisterPage from './pages/RegisterPage';
 import OcorrenciaDetalhePage from './pages/OcorrenciaDetalhePage';
+import ProfessionalPage from './pages/ProfessionalPage';
 
 function App() {
   console.log("[APP] renderizou");
 
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('authToken'));
+  const userType = localStorage.getItem('tipo_usuario')
 
   const handleLoginSuccess = () => setIsLoggedIn(true);
 
   const handleLogout = () => {
     localStorage.removeItem('authToken');
     localStorage.removeItem('id');
+    localStorage.removeItem('tipo_usuario');
+
     setIsLoggedIn(false);
   };
 
   return (
     <BrowserRouter>
       {/* Header visível em todas as páginas */}
-      <Header usuarioLogado={isLoggedIn} onLogout={handleLogout} />
+      <Header usuarioLogado={isLoggedIn} onLogout={handleLogout} userType={userType}/>
 
       <main>
         <Routes>
@@ -61,6 +65,15 @@ function App() {
             element={
               <ProtectedRoute>
                 <OcorrenciaDetalhePage />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/buscar-ocorrencias"
+            element={
+              <ProtectedRoute>
+                <ProfessionalPage />
               </ProtectedRoute>
             }
           />
