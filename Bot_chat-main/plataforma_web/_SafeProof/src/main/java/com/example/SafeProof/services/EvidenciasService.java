@@ -82,35 +82,49 @@ public class EvidenciasService {
         String archiveUrl = client.post()
                 .uri("https://web.archive.org/save/" + url)
                 .exchangeToMono(response -> {
-                    var headers = response.headers().asHttpHeaders();
-                    var contentLocation = headers.getFirst("Content-Location");
+                    String contentLocation = response.headers()
+                            .asHttpHeaders()
+                            .getFirst("Content-Location");
 
-                    if (contentLocation != null) {
-                        return Mono.just("https://web.archive.org" + contentLocation);
+                    if (contentLocation == null) {
+                        return Mono.error(new RuntimeException("Wayback não retornou Content-Location"));
                     }
 
-                    // Fallback: consultar snapshot mais recente pronto
-                    return client.get()
-                            .uri("https://archive.org/wayback/available?url=" + url)
-                            .retrieve()
-                            .bodyToMono(String.class)
-                            .map(body -> {
-                                if (body.contains("\"archived_snapshots\"")
-                                        && body.contains("\"closest\"")
-                                        && body.contains("\"url\"")) {
-
-                                    int start = body.indexOf("\"url\":\"") + 7;
-                                    int end = body.indexOf("\"", start);
-                                    return body.substring(start, end);
-                                }
-                                return "Nenhum snapshot encontrado";
-                            });
-                })
-                .block();
+                    // O snapshot final é: https://web.archive.org + contentLocation
+                    String snapshotUrl = "https://web.archive.org" + contentLocation;
+                    return Mono.just(snapshotUrl);
+                }).block();
 
         System.out.println("FINAL URL: " + archiveUrl);
         return archiveUrl;
     }
+
+
+
+    public Mono<String> salvarAsync(String url) {
+        var client = WebClient.builder()
+                .baseUrl("https://web.archive.org")
+                .build();
+
+        var tt =  client.post()
+                .uri("/save/{url}", url)
+                .exchangeToMono(response -> {
+                    String contentLocation = response.headers()
+                            .asHttpHeaders()
+                            .getFirst("Content-Location");
+
+                    if (contentLocation == null) {
+                        return Mono.error(new RuntimeException(
+                                "Wayback não retornou Content-Location"));
+                    }
+
+                    return Mono.just("https://web.archive.org" + contentLocation);
+                });
+
+        var t = "";
+        return tt;
+    }
+
 
     @Transactional
     public void deleteById(Integer id) {
