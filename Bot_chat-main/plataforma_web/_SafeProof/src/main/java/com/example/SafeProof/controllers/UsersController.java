@@ -63,7 +63,7 @@ public class UsersController {
         String jwtToken = JwtUtil.generate(body.email());
 
         var bodyReturn = userService.returnLogin(userOptional.get().getId_usuario(), jwtToken,
-                userOptional.get().getNome());
+                userOptional.get().getNome(), userOptional.get().getTipo_usuario());
 
         return ResponseEntity.ok(bodyReturn);
     }

@@ -8,8 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 import java.security.MessageDigest;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -46,6 +49,67 @@ public class EvidenciasService {
 
     public EvidenciasModel save(EvidenciasModel body) {
         return evidenciasRepository.save(body);
+    }
+
+    public String saveNoWaybackMachine (String url){
+        RestTemplate rest = new RestTemplate();
+
+        WebClient client = WebClient.create();
+
+        String archiveUrl = client.post()
+                .uri("https://web.archive.org/save/" + url)
+                .exchangeToMono(response -> {
+                    System.out.println("RESPONSE: "+ response.headers().asHttpHeaders()
+                            .getFirst("Content-Location"));
+                    String contentLocation = response.headers()
+                            .asHttpHeaders()
+                            .getFirst("Content-Location");
+
+                    // monta a URL completa do Wayback
+                    String finalUrl = "https://web.archive.org" + contentLocation;
+
+                    return Mono.just(finalUrl);
+                })
+                .block();
+        return archiveUrl;
+    }
+
+    public String teste(String url){
+        WebClient client = WebClient.builder()
+                .defaultHeader("User-Agent", "Mozilla/5.0")
+                .build();
+
+        String archiveUrl = client.post()
+                .uri("https://web.archive.org/save/" + url)
+                .exchangeToMono(response -> {
+                    var headers = response.headers().asHttpHeaders();
+                    var contentLocation = headers.getFirst("Content-Location");
+
+                    if (contentLocation != null) {
+                        return Mono.just("https://web.archive.org" + contentLocation);
+                    }
+
+                    // Fallback: consultar snapshot mais recente pronto
+                    return client.get()
+                            .uri("https://archive.org/wayback/available?url=" + url)
+                            .retrieve()
+                            .bodyToMono(String.class)
+                            .map(body -> {
+                                if (body.contains("\"archived_snapshots\"")
+                                        && body.contains("\"closest\"")
+                                        && body.contains("\"url\"")) {
+
+                                    int start = body.indexOf("\"url\":\"") + 7;
+                                    int end = body.indexOf("\"", start);
+                                    return body.substring(start, end);
+                                }
+                                return "Nenhum snapshot encontrado";
+                            });
+                })
+                .block();
+
+        System.out.println("FINAL URL: " + archiveUrl);
+        return archiveUrl;
     }
 
     @Transactional

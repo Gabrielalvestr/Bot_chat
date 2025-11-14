@@ -41,6 +41,8 @@ public class EvidenciasController {
         String hashT = evidenciasService.gerarHash();
         BeanUtils.copyProperties(body, evidenciasModel);
         evidenciasModel.setHash(hashT);
+//        var waybackUrl = evidenciasService.teste(body.url_pagina());
+//        evidenciasModel.setWayback_url(waybackUrl);
         return ResponseEntity.status(HttpStatus.OK).body(evidenciasService.save(evidenciasModel));
     }
 

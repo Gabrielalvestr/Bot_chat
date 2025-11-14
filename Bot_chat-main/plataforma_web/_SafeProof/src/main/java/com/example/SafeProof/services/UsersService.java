@@ -1,5 +1,6 @@
 package com.example.SafeProof.services;
 
+import com.example.SafeProof.enums.TipoUsuario;
 import com.example.SafeProof.models.UsersModel;
 import com.example.SafeProof.repositories.UsersRepository;
 
@@ -82,12 +83,13 @@ public class UsersService {
         return bodyReturn;
     }
 
-    public HashMap returnLogin(Integer id, String token, String nome) {
+    public HashMap returnLogin(Integer id, String token, String nome, TipoUsuario tipo) {
         var bodyReturn = new HashMap<>();
         // Integer id = usersModel.getId_usuario();
         bodyReturn.put("id_usuario", id);
         bodyReturn.put("nome", nome);
         bodyReturn.put("token", token);
+        bodyReturn.put("tipo_usuario", tipo);
 
         return bodyReturn;
     }
