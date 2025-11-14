@@ -9,6 +9,6 @@ public record EvidenciasRequest(
                 @NotBlank String hash,
                 @NotBlank String url_pagina, // Imagem em formato Base64
                 @NotBlank String wayback_url,
-                Integer id_ocorrencia,
-                Instant created_at) {
+                Integer id_ocorrencia
+) {
 }
