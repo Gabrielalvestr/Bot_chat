@@ -129,7 +129,7 @@ public class OcorrenciasService {
         var ocorrenciasResult = new ArrayList<>();
         for (var ocorrencia : sublist) {
             var listaDeEvidencias = evidenciasService.findByIdOcorrencia(ocorrencia.getId_ocorrencia());
-            if(ocorrencia.getStatus().toString() == "ATIVA" && ocorrencia.isVisibilidade()){
+            if(ocorrencia.getStatus().toString() == "ATIVA"){
                 var ocorrenciaMap = new HashMap<>();
                 ocorrenciaMap.put("ocorrencia", ocorrencia);
                 ocorrenciaMap.put("evidencias", listaDeEvidencias);
