@@ -20,6 +20,10 @@
     display: flex;
     flex-direction: column;
 }
+.ocorrencias_header{
+    display: flex;
+    flex-direction: column;
+}
 
 .ocorrencia_BAIXA {
     padding: 6px;

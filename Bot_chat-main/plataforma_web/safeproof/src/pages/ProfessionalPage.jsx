@@ -35,9 +35,20 @@ export default function ProfessionalPage() {
         <div className="container_ocorrencias">
             {ocorrencias.map((ocorrencia, i) => (
                 <div key={ocorrencia.ocorrencia.id_ocorrencia} className="ocorrencias_card">
-                    <span>ID da ocorrência:{ocorrencia.ocorrencia.id_ocorrencia}</span>
-                    <span className={`ocorrencia_${ocorrencia.ocorrencia.gravidade}`}>{ocorrencia.ocorrencia.gravidade}</span>
-                    {ocorrencia.ocorrencia.updated_at}
+                    <div className="ocorrencias_header">
+                        <span>ID da ocorrência:{ocorrencia.ocorrencia.id_ocorrencia}</span>
+                        <span className={`ocorrencia_${ocorrencia.ocorrencia.gravidade}`}>{ocorrencia.ocorrencia.gravidade}</span>
+                        <span>
+                            {ocorrencia.ocorrencia.updated_at}
+                        </span>
+                    </div>
+
+                    <div className="ocorrencias_infos">
+                        <span>
+                            Tipo do crime: {ocorrencia.ocorrencia.tipo_crime}
+                            {ocorrencia.evidencias.length}
+                        </span>
+                    </div>
 
                     <div className="contato_infos">
                         <span>{ocorrencia.ocorrencia.nome_usuario}</span>
