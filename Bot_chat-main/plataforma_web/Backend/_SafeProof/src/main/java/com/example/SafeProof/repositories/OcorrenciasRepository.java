@@ -13,6 +13,10 @@ import java.util.List;
 public interface OcorrenciasRepository extends JpaRepository<OcorrenciasModel, Integer> {
     @Query("SELECT o FROM OcorrenciasModel o WHERE o.id_usuario = :id")
     List<OcorrenciasModel> findByIdUsuario(@Param("id") Integer id);
+
+    @Query("SELECT o FROM OcorrenciasModel o WHERE o.id_responsavel = :id")
+    List<OcorrenciasModel> findByIdResponsavel(@Param("id") Integer id);
+
     @Modifying
     @Query("DELETE FROM OcorrenciasModel o WHERE o.id_usuario = :id")
     void deleteByIdUsuario(@Param("id") Integer id);

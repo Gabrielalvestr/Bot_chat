@@ -4,8 +4,6 @@ import com.example.SafeProof.models.EvidenciasModel;
 import com.example.SafeProof.requests.EvidenciasRequest;
 import com.example.SafeProof.services.EvidenciasService;
 
-import java.util.Base64;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;

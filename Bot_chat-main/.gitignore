@@ -55,3 +55,5 @@ coverage/
 # Arquivos gerados pelo Sistema Operacional
 .DS_Store
 Thumbs.db
+
+#src/main/resources/application.properties

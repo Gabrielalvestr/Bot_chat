@@ -8,8 +8,6 @@ import com.example.SafeProof.services.OcorrenciasService;
 import com.example.SafeProof.services.TipoCrimeService;
 import com.example.SafeProof.services.UsersService;
 
-import java.util.HashMap;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -68,11 +66,26 @@ public class OcorrenciasController {
     public ResponseEntity<?> getOcorrenciasComEvidenciasAtreladasAtivas(
             @PathVariable(value = "id_usuario") Integer id_usuario,
             @RequestParam(defaultValue = "0") int pageNumber,
-            @RequestParam(defaultValue = "10") int pageSize) {
+            @RequestParam(defaultValue = "10") int pageSize
+            ) {
         int maxPageSize = 50;
         pageSize = Math.min(pageSize, maxPageSize); // limita o pageSize
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
         var listaOcorrencias = ocorrenciasService.getOcorrenciasPorIdUsuario(id_usuario);
+        var result = ocorrenciasService.returnOcorrenciasComEvidenciasAtiva(listaOcorrencias,pageable);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+    @GetMapping("/get_ocorrencia_com_evicendencias_ativa_responsavel/{id_responsavel}")
+    public ResponseEntity<?> getOcorrenciasComEvidenciasAtreladasAtivasResponsavel(
+            @PathVariable(value = "id_responsavel") Integer id_responsavel,
+            @RequestParam(defaultValue = "0") int pageNumber,
+            @RequestParam(defaultValue = "10") int pageSize
+    ) {
+        int maxPageSize = 50;
+        pageSize = Math.min(pageSize, maxPageSize); // limita o pageSize
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        var listaOcorrencias = ocorrenciasService.getOcorrenciasPorIdResponsavel(id_responsavel);
         var result = ocorrenciasService.returnOcorrenciasComEvidenciasAtiva(listaOcorrencias,pageable);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }

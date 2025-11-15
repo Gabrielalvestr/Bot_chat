@@ -1,7 +1,6 @@
 package com.example.SafeProof.services;
 
 import com.example.SafeProof.models.EvidenciasModel;
-import com.example.SafeProof.models.UsersModel;
 import com.example.SafeProof.repositories.EvidenciasRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 import java.security.MessageDigest;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;

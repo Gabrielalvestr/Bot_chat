@@ -39,6 +39,10 @@ public class OcorrenciasService {
         return ocorrenciasRepository.findByIdUsuario(id);
     }
 
+    public List<OcorrenciasModel> getOcorrenciasPorIdResponsavel(Integer id){
+        return ocorrenciasRepository.findByIdResponsavel(id);
+    }
+
     @Transactional
     public void deleteById(Integer id) {
         ocorrenciasRepository.deleteById(id);
