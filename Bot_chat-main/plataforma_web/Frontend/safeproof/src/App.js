@@ -21,6 +21,7 @@ function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('authToken'));
   const userType = localStorage.getItem('tipo_usuario')
+  const userID = localStorage.getItem("id")
 
   const handleLoginSuccess = () => setIsLoggedIn(true);
 
@@ -48,7 +49,7 @@ function App() {
             path="/minhas-ocorrencias"
             element={
               <ProtectedRoute>
-                <OcorrenciasPage />
+                <OcorrenciasPage userType={userType}/>
               </ProtectedRoute>
             }
           />
@@ -73,7 +74,7 @@ function App() {
             path="/buscar-ocorrencias"
             element={
               <ProtectedRoute>
-                <ProfessionalPage />
+                <ProfessionalPage userID={userID} />
               </ProtectedRoute>
             }
           />

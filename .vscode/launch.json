@@ -8,6 +8,12 @@
             "type": "java",
             "name": "SafeProofApplication",
             "request": "launch",
+            "mainClass": "com.example.SafeProof.SafeProofApplication"
+        },
+        {
+            "type": "java",
+            "name": "SafeProofApplication",
+            "request": "launch",
             "mainClass": "com.example.SafeProof.SafeProofApplication",
             "projectName": "SafeProof"
         },

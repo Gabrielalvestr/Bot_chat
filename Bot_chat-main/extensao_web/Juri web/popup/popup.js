@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const ocodata = {
                 id_usuario: id,
                 id_responsavel: id,
-                id_crime: 5,
+                id_crime: 1,
                 gravidade: 'BAIXA',
                 status: "ATIVA",
                 visibilidade: false,
@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const ocorrenciaSelecionada = form.ocorrencia.value
 
-
+        console.log('chamou coleta de evidencia')
         if (!ocorrenciaSelecionada) {
             ocorrenciasAlert.innerText = "SELECIONE UMA OCORRÊNCIA PARA ADICIONAR UMA NOVA EVIDÊNCIA"
         } else {
@@ -199,6 +199,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             id_ocorrencia: ocorrenciaSelecionada
 
                         };
+
+                    console.log('entrou no endpoit')
                         const respondeEvidencia = await fetch(`${API_URL}/registrar_evidencia`, {
                             method: 'POST',
                             headers: {

@@ -43,6 +43,7 @@
 
 .status-badge {
     position: absolute;
+    width: fit-content;
     top: 1.5rem;
     right: 1.5rem;
     padding: 5px 10px;
@@ -102,27 +103,45 @@
 }
 
 .visibility-badge {
+    width: fit-content;
     padding: 5px 10px;
     border-radius: 12px;
     font-size: 0.8rem;
     font-weight: bold;
     color: #fff;
+    cursor: pointer;
 }
 
-.visibility-publica {
-    background-color: #17a2b8;
-    /* Azul-petróleo */
-}
 
-.visibility-privada {
-    background-color: #6c757d;
-    /* Cinza */
-}
-
-.evidencias-container{
+.evidencias-container {
     display: flex;
     flex-direction: column;
     gap: 16px;
     border-top: 1px solid rgb(87, 87, 255);
     padding: 8px;
+}
+
+.visibility-button button {
+    padding: 8px;
+    border: none;
+    background-color: #28a745;
+    color: white;
+    border-radius: 12px;
+    margin-top: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.girar {
+    animation: rodar 2s linear infinite;
+}
+
+@keyframes rodar {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }

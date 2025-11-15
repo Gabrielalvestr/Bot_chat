@@ -1,25 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import Ocorrencia from '../components/Ocorrencia'; // Corrija o caminho do import
+import { useState, useEffect } from 'react';
+import Ocorrencia from '../components/Ocorrencia'; 
 
-const OcorrenciasPage = () => {
-    // Estados para armazenar os dados, carregamento e erros
+const OcorrenciasPage = ({userType}) => {
+
     const [ocorrencias, setOcorrencias] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
-    const API_URL = 'http://localhost:8080/api/v1/safe_proof'; // Sua API Backend
+    const API_URL = process.env.REACT_APP_API_URL;
 
-    console.log(ocorrencias)
+    const endpoint = userType === "PROFISSIONAL" ? 'get_ocorrencia_com_evicendencias_ativa_responsavel' : 'get_ocorrencias_com_evicendencias'
 
     useEffect(() => {
         const fetchOcorrencias = async () => {
-            // É uma boa prática setar o loading como true no início da função
             setIsLoading(true);
-            setError(null); // Limpa erros anteriores
-
+            setError(null);
             try {
                 const id = localStorage.getItem('id');
             
-                const getOcorrencias = await fetch(`${API_URL}/get_ocorrencias_com_evicendencias/${id}`, {
+                const getOcorrencias = await fetch(`${API_URL}/${endpoint}/${id}`, {
                     method: "GET"
                 })
 

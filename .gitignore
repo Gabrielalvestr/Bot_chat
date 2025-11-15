@@ -59,5 +59,8 @@ Thumbs.db__pycache__/
 *.swp
 Bot_chat-main/plataforma_web/_SafeProof/src/main/resources/application.properties
 Bot_chat-main/plataforma_web/Backend/_SafeProof/src/main/resources/application.properties
+<<<<<<< Updated upstream
 Bot_chat-main/plataforma_web/Backend/_SafeProof/src/main/resources/application.properties
 Bot_chat-main/plataforma_web/Backend/_SafeProof/src/main/resources/application.properties
+=======
+>>>>>>> Stashed changes

@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import './Ocorrencia.css';
+import { GiPadlock } from "react-icons/gi";
+import { GiPadlockOpen } from "react-icons/gi";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 export default function Ocorrencia({ ocorrencia, evidencias }) {
     const formatDate = (dateString) => {
@@ -7,14 +10,16 @@ export default function Ocorrencia({ ocorrencia, evidencias }) {
         return new Date(dateString).toLocaleDateString('pt-BR', options);
     };
 
-    const [visibilityControl, setvisibilityControl] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
+
+    const [visibilityControl, setvisibilityControl] = useState(ocorrencia.visibilidade)
 
     const API_URL = 'http://localhost:8080/api/v1/safe_proof'; // Sua API Backend
 
 
     const handleVisibility = async () => {
-
-        const newVisibility = !ocorrencia.visibilidade
+        setIsLoading(true)
+        const newVisibility = !visibilityControl
 
         const alterVisibility = await fetch(`${API_URL}/alterar_visibilidade/${ocorrencia.id_ocorrencia}`, {
             method: "PUT",
@@ -23,10 +28,9 @@ export default function Ocorrencia({ ocorrencia, evidencias }) {
             },
             body: newVisibility
         })
-
-        setvisibilityControl(true)
-
-        window.location.href = '/minhas-ocorrencias'
+        setIsLoading(false)
+        console.log(visibilityControl)
+        setvisibilityControl(newVisibility)
     }
 
 
@@ -45,13 +49,11 @@ export default function Ocorrencia({ ocorrencia, evidencias }) {
                 <span className={`gravidade gravidade-${ocorrencia.gravidade}`}>{ocorrencia.gravidade ? ocorrencia.gravidade : 'Indefinida'}</span>
             </div>
             <div className={`visibility-badge visibility-${ocorrencia.visibilidade ? 'publica' : 'privada'}`}>
-                {ocorrencia.visibilidade ? 'Pública' : 'Privada'}
-            </div>
-            <div>
-                <button onClick={handleVisibility} disabled={visibilityControl}>
-                    Alterar privacidade
-
-                </button>
+                {!isLoading ?
+                    visibilityControl ?
+                        <GiPadlockOpen color='green' size={35} onClick={handleVisibility} /> :
+                        <GiPadlock color='red' size={35} onClick={handleVisibility} />
+                    : <AiOutlineLoading3Quarters className='girar' color='black' size={35}/>}
             </div>
             <div className='evidencias'>
                 <h3>Evidências da ocorrência: </h3>
