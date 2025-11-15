@@ -2,6 +2,7 @@ package com.example.SafeProof.controllers;
 
 import com.example.SafeProof.models.EvidenciasModel;
 import com.example.SafeProof.requests.EvidenciasRequest;
+import com.example.SafeProof.services.BucketService;
 import com.example.SafeProof.services.EvidenciasService;
 
 import org.springframework.beans.BeanUtils;
@@ -18,6 +19,9 @@ public class EvidenciasController {
 
     @Autowired
     private EvidenciasService evidenciasService;
+
+    @Autowired
+    private BucketService bucketService;
 
     @GetMapping("/listar_evidencias")
     public ResponseEntity<?> listarTodasEvidencias(@RequestParam(defaultValue = "0") int pageNumber,
@@ -39,7 +43,10 @@ public class EvidenciasController {
         String hashT = evidenciasService.gerarHash();
         BeanUtils.copyProperties(body, evidenciasModel);
         evidenciasModel.setHash(hashT);
-        var waybackUrl = evidenciasService.salvarAsync(body.url_pagina());
+        var imagemUrl = bucketService.uploadBase64(body.imagem_url());
+        evidenciasModel.setImagem_url(imagemUrl);
+//        evidenciasModel.setWayback_url(imagemUrl);
+//        var waybackUrl = evidenciasService.salvarAsync(body.url_pagina());
 //        evidenciasModel.setWayback_url(waybackUrl);
         return ResponseEntity.status(HttpStatus.OK).body(evidenciasService.save(evidenciasModel));
     }
