@@ -54,7 +54,8 @@ public class BucketService {
             s3.putObject(req, software.amazon.awssdk.core.sync.RequestBody.fromBytes(data));
 
             // URL pública (se o bucket permitir)
-            return "https://" + bucket + "." + "r2.cloudflarestorage.com/" + key;
+//            return "https://" + bucket + "." + "r2.cloudflarestorage.com/" + key;
+              return key;
         }
 
 }
