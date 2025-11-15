@@ -195,7 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             url_pagina: currentTab.url,
                             created_at: new Date().toISOString(),
                             imagem_url: screenshotDataUrl, // Imagem em formato Base64
-                            wayback_url: waybackUrl,
+                            wayback_url: 'waybackUrl',
                             id_ocorrencia: ocorrenciaSelecionada
 
                         };
