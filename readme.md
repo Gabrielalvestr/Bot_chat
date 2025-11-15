@@ -1,6 +1,6 @@
 # SAFEPROOF — Extensão de Navegador e Plataforma Web para Apoio à Investigação de Crimes Virtuais
 
-[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?org=SafeproofUNICID\&layout=compact\&theme=tokyonight)]()
+[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?org=SafeproofUNICID&layout=compact&theme=tokyonight)]()
 
 ---
 
