@@ -149,10 +149,10 @@ export default function ProfessionalPage({ userID }) {
                         <li>
                             <select onChange={handleGravidadeFilter}>
                                 <option value="baixa">
-                                    Gravidade baixa > Gravidade Alta
+                                    Gravidade baixa &gt; Gravidade Alta
                                 </option>
                                 <option value="alta">
-                                    Gravidade alta > Gravidade baixa
+                                    Gravidade alta &gt; Gravidade baixa
                                 </option>
                             </select>
                         </li>

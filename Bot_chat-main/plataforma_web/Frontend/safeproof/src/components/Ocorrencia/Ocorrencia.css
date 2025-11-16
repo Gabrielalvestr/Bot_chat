@@ -5,7 +5,9 @@
     padding: 1.5rem;
     margin-bottom: 1.5rem;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .ocorrencia-card h3 {
@@ -42,12 +44,9 @@
 }
 
 .status-badge {
-    position: absolute;
-    width: fit-content;
-    top: 1.5rem;
-    right: 1.5rem;
     padding: 5px 10px;
     border-radius: 12px;
+    width: fit-content;
     font-size: 0.8rem;
     font-weight: bold;
     color: #fff;
@@ -91,16 +90,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: absolute;
     top: 1.5rem;
     right: 1.5rem;
     left: 1.5rem;
 }
 
-/* Move o status badge para o final */
-.status-badge {
-    position: static;
-}
 
 .visibility-badge {
     width: fit-content;
@@ -144,4 +138,26 @@
     to {
         transform: rotate(360deg);
     }
+}
+
+
+.ocorrencia-id{
+    padding: 6px;
+    border: 1px solid;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.ocorrencias-header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.ocorrencias-header svg{
+    cursor: pointer;
 }
