@@ -1,3 +1,7 @@
+.ocorrencias_page {
+    color: black;
+}
+
 .container_ocorrencias {
     color: black;
     display: flex;
@@ -36,6 +40,7 @@
     padding: 6px;
     border-radius: 16px;
     width: fit-content;
+    font-weight: bold;
     background-color: blue;
     color: white;
 }
@@ -44,6 +49,7 @@
     padding: 6px;
     border-radius: 16px;
     width: fit-content;
+    font-weight: bold;
     background-color: yellow;
 }
 
@@ -51,12 +57,13 @@
     padding: 6px;
     border-radius: 16px;
     width: fit-content;
+    font-weight: bold;
     background-color: red;
     color: white;
 
 }
 
-.container_button_accept button{
+.container_button_accept button {
     cursor: pointer;
     background-color: rgb(53, 148, 53);
     border: none;
@@ -64,4 +71,27 @@
     color: white;
     padding: 8px;
     font-weight: bold;
+}
+
+.ocorrencias_infos {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 6px;
+}
+
+
+.ocorrencias_filtros menu ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    list-style: none;
+}
+
+
+.ocorrencias_filtros menu ul li select {
+    padding: 6px;
+    border-radius: 6px;
+    border: none;
+    border-bottom: 1px solid;
 }
