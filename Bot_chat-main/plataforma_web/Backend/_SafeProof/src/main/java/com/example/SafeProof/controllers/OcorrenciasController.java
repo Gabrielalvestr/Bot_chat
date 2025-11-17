@@ -131,69 +131,71 @@ public class OcorrenciasController {
         return ResponseEntity.status(HttpStatus.OK).body("Id:" + id + " deletado!");
     }
 
-//    @PutMapping("/alterar_visibilidade/{id_ocorrencia}")
-//    public ResponseEntity<?> alterarVisibilidadeOcorrencia(
-//            @PathVariable(value = "id_ocorrencia") Integer id_ocorrencia,
-//            @RequestBody boolean visibilidade) {
-//        var ocorrencia = ocorrenciasService.getById(id_ocorrencia);
-//        if (ocorrencia.isEmpty()) {
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Ocorrência não encontrada.");
-//        }
-//        var ocorrenciaToSave = ocorrencia.get();
-//        ocorrenciaToSave.setVisibilidade(visibilidade);
-//        return ResponseEntity.status(HttpStatus.OK).body(ocorrenciasService.save(ocorrenciaToSave));
-//    }
-
-    @PutMapping("/alterar_ocorrencia/{id_ocorrencia}")
-    public ResponseEntity<?> alterarOcorrencia(
+    @PutMapping("/alterar_visibilidade/{id_ocorrencia}")
+    public ResponseEntity<?> alterarVisibilidadeOcorrencia(
             @PathVariable(value = "id_ocorrencia") Integer id_ocorrencia,
-            @RequestBody OcorrenciasRequest body
-    ){
-        var ocorrenciaOpt = ocorrenciasService.getById(id_ocorrencia);
-        if (ocorrenciaOpt.isEmpty())
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-
-        var ocorrencia = ocorrenciaOpt.get();
-        BeanUtils.copyProperties(body, ocorrencia); // <<< SEM SETTERS
-        return ResponseEntity.ok(ocorrenciasService.save(ocorrencia));
+            @RequestBody boolean visibilidade) {
+        var ocorrencia = ocorrenciasService.getById(id_ocorrencia);
+        if (ocorrencia.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Ocorrência não encontrada.");
+        }
+        var ocorrenciaToSave = ocorrencia.get();
+        ocorrenciaToSave.setVisibilidade(visibilidade);
+        return ResponseEntity.status(HttpStatus.OK).body(ocorrenciasService.save(ocorrenciaToSave));
     }
 
-//    @PutMapping("/alterar_status/{id_ocorrencia}")
-//    public ResponseEntity<?> alterarStatusOcorrencia(
+    // Put passando o body inteiro
+//    @PutMapping("/alterar_ocorrencia/{id_ocorrencia}")
+//    public ResponseEntity<?> alterarOcorrencia(
 //            @PathVariable(value = "id_ocorrencia") Integer id_ocorrencia,
-//            @RequestBody Status status) {
-//        var ocorrencia = ocorrenciasService.getById(id_ocorrencia);
-//        if (ocorrencia.isEmpty()) {
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Ocorrência não encontrada.");
-//        }
-//        var ocorrenciaToSave = ocorrencia.get();
-//        ocorrenciaToSave.setStatus(status);
-//        return ResponseEntity.status(HttpStatus.OK).body(ocorrenciasService.save(ocorrenciaToSave));
-//    }
-
-//    @PutMapping("/alterar_id_responsavel/{id_ocorrencia}")
-//    public ResponseEntity<?> alterarIdResponsavelOcorrencia(
-//            @PathVariable(value = "id_ocorrencia") Integer id_ocorrencia,
-//            @RequestBody Integer id_responsavel) {
-//        var ocorrencia = ocorrenciasService.getById(id_ocorrencia);
-//        if (ocorrencia.isEmpty()) {
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Ocorrência não encontrada.");
-//        }
-//        var ocorrenciaToSave = ocorrencia.get();
-//        ocorrenciaToSave.setId_responsavel(id_responsavel);
-//        return ResponseEntity.status(HttpStatus.OK).body(ocorrenciasService.save(ocorrenciaToSave));
-//    }
-
-//    @PutMapping("/alterar_tipo_crime/{id_crime}")
-//    public ResponseEntity<?> alterarTipoCrime(
-//            @PathVariable(value = "id_crime") Integer id_crime
+//            @RequestBody OcorrenciasRequest body
 //    ){
-//        var ocorrencia = ocorrenciasService.getById(id_ocorrencia);
-//        if (ocorrencia.isEmpty()) {
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Ocorrência não encontrada.");
-//        }
-//        var ocorrenciaToSave = ocorrencia.get();
-//        ocorrenciaToSave.setId_responsavel(id_responsavel);
-//        return ResponseEntity.status(HttpStatus.OK).body(ocorrenciasService.save(ocorrenciaToSave));
+//        var ocorrenciaOpt = ocorrenciasService.getById(id_ocorrencia);
+//        if (ocorrenciaOpt.isEmpty())
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+//
+//        var ocorrencia = ocorrenciaOpt.get();
+//        BeanUtils.copyProperties(body, ocorrencia); // <<< SEM SETTERS
+//        return ResponseEntity.ok(ocorrenciasService.save(ocorrencia));
 //    }
+
+    @PutMapping("/alterar_status/{id_ocorrencia}")
+    public ResponseEntity<?> alterarStatusOcorrencia(
+            @PathVariable(value = "id_ocorrencia") Integer id_ocorrencia,
+            @RequestBody Status status) {
+        var ocorrencia = ocorrenciasService.getById(id_ocorrencia);
+        if (ocorrencia.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Ocorrência não encontrada.");
+        }
+        var ocorrenciaToSave = ocorrencia.get();
+        ocorrenciaToSave.setStatus(status);
+        return ResponseEntity.status(HttpStatus.OK).body(ocorrenciasService.save(ocorrenciaToSave));
+    }
+
+    @PutMapping("/alterar_id_responsavel/{id_ocorrencia}")
+    public ResponseEntity<?> alterarIdResponsavelOcorrencia(
+            @PathVariable(value = "id_ocorrencia") Integer id_ocorrencia,
+            @RequestBody Integer id_responsavel) {
+        var ocorrencia = ocorrenciasService.getById(id_ocorrencia);
+        if (ocorrencia.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Ocorrência não encontrada.");
+        }
+        var ocorrenciaToSave = ocorrencia.get();
+        ocorrenciaToSave.setId_responsavel(id_responsavel);
+        return ResponseEntity.status(HttpStatus.OK).body(ocorrenciasService.save(ocorrenciaToSave));
+    }
+
+    @PutMapping("/alterar_tipo_crime/{id_ocorrencia}")
+    public ResponseEntity<?> alterarTipoCrime(
+            @PathVariable(value = "id_ocorrencia") Integer id_ocorrencia,
+            @RequestBody Integer idNewCrime
+    ){
+        var ocorrencia = ocorrenciasService.getById(id_ocorrencia);
+        if (ocorrencia.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Ocorrência não encontrada.");
+        }
+        var ocorrenciaToSave = ocorrencia.get();
+        ocorrenciaToSave.setId_crime(idNewCrime);
+        return ResponseEntity.status(HttpStatus.OK).body(ocorrenciasService.save(ocorrenciaToSave));
+    }
 }

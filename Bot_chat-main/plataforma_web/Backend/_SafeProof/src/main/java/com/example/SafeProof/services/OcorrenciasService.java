@@ -17,10 +17,13 @@ import java.util.Optional;
 public class OcorrenciasService {
 
     @Autowired
-    OcorrenciasRepository ocorrenciasRepository;
+    private OcorrenciasRepository ocorrenciasRepository;
 
     @Autowired
     private EvidenciasService evidenciasService;
+
+    @Autowired
+    private TipoCrimeService tipoCrimeService;
 
     public List<OcorrenciasModel> findAll(Pageable pageable) {
         Page<OcorrenciasModel> result = ocorrenciasRepository.findAll(pageable);
