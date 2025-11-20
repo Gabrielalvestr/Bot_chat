@@ -13,13 +13,18 @@
             <h1>Logado como: <span id="user_name"></span></h1>
             <button id="logout-btn" title="Sair">Logout</button>
         </div>
-        <p>Clique no botão abaixo para capturar a página atual como evidência.</p>
+        <p>Clique no botão abaixo para criar uma ocorrência.</p>
         <button id="create-occurrence-btn">Criar Ocorrência</button>
         <p id="status-message" class="status"></p>
+        <p>Após criar uma ocorrência, selecione ele para coletar evidências</p>
         <form id="ocorrencias">
             <span id="ocorrencias-alert" style="color: red"></span>
-            <BR>
-            <button id="collect-evidence-btn" type='submit'>Coletar Evidência</button>
+            <p id="status-message-evidences" class="status"></p>
+            <br>
+            <select name="ocorrencia" id="ocorrenciaSelect">
+                <option value="">Selecione uma ocorrência</option>
+            </select>
+            <button id="collect-evidence-btn" disabled type='submit'>Coletar Evidência</button>
         </form>
 
     </div>

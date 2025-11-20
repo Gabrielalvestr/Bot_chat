@@ -7,7 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const ocorrenciasAlert = document.getElementById("ocorrencias-alert")
     const userNameContainer = document.getElementById("user_name")
     const statusMessage = document.getElementById('status-message');
+    const statusMessageEvidences = document.getElementById('status-message-evidences');
     const ocorrenciasForm = document.getElementById("ocorrencias")
+    const select = document.getElementById("ocorrenciaSelect")
     let id = null;
     let nome = null;
     let contato = null;
@@ -26,23 +28,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const response = await pega.json()
 
-                console.log(response)
 
                 response.forEach(ocorrencia => {
-                    const label = document.createElement('label')
-                    label.innerText = `Ocorrência de ID: ${ocorrencia.id_ocorrencia}`
-                    label.htmlFor = ocorrencia.id_ocorrencia
-                    const input = document.createElement('input')
-                    input.type = 'radio'
-                    input.name = 'ocorrencia'
-                    input.value = ocorrencia.id_ocorrencia
-                    input.id = ocorrencia.id_ocorrencia
-                    const div = document.createElement('div')
-                    div.appendChild(label)
-                    div.appendChild(input)
-
-                    ocorrenciasForm.append(div)
-
+                    const option = document.createElement('option')
+                    option.value = ocorrencia.id_ocorrencia
+                    option.innerText = `Ocorrência de ID: ${ocorrencia.id_ocorrencia}`
+                    select.appendChild(option)
                 });
             }
 
@@ -163,7 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault()
 
         const form = e.currentTarget;
-
+        console.log(form)
         const ocorrenciaSelecionada = form.ocorrencia.value
 
         console.log('chamou coleta de evidencia')
@@ -190,7 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         createBtn.disabled = false;
                         return;
                     }
-                    try{
+                    try {
                         const evidenciaData = {
                             url_pagina: currentTab.url,
                             created_at: new Date().toISOString(),
@@ -200,7 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         };
 
-                    console.log('entrou no endpoit')
+                        console.log('entrou no endpoit')
                         const respondeEvidencia = await fetch(`${API_URL}/registrar_evidencia`, {
                             method: 'POST',
                             headers: {
@@ -218,14 +209,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         console.log('mandei: ', evidenciaData)
                         console.log(resultado.message)
 
-                        statusMessage.textContent = 'evidencia criada com sucesso!';
-                        statusMessage.className = 'status success';
+                        statusMessageEvidences.textContent = 'evidencia criada com sucesso!';
+                        statusMessageEvidences.className = 'status success';
 
                     } catch (error) {
-                        console.log(result.message)
+                        console.log(error)
 
-                        statusMessage.textContent = error.message;
-                        statusMessage.className = 'status error';
+                        statusMessageEvidences.textContent = error.message;
+                        statusMessageEvidences.className = 'status error';
                     } finally {
                         createBtn.disabled = false;
                     }
@@ -233,5 +224,17 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
+    })
+
+    select.addEventListener('change', function (event) {
+
+        const data = event.target.value
+        const btn = document.getElementById("collect-evidence-btn")
+
+        if (data) {
+            btn.disabled = false
+        }else{
+            btn.disabled = true
+        }
     })
 });
