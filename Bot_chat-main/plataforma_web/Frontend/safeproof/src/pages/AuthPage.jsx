@@ -23,7 +23,7 @@ const AuthPage = () => {
     const [success, setSuccess] = useState(null);
 
     // URL da sua API (coloque em um arquivo de configuração .env em um projeto real)
-    const API_URL = 'http://localhost:8080/api/v1/safe_proof'; // Sua API Backend
+    const API_URL = process.env.REACT_APP_API_URL;
 
     // Função para alternar entre os modos de login e registro
     const toggleMode = () => {

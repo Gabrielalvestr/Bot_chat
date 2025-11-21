@@ -18,9 +18,8 @@ const PerfilPage = () => {
   const [success, setSuccess] = useState(null);
   const [cpfError, setCpfError] = useState('');
 
-  const API_URL = 'http://localhost:8080/api/v1/safe_proof'; // Sua API Backend
+    const API_URL = process.env.REACT_APP_API_URL;
 
-  // useEffect para buscar os dados do perfil quando a página carrega
   useEffect(() => {
     const fetchUserData = async () => {
       setIsLoading(true);

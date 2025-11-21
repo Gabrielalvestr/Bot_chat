@@ -1,14 +1,9 @@
-import React from 'react';
 import { Link } from 'react-router-dom'; // Para os botões de ação
 import './HomePage.css';
-
-// Em um projeto real, você poderia usar uma biblioteca como react-icons para os ícones
-// Ex: import { FaShieldAlt, FaUser, FaBalanceScale } from 'react-icons/fa';
 
 const HomePage = () => {
     return (
         <main className="homepage">
-            {/* Seção Hero */}
             <section className="hero-section">
                 <div className="hero-content">
                     <h1>Sua Prova Digital, incontestável.</h1>
@@ -19,7 +14,6 @@ const HomePage = () => {
                 </div>
             </section>
 
-            {/* Seção do Problema */}
             <section className="problem-section">
                 <h2>Um simples print não basta.</h2>
                 <p className="section-intro">
@@ -27,13 +21,11 @@ const HomePage = () => {
                 </p>
                 <div className="problem-cards">
                     <div className="card">
-                        {/* <FaUser size={40} className="icon" /> */}
                         <div className="icon">👤</div>
                         <h3>Para vítimas</h3>
                         <p>Sofreu um ataque online? Discurso de ódio, ofensas ou racismo? A incerteza de como coletar provas válidas pode paralisar. Nós te damos o poder de agir com confiança.</p>
                     </div>
                     <div className="card">
-                        {/* <FaBalanceScale size={40} className="icon" /> */}
                         <div className="icon">⚖️</div>
                         <h3>Para profissionais do direito</h3>
                         <p>A prova digital do seu cliente é frágil? A ausência de metadados e de uma cadeia de custódia clara pode invalidar seu caso no tribunal. Garanta a autenticidade das evidências.</p>
@@ -41,7 +33,6 @@ const HomePage = () => {
                 </div>
             </section>
 
-            {/* Seção de Funcionalidades */}
             <section className="features-section">
                 <h2>Como Garantimos a Validade da sua Prova</h2>
                 <div className="features-grid">
@@ -64,7 +55,6 @@ const HomePage = () => {
                 </div>
             </section>
 
-            {/* Seção de CTA Final */}
             <section className="final-cta-section">
                 <h2>Pronto para agir?</h2>
                 <p>Não deixe que crimes virtuais fiquem impunes. Dê o primeiro passo para garantir a justiça com provas que o sistema legal respeita.</p>
