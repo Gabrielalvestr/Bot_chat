@@ -15,7 +15,7 @@ const RegisterPage = () => {
     const [error, setError] = useState(null);
     const navigate = useNavigate();
     const [isProfissa, setIsProfissa] = useState(false)
-    const API_URL = 'http://localhost:8080/api/v1/safe_proof'; // Sua API Backend
+    const API_URL = process.env.REACT_APP_API_URL;
     const [oabError, setOabError] = useState('');
     const [cpfError, setCpfError] = useState('');
 

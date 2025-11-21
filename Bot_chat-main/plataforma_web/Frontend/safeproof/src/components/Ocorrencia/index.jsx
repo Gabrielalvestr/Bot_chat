@@ -2,19 +2,20 @@ import { useState } from 'react';
 import './Ocorrencia.css';
 import { GiPadlock, GiPadlockOpen } from "react-icons/gi";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { CiEdit } from "react-icons/ci";
 
-export default function Ocorrencia({ ocorrencia, evidencias }) {
+export default function Ocorrencia({ ocorrencia, evidencias, listaCrimes }) {
     const formatDate = (dateString) => {
         const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
         return new Date(dateString).toLocaleDateString('pt-BR', options);
     };
 
     const [isLoading, setIsLoading] = useState(false)
-
+    const [isLoadingCrime, setIsLoadingCrime] = useState(false)
     const [visibilityControl, setvisibilityControl] = useState(ocorrencia.visibilidade)
-
-    const API_URL = 'http://localhost:8080/api/v1/safe_proof'; // Sua API Backend
-
+    const API_URL = process.env.REACT_APP_API_URL;
+    const [tipo_crime, setTipo_Crime] = useState(listaCrimes.find(crime => crime.id_crime === ocorrencia.id_crime))
+    const [editCrime, setEditCrime] = useState(false)
 
     const handleVisibility = async () => {
         setIsLoading(true)
@@ -31,6 +32,25 @@ export default function Ocorrencia({ ocorrencia, evidencias }) {
         setvisibilityControl(newVisibility)
     }
 
+    const handleCrimeType = async (e) => {
+        setIsLoadingCrime(true)
+        const novo_id_crime = e.target.value
+        const alterCrime = await fetch(`${API_URL}/alterar_tipo_crime/${ocorrencia.id_ocorrencia}`, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: novo_id_crime
+        })
+        setTipo_Crime(listaCrimes.find(crime => crime.id_crime == novo_id_crime))
+        setIsLoadingCrime(false)
+        setEditCrime(false)
+    }
+
+    const handleEditMode = () => {
+        setEditCrime(true)
+    }
+
 
     return (
         <>
@@ -43,7 +63,23 @@ export default function Ocorrencia({ ocorrencia, evidencias }) {
                 <div className={`status-badge status-${ocorrencia.status ? 'ativa' : 'arquivada'}`}>
                     {ocorrencia.status}
                 </div>
-                <h3>{ocorrencia.tipo_crime}</h3>
+                {editCrime ?
+                    <div>
+                        <select name="tipo_crime" id="tipo_crime" onChange={handleCrimeType}>
+                            {listaCrimes.map(crime => (
+                                <option value={crime.id_crime} key={crime.id_crime}>{crime.nome_crime}</option>
+                            ))}
+                        </select>
+                        {isLoadingCrime && <AiOutlineLoading3Quarters className='girar' color='black' size={15} />}
+                    </div>
+
+
+                    :
+                    <span>
+                        Tipo crime: {tipo_crime.nome_crime}
+                        <CiEdit size={20} className='crime_edit_btn' onClick={handleEditMode} />
+                    </span>
+                }
                 <div className="info-group">
                     <strong>Data da Coleta:</strong>
                     <span>{formatDate(ocorrencia.created_at)}</span>

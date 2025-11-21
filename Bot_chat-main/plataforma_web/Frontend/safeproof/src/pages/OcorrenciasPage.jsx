@@ -6,6 +6,7 @@ const OcorrenciasPage = ({userType}) => {
     const [ocorrencias, setOcorrencias] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [listaCrimes, setTipo_crimes] = useState([])
     const API_URL = process.env.REACT_APP_API_URL;
 
     const endpoint = userType === "PROFISSIONAL" ? 'get_ocorrencia_com_evicendencias_ativa_responsavel' : 'get_ocorrencias_com_evicendencias'
@@ -22,23 +23,37 @@ const OcorrenciasPage = ({userType}) => {
                 })
 
                 const ocorrencias = await getOcorrencias.json()
-
-                console.log(ocorrencias)
-
                 setOcorrencias(ocorrencias.ocorrencias)
-
 
             } catch (err) {
                 setError(err.message);
             } finally {
-                // Este bloco sempre será executado, com sucesso ou erro.
                 setIsLoading(false);
             }
         };
 
+        const fetchTipoCrimes = async () =>{
+            try {
+            
+                const getTipoCrimes = await fetch(`${API_URL}/listar_crimes`, {
+                    method: "GET"
+                })
+
+                const res = await getTipoCrimes.json()
+                setTipo_crimes(res)
+
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                console.log(listaCrimes)
+            }
+        }
+        fetchTipoCrimes()
+
         fetchOcorrencias();
-    }, []); // O array vazio [] garante que a busca ocorra apenas uma vez.
-    // Renderização condicional com base no estado
+    }, []);
+
+
     if (isLoading) {
         return <div style={{ padding: '2rem' }}><h2>Carregando suas ocorrências...</h2></div>;
     }
@@ -57,7 +72,10 @@ const OcorrenciasPage = ({userType}) => {
                 <section className='minhas_ocorrencias'>
                     {ocorrencias.map((ocorrencia) => (
                         // Usar o ID da ocorrência como chave é a melhor prática
-                        <Ocorrencia ocorrencia={ocorrencia.ocorrencia} evidencias={ocorrencia.evidencias} key={ocorrencia.id_ocorrencia} />
+                        <Ocorrencia  listaCrimes={listaCrimes} 
+                        ocorrencia={ocorrencia.ocorrencia} 
+                        evidencias={ocorrencia.evidencias}
+                        key={ocorrencia.id_ocorrencia} />
                     ))}
                 </section>
             )}

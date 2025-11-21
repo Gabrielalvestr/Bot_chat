@@ -161,3 +161,7 @@
 .ocorrencias-header svg{
     cursor: pointer;
 }
+
+.crime_edit_btn{
+    cursor: pointer;
+}

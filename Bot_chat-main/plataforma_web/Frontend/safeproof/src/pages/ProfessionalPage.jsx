@@ -4,6 +4,8 @@ export default function ProfessionalPage({ userID }) {
     const API_URL = process.env.REACT_APP_API_URL;
     const [ocorrencias, setOcorrencias] = useState([])
     const [ocorrenciasOriginal, setOcorrenciasOriginal] = useState([])
+    const [listaCrimes, setTipo_crimes] = useState([])
+
     useEffect(() => {
         const fetchOcorrencias = async () => {
 
@@ -23,6 +25,24 @@ export default function ProfessionalPage({ userID }) {
             }
         };
 
+        const fetchTipoCrimes = async () =>{
+            try {
+            
+                const getTipoCrimes = await fetch(`${API_URL}/listar_crimes`, {
+                    method: "GET"
+                })
+
+                const res = await getTipoCrimes.json()
+                setTipo_crimes(res)
+
+            } catch (err) {
+                alert(err)
+            } finally {
+                console.log(listaCrimes)
+            }
+        }
+        
+        fetchTipoCrimes()
         fetchOcorrencias();
     }, [])
 
@@ -58,17 +78,6 @@ export default function ProfessionalPage({ userID }) {
         return new Date(dateString).toLocaleDateString('pt-BR', options);
     };
 
-
-    const listaCrimes = [
-        { id_crime: 5, nome_crime: "Selecione o tipo do crime" },
-        { id_crime: 8, nome_crime: 'AMEACA' },
-        { id_crime: 13, nome_crime: 'DESCONHECIDO' },
-        { id_crime: 11, nome_crime: 'ESTELIONATO' },
-        { id_crime: 9, nome_crime: 'HONRA' },
-        { id_crime: 10, nome_crime: 'PERSEGUIÇÃO' },
-        { id_crime: 6, nome_crime: 'RACISMO' },
-        { id_crime: 12, nome_crime: 'VIOLENCIA DOMESTICA' }
-    ]
 
     const handleDateFilter = (e) => {
         if (e.target.value === "recentes") {
