@@ -10,25 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const loginForm = document.getElementById('login-form');
-    const registerForm = document.getElementById('register-form');
-    const showRegisterLink = document.getElementById('show-register');
-    const showLoginLink = document.getElementById('show-login');
     const messageArea = document.getElementById('message-area');
 
-    // Lógica para alternar entre os formulários de login e registro
-    showRegisterLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        loginForm.style.display = 'none';
-        registerForm.style.display = 'block';
-        messageArea.textContent = '';
-    });
-
-    showLoginLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        registerForm.style.display = 'none';
-        loginForm.style.display = 'block';
-        messageArea.textContent = '';
-    });
 
     // Event listener para o botão de login
     document.getElementById('login-btn').addEventListener('click', async () => {
@@ -61,34 +44,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Event listener para o botão de registro
-    document.getElementById('register-btn').addEventListener('click', async () => {
-        const nome = document.getElementById('register-nome').value;
-        const email = document.getElementById('register-email').value;
-        const password = document.getElementById('register-password').value;
-        const documento = document.getElementById('register-documento').value;
-
-        try {
-            const response = await fetch(`${API_URL}/login`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ nome, email, senha_hash: password, documento })
-            });
-
-            const data = await response.json();
-
-            if (!response.ok) {
-                throw new Error(data.message || 'Erro ao registrar.');
-            }
-
-            messageArea.textContent = 'Registro bem-sucedido! Por favor, faça o login.';
-            messageArea.className = 'message success';
-            // Alterna para o formulário de login
-            showLoginLink.click();
-
-        } catch (error) {
-            messageArea.textContent = error.message;
-            messageArea.className = 'message error';
-        }
-    });
 });

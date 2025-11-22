@@ -63,7 +63,7 @@ const OcorrenciasPage = ({userType}) => {
     }
 
     return (
-        <div style={{ padding: '2rem', color: 'black' }}>
+        <div style={{ padding: '2rem', color: 'black', marginTop: '30px' }}>
             <h2>Minhas Ocorrências</h2>
 
             {ocorrencias.length === 0 ? (

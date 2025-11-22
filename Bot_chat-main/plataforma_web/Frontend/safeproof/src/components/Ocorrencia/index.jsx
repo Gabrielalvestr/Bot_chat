@@ -103,7 +103,6 @@ export default function Ocorrencia({ ocorrencia, evidencias, listaCrimes }) {
                             <span>Data coleta da evidência: {e.created_at}</span>
                             <img src={`https://pub-713a617ff8764feb8ecd29d17d543280.r2.dev/${e.imagem_url}`} alt='Print da evidência coletada' width={600} />
                             <span>Hash da imagem: {e.hash}</span>
-                            <span>WaybackMachine: {e.wayback_url}</span>
                         </div>
                     )}
                 </div>

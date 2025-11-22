@@ -167,7 +167,7 @@ export default function ProfessionalPage({ userID }) {
                         </li>
                         <li>
                             <select onChange={handleTipoCrime}>
-                                {listaCrimes.map(crime => (
+                                {listaCrimes.sort((a, b) => a.id_crime - b.id_crime).map(crime => (
                                     <option key={crime.id_crime} value={crime.nome_crime}>
                                         {crime.nome_crime}
                                     </option>

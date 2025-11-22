@@ -4,10 +4,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
     background-color: #ffffff;
     border-bottom: 1px solid #e0e0e0;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    position: fixed;
+    width: 100%;
+    padding: 1rem 0;
 }
 
 .logo a {
@@ -15,6 +17,7 @@
     font-weight: bold;
     color: #333;
     text-decoration: none;
+    padding-left: 2rem;
 }
 
 .navigation ul {
@@ -40,11 +43,14 @@
 
 .user-actions {
     position: relative;
+    padding-right: 2rem;
+
 }
 
 .auth-links {
     display: flex;
     gap: 1rem;
+
 }
 
 .login-button,
