@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./ChatWidget.css";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 function ChatWidget() {
   const [open, setOpen] = useState(false);
@@ -8,7 +9,10 @@ function ChatWidget() {
   ]);
   const [input, setInput] = useState("");
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false)
   const bottomRef = useRef(null);
+
+  const CHAT_API = process.env.REACT_APP_CHAT_API;
 
   useEffect(() => {
     if (bottomRef.current) bottomRef.current.scrollIntoView({ behavior: "smooth" });
@@ -16,14 +20,15 @@ function ChatWidget() {
 
   const handleSend = async () => {
     if (!input.trim()) return;
-
+    setIsLoading(true)
     const newUserMsg = { sender: "user", text: input };
     setMessages((prev) => [...prev, newUserMsg]);
     setInput("");
     setError("");
+    await new Promise(r => setTimeout(r, 6000));
 
     try {
-      const res = await fetch("http://127.0.0.1:5000/api/chat", {
+      const res = await fetch(CHAT_API, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: input }),
@@ -38,6 +43,8 @@ function ChatWidget() {
       console.error(err);
       setError("Falha ao chamar a API. Veja o console (F12) para detalhes.");
       setMessages((prev) => [...prev, { sender: "bot", text: "Falha ao chamar a API." }]);
+    } finally {
+      setIsLoading(false)
     }
   };
 
@@ -63,8 +70,12 @@ function ChatWidget() {
 
           <div className="chat-messages">
             {messages.map((msg, i) => (
-              <div key={i} className={`msg ${msg.sender}`}>{msg.text}</div>
+              <div key={i} className={`msg ${msg.sender}`}>
+                {isLoading && <AiOutlineLoading3Quarters className='girar' color='black' size={15} />}
+                {msg.text}
+              </div>
             ))}
+
             <div ref={bottomRef} />
           </div>
 
