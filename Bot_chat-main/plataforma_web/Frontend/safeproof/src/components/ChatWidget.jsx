@@ -25,7 +25,6 @@ function ChatWidget() {
     setMessages((prev) => [...prev, newUserMsg]);
     setInput("");
     setError("");
-    await new Promise(r => setTimeout(r, 6000));
 
     try {
       const res = await fetch(CHAT_API, {
