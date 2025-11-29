@@ -51,7 +51,11 @@ export default function Ocorrencia({ ocorrencia, evidencias, listaCrimes }) {
         setEditCrime(true)
     }
 
-
+    if (!ocorrencia || !evidencias || !listaCrimes) {
+        return <>
+            Carregando....
+        </>
+    }
     return (
         <>
             <div className="ocorrencia-card">
@@ -76,7 +80,7 @@ export default function Ocorrencia({ ocorrencia, evidencias, listaCrimes }) {
 
                     :
                     <span>
-                        Tipo crime: {tipo_crime.nome_crime}
+                        Tipo crime: {tipo_crime?.nome_crime}
                         <CiEdit size={20} className='crime_edit_btn' onClick={handleEditMode} />
                     </span>
                 }

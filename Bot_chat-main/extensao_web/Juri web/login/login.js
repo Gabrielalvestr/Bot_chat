@@ -1,47 +1,60 @@
-// IMPORTANTE: Substitua pela URL da sua API backend
-const API_URL = 'http://localhost:8080/api/v1/safe_proof'; // Sua API Backend
-
 document.addEventListener('DOMContentLoaded', () => {
-    // Verifica se o usuário já está logado. Se sim, redireciona para a tela principal.
     chrome.storage.local.get(['authToken'], (result) => {
         if (result.authToken) {
             window.location.href = '../popup/popup.html';
         }
     });
 
-    const loginForm = document.getElementById('login-form');
     const messageArea = document.getElementById('message-area');
 
+    document.getElementById('login-btn').addEventListener('click', () => {
 
-    // Event listener para o botão de login
-    document.getElementById('login-btn').addEventListener('click', async () => {
+        // AGORA as variáveis existem
         const email = document.getElementById('login-email').value;
         const password = document.getElementById('login-password').value;
 
-        try {
-            const response = await fetch(`${API_URL}/login`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, senha_hash: password })
-            });
+        chrome.runtime.sendMessage(
+            { action: "login", email, password },
+            (response) => {
+                if (chrome.runtime.lastError) {
+                    messageArea.textContent = "Erro de comunicação com o background.";
+                    messageArea.className = 'message error';
+                    console.error(chrome.runtime.lastError);
+                    return;
+                }
 
-            const data = await response.json();
+                if (!response) {
+                    messageArea.textContent = "Sem resposta do background.";
+                    messageArea.className = 'message error';
+                    return;
+                }
 
-            console.log(data)
-            if (!response.ok) {
-                throw new Error(data.message || 'Erro ao fazer login.');
+                if (!response.ok) {
+                    const msg = response.data?.message || response.error || "Erro ao fazer login.";
+                    messageArea.textContent = msg;
+                    messageArea.className = 'message error';
+                    return;
+                }
+
+                const data = response.data;
+
+                chrome.storage.local.set(
+                    {
+                        authToken: data.token,
+                        id: data.id_usuario,
+                        nome: data.nome,
+                        email: data.email,
+                        contato: data.contato
+                    },
+                    () => window.location.href = '../popup/popup.html'
+                );
             }
-
-            // Salva o token e redireciona  
-
-            chrome.storage.local.set({ authToken: data.token, id: data.id_usuario, nome: data.nome, email: data.email, contato: data.contato }, () => {
-                window.location.href = '../popup/popup.html';
-            });
-
-        } catch (error) {
-            messageArea.textContent = error.message;
-            messageArea.className = 'message error';
-        }
+        );
     });
 
+    document.getElementById("show-register").addEventListener("click", () => {
+        chrome.tabs.create({
+            url: "https://safeproof.com.br/registrar"
+        });
+    });
 });

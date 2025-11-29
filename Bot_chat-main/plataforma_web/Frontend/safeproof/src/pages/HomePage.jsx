@@ -10,7 +10,7 @@ const HomePage = () => {
                     <p className="subtitle">
                         A ferramenta definitiva para coletar e validar evidências de crimes virtuais com segurança e validade jurídica. Transforme a injustiça online em ação legal.
                     </p>
-                    <a href="./JuriWeb.rar" className="cta-button">Instale a Extensão Gratuita</a>
+                    <a href="./JuriWeb.zip" className="cta-button">Instale a Extensão Gratuita</a>
                 </div>
             </section>
 

@@ -13,6 +13,11 @@ except Exception:
 app = Flask(__name__)
 CORS(app)
 
+
+@app.get('/')
+def primeira_pagina():
+    return jsonify({"OK": True, "status": "server ligado"})
+
 @app.route("/health", methods=["GET"])
 def health():
     return jsonify({"ok": True, "status": "up"})

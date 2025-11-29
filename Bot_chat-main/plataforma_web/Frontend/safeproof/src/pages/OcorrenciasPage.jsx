@@ -70,13 +70,15 @@ const OcorrenciasPage = ({userType}) => {
                 <p>Você ainda não criou nenhuma ocorrência.</p>
             ) : (
                 <section className='minhas_ocorrencias'>
-                    {ocorrencias.map((ocorrencia) => (
+                    {listaCrimes ? ocorrencias.map((ocorrencia) => (
                         // Usar o ID da ocorrência como chave é a melhor prática
-                        <Ocorrencia  listaCrimes={listaCrimes} 
+                        <Ocorrencia 
+                        listaCrimes={listaCrimes}
                         ocorrencia={ocorrencia.ocorrencia} 
                         evidencias={ocorrencia.evidencias}
-                        key={ocorrencia.id_ocorrencia} />
-                    ))}
+                        key={ocorrencia.id_ocorrencia} 
+                        />
+                    )) : <h2>Carregando suas ocorrências...</h2>}
                 </section>
             )}
         </div>
