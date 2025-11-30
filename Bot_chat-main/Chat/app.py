@@ -2,6 +2,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from model_intent import predict_intent
+from image_classifier import classificar_imagem_base64
 import traceback
 
 # importa sua função de resposta
@@ -61,6 +62,43 @@ def api_chat():
     except Exception as e:
         traceback.print_exc()
         return jsonify({"ok": False, "error": f"Erro interno: {e}"}), 500
+
+
+@app.route("/ia/classificar-imagem", methods=["POST"])
+def classificar_imagem_endpoint():
+    """
+    Endpoint que recebe JSON:
+    {
+      "imagem_base64": "BASE64_AQUI",
+      "mime_type": "image/png"   // opcional
+    }
+    e devolve:
+    {
+      "gravidade": "...",
+      "tipo_crime": "..."
+    }
+    """
+    data = request.get_json(silent=True) or {}
+
+    imagem_base64 = data.get("imagem_base64")
+    mime_type = data.get("mime_type", "image/png")
+
+    if not imagem_base64:
+        return jsonify({"error": "campo 'imagem_base64' é obrigatório"}), 400
+
+    # Se vier no formato data:image/png;base64,XXXX remove o prefixo
+    if "base64," in imagem_base64:
+        imagem_base64 = imagem_base64.split("base64,", 1)[1]
+
+    try:
+        resultado = classificar_imagem_base64(imagem_base64, mime_type=mime_type)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+    return jsonify(resultado), 200
+
+
+
 
 if __name__ == "__main__":
     # Rode:  python app.py
