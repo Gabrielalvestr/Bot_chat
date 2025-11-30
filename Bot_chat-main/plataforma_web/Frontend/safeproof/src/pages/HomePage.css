@@ -42,6 +42,7 @@
 /* Seções Padrão */
 .problem-section,
 .features-section,
+.tutorial-section, /* Adicionado aqui para manter o padrão */
 .final-cta-section {
     padding: 4rem 2rem;
     text-align: center;
@@ -49,6 +50,7 @@
 
 .problem-section h2,
 .features-section h2,
+.tutorial-section h2, /* Adicionado aqui */
 .final-cta-section h2 {
     font-size: 2.5rem;
     margin-bottom: 1rem;
@@ -111,6 +113,72 @@
     margin-bottom: 0.5rem;
 }
 
+/* Tutorial Section (Novo CSS) */
+.tutorial-section {
+    background-color: #fff; /* Fundo branco para diferenciar */
+}
+
+.tutorial-steps {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.step-card {
+    position: relative;
+    background: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 2rem 1.5rem;
+    width: 250px; /* Largura fixa para ficarem uniformes */
+    text-align: left;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+}
+
+.step-card:hover {
+    transform: translateY(-5px);
+}
+
+.step-number {
+    background-color: #007bff;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.step-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
+    color: #333;
+}
+
+.step-card p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #555;
+}
+
+.step-card a {
+    color: #007bff;
+    text-decoration: underline;
+    font-weight: 500;
+}
+
+.step-card a:hover {
+    color: #0056b3;
+}
+
 /* Final CTA Section */
 .final-cta-section {
     background-color: #343a40;
@@ -131,5 +199,15 @@
 @media (max-width: 768px) {
     .hero-content h1 {
         font-size: 2.5rem;
+    }
+    
+    .tutorial-steps {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .step-card {
+        width: 100%;
+        max-width: 400px;
     }
 }

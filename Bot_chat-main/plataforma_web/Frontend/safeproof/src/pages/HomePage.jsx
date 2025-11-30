@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'; // Para os botões de ação
+import { Link } from 'react-router-dom';
 import './HomePage.css';
 
 const HomePage = () => {
@@ -51,6 +51,43 @@ const HomePage = () => {
                     <div className="feature-card">
                         <h4>Arquivo no Wayback Machine</h4>
                         <p>Automatizamos o arquivamento da página no Internet Archive, uma terceira parte neutra e confiável.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section className="tutorial-section">
+                <h2>Passo a Passo</h2>
+                <p className="section-intro">Veja como é simples começar a coletar evidências com validade jurídica.</p>
+
+                <div className="tutorial-steps">
+                    <div className="step-card">
+                        <div className="step-number">1</div>
+                        <h3>Instalação</h3>
+                        <p>Baixe e instale a extensão no seu navegador através do botão no topo desta página.</p>
+                    </div>
+
+                    <div className="step-card">
+                        <div className="step-number">2</div>
+                        <h3>Login na Extensão</h3>
+                        <p>Abra a extensão e faça seu login. Caso não tenha conta, crie uma gratuitamente em <a href="https://safeproof.com.br/registrar" target="_blank" rel="noopener noreferrer">safeproof.com.br/registrar</a>.</p>
+                    </div>
+
+                    <div className="step-card">
+                        <div className="step-number">3</div>
+                        <h3>Gerenciar Ocorrência</h3>
+                        <p>Após logar, crie uma nova ocorrência para organizar suas provas ou selecione uma ocorrência já existente no menu.</p>
+                    </div>
+
+                    <div className="step-card">
+                        <div className="step-number">4</div>
+                        <h3>Coleta de Evidências</h3>
+                        <p>Navegue até a página do conteúdo ofensivo ou criminoso e use a extensão para capturar e certificar a prova digital.</p>
+                    </div>
+
+                    <div className="step-card">
+                        <div className="step-number">5</div>
+                        <h3>Consulta</h3>
+                        <p>Acesse todas as suas evidências coletadas e relatórios detalhados em <a href="https://www.safeproof.com.br/minhas-ocorrencias" target="_blank" rel="noopener noreferrer">safeproof.com.br/minhas-ocorrencias</a>.</p>
                     </div>
                 </div>
             </section>
