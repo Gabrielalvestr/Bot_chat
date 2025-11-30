@@ -119,7 +119,6 @@ public class EvidenciasService {
                     return Mono.just("https://web.archive.org" + contentLocation);
                 });
 
-        var t = "";
         return tt;
     }
 

@@ -5,6 +5,7 @@ import com.example.SafeProof.requests.EvidenciasRequest;
 import com.example.SafeProof.services.BucketService;
 import com.example.SafeProof.services.EvidenciasService;
 
+import com.example.SafeProof.services.PyService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -22,6 +23,9 @@ public class EvidenciasController {
 
     @Autowired
     private BucketService bucketService;
+
+    @Autowired
+    private PyService pyService;
 
     @GetMapping("/listar_evidencias")
     public ResponseEntity<?> listarTodasEvidencias(@RequestParam(defaultValue = "0") int pageNumber,
@@ -48,6 +52,7 @@ public class EvidenciasController {
 //        evidenciasModel.setWayback_url(imagemUrl);
 //        var waybackUrl = evidenciasService.salvarAsync(body.url_pagina());
 //        evidenciasModel.setWayback_url(waybackUrl);
+        var resp = pyService.ler_arquivo_como_base64(body.imagem_url(), body.id_ocorrencia());
         return ResponseEntity.status(HttpStatus.OK).body(evidenciasService.save(evidenciasModel));
     }
 
