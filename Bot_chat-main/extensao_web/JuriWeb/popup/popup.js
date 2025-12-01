@@ -143,6 +143,8 @@ document.addEventListener("DOMContentLoaded", () => {
             ocorrenciasAlert.innerText = "Selecione uma ocorrência!";
             return;
         }
+        statusMessageEvidences.textContent = "Processando..."
+        statusMessageEvidences.className = "status info"
 
         chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
             const currentTab = tabs[0];
