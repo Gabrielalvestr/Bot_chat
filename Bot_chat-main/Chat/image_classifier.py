@@ -36,7 +36,7 @@ def classificar_imagem_base64(image_b64: str, mime_type: str = "image/png") -> D
     """
     Recebe UMA imagem em base64 (sem 'data:image/...;base64,') e retorna:
     {
-      "gravidade": "baixo|medio|alto",
+      "gravidade": "BAIXA|MEDIA|ALTA",
       "tipo_crime": "racismo|estelionato|ofensa|ameaca|outro"
     }
     """
@@ -47,9 +47,9 @@ Você é um sistema de análise de evidências em imagens.
 
 Sua missão é:
 1) Classificar a GRAVIDADE da situação na imagem em:
-   - baixo
-   - medio
-   - alto
+   - BAIXA
+   - MEDIA
+   - ALTA
 
 2) Sugerir o TIPO DE CRIME mais provável, escolhendo entre:
    - racismo
@@ -60,7 +60,7 @@ Sua missão é:
 
 Regras importantes:
 - Se a imagem não tiver nada que pareça crime, use:
-  gravidade = "baixo"
+  gravidade = "BAIXA"
   tipo_crime = "outro"
 
 - Se você estiver em dúvida sobre o tipo exato, prefira "outro".
@@ -68,7 +68,7 @@ Regras importantes:
 Responda OBRIGATORIAMENTE em JSON válido, EXATAMENTE neste formato:
 
 {
-  "gravidade": "baixo|medio|alto",
+  "gravidade": "BAIXA|MEDIA|ALTA",
   "tipo_crime": "racismo|estelionato|ofensa|ameaca|outro"
 }
 """
@@ -98,6 +98,6 @@ Responda OBRIGATORIAMENTE em JSON válido, EXATAMENTE neste formato:
         return {"gravidade": "desconhecido", "tipo_crime": "outro"}
 
     return {
-        "gravidade": str(data.get("gravidade", "desconhecido")).lower(),
+        "gravidade": str(data.get("gravidade", "desconhecido")).upper(),
         "tipo_crime": str(data.get("tipo_crime", "outro")).lower(),
     }

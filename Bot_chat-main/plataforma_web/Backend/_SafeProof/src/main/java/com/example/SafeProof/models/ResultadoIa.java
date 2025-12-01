@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ResultadoIa {
 
-    @JsonProperty("gravidade")
     private Gravidade  gravidade;
 
     @JsonProperty("tipo_crime")
