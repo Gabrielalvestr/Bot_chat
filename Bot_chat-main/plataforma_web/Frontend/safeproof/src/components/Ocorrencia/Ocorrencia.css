@@ -22,7 +22,7 @@
 .info-group strong {
     display: block;
     color: #555;
-    font-size: 0.9rem;
+    font-size: 1rem;
     margin-bottom: 4px;
 }
 
@@ -98,12 +98,17 @@
 
 .visibility-badge {
     width: fit-content;
-    padding: 5px 10px;
+    padding: 5px 0;
     border-radius: 12px;
     font-size: 0.8rem;
     font-weight: bold;
-    color: #fff;
+    color: #6c757d;;
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    gap: 8px;
+    font-size: 1rem;
 }
 
 
@@ -164,4 +169,16 @@
 
 .crime_edit_btn{
     cursor: pointer;
+}
+
+.showEvidences{
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    color: #6c757d;;
+    font-weight: bold;
+}
+
+.professional{
+    border: solid#0056b3;
 }

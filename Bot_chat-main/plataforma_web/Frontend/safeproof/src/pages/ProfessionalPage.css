@@ -82,7 +82,7 @@
 }
 
 
-.ocorrencias_filtros menu ul {
+.ocorrencias_filtros  ul {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -90,7 +90,7 @@
 }
 
 
-.ocorrencias_filtros menu ul li select {
+.ocorrencias_filtros  ul li select {
     padding: 6px;
     border-radius: 6px;
     border: none;

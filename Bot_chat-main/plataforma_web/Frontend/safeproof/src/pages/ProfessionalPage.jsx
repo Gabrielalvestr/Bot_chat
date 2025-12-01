@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react"
 import './ProfessionalPage.css'
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 export default function ProfessionalPage({ userID }) {
     const API_URL = process.env.REACT_APP_API_URL;
     const [ocorrencias, setOcorrencias] = useState([])
     const [ocorrenciasOriginal, setOcorrenciasOriginal] = useState([])
     const [listaCrimes, setTipo_crimes] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
         const fetchOcorrencias = async () => {
 
             try {
-
+                setIsLoading(true)
                 const getOcorrencias = await fetch(`${API_URL}/get_home`, {
                     method: "GET"
                 })
@@ -25,9 +27,9 @@ export default function ProfessionalPage({ userID }) {
             }
         };
 
-        const fetchTipoCrimes = async () =>{
+        const fetchTipoCrimes = async () => {
             try {
-            
+
                 const getTipoCrimes = await fetch(`${API_URL}/listar_crimes`, {
                     method: "GET"
                 })
@@ -41,7 +43,7 @@ export default function ProfessionalPage({ userID }) {
                 console.log(listaCrimes)
             }
         }
-        
+
         fetchTipoCrimes()
         fetchOcorrencias();
     }, [])
@@ -133,7 +135,7 @@ export default function ProfessionalPage({ userID }) {
         if (tipo_crime !== "Selecione o tipo do crime") {
             setOcorrencias(ocorrenciasOriginal.filter(({ ocorrencia }) => ocorrencia.id_crime == id_crime))
 
-            
+
         } else {
             setOcorrencias(ocorrenciasOriginal)
         }
@@ -196,7 +198,7 @@ export default function ProfessionalPage({ userID }) {
                                 })?.nome_crime}
                             </span>
                             <span>
-                                Quantidade de evidências:  
+                                Quantidade de evidências:
                                 {ocorrencia.evidencias.length}
                             </span>
                         </div>
@@ -213,7 +215,7 @@ export default function ProfessionalPage({ userID }) {
                 )) : (<span style={{
                     color: 'red'
                 }}>
-                    Nenhuma ocorrência encontrada
+                    {ocorrencias.length === 0 ? "Nenhuma ocorrência pública no momento" : isLoading && <AiOutlineLoading3Quarters className='girar' color='black' size={30} />}
                 </span>)}
             </section>
         </div>

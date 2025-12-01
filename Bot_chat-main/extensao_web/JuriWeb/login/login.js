@@ -31,6 +31,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (!response.ok) {
                     const msg = response.data?.message || response.error || "Erro ao fazer login.";
+                    console.log(msg)
+                    if (msg == `Unexpected token 'C', "Credenciai"... is not valid JSON`) {
+                        messageArea.textContent = "Credenciais inválidas!";
+                        messageArea.className = 'message error';
+                        return
+                    }
                     messageArea.textContent = msg;
                     messageArea.className = 'message error';
                     return;

@@ -65,10 +65,7 @@ const AuthPage = () => {
 
             const data = await response.json();
 
-            if (!response.ok) {
-                throw new Error(data.message || 'Ocorreu um erro.');
-            }
-
+            console.log(data)
             if (isLoginMode) {
                 localStorage.setItem('authToken', data.token);
                 localStorage.setItem('id', data.id_usuario)
@@ -82,7 +79,11 @@ const AuthPage = () => {
                 toggleMode();
             }
         } catch (err) {
-            setError(err.message);
+            if (err == `SyntaxError: Unexpected token 'C', "Credenciai"... is not valid JSON`) {
+                setError("Credenciais inválidas!");
+            }else{
+                setError(err)
+            }
         } finally {
             setIsLoading(false);
         }
