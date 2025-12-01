@@ -168,6 +168,7 @@ public class OcorrenciasController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Ocorrência não encontrada.");
         }
         var ocorrenciaToSave = ocorrencia.get();
+
         ocorrenciaToSave.setStatus(status);
         return ResponseEntity.status(HttpStatus.OK).body(ocorrenciasService.save(ocorrenciaToSave));
     }
