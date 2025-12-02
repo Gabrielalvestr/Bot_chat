@@ -182,3 +182,7 @@
 .professional{
     border: solid#0056b3;
 }
+.profissional_infos{
+    display: flex;
+    gap: 8px;
+}

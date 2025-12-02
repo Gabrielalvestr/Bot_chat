@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './Ocorrencia.css';
 import { GiPadlock, GiPadlockOpen } from "react-icons/gi";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { MdConnectWithoutContact } from "react-icons/md";
 import { CiEdit } from "react-icons/ci";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 import { PiDetectiveFill } from "react-icons/pi";
@@ -30,6 +31,7 @@ export default function Ocorrencia({ ocorrencia, evidencias, listaCrimes, nome_c
     const [editStatus, setEditStatus] = useState(false)
     const [statusControl, setStatusControl] = useState(ocorrencia.status)
     const [openDialog, setOpenDialog] = useState(false)
+    const [openVictim, setOpenVictim] = useState(false)
     const [professionalPhone, setProfessionalPhone] = useState('')
     const [professionalEmail, setProfessionalEmail] = useState('')
     // se for true ent tem profissional, false n tem profissa linkado
@@ -122,6 +124,11 @@ export default function Ocorrencia({ ocorrencia, evidencias, listaCrimes, nome_c
         },
     }));
 
+    const getVictimInfos = () => {
+        console.log(ocorrencia)
+        setOpenVictim(true)
+    }
+
 
     if (!ocorrencia || !evidencias || !listaCrimes) {
         return <>
@@ -137,10 +144,43 @@ export default function Ocorrencia({ ocorrencia, evidencias, listaCrimes, nome_c
                     </strong>
                     {
                         hasProfessional &&
-                        <div className="profissional_infos" onClick={getProfessionalInfo}>
-                            <PiDetectiveFill size={40} title='Profissional atribuído (clique para obter informações de contato)'/>
+                        <div className="profissional_infos" >
+                            <MdConnectWithoutContact
+                                size={40}
+                                title='Clique para contatar a vítima.'
+                                onClick={getVictimInfos}
+                            />
+                            <PiDetectiveFill
+                                onClick={getProfessionalInfo}
+                                size={40}
+                                title='Profissional atribuído (clique para obter informações de contato)' />
                         </div>
                     }
+                    <BootstrapDialog
+                        open={openVictim}
+                        onClose={() => setOpenVictim(false)}
+                    >
+                        <DialogTitle>
+                            Contatar vítima
+                        </DialogTitle>
+                        <IconButton
+                            aria-label="close"
+                            onClick={() => setOpenVictim(false)}
+                            sx={(theme) => ({
+                                position: 'absolute',
+                                right: 8,
+                                top: 8,
+                                color: theme.palette.grey[500],
+                            })}
+                        >
+                            <CloseIcon />
+
+                        </IconButton>
+                        <DialogContent>
+                            Email de contato: {ocorrencia.email_usuario} <br />
+                            Telefone de contato: {ocorrencia.contato_usuario}
+                        </DialogContent>
+                    </BootstrapDialog>
                     <BootstrapDialog
                         open={openDialog}
                         onClose={() => setOpenDialog(false)}
