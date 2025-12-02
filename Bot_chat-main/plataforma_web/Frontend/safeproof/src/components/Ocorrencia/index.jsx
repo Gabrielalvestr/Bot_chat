@@ -19,7 +19,6 @@ export default function Ocorrencia({ ocorrencia, evidencias, listaCrimes, nome_c
         const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
         return new Date(dateString).toLocaleDateString('pt-BR', options);
     };
-
     const [isLoading, setIsLoading] = useState(false)
     const [isLoadingStatus, setIsLoadingStatus] = useState(false)
     const [isLoadingCrime, setIsLoadingCrime] = useState(false)
@@ -34,8 +33,10 @@ export default function Ocorrencia({ ocorrencia, evidencias, listaCrimes, nome_c
     const [openVictim, setOpenVictim] = useState(false)
     const [professionalPhone, setProfessionalPhone] = useState('')
     const [professionalEmail, setProfessionalEmail] = useState('')
+
     // se for true ent tem profissional, false n tem profissa linkado
     const hasProfessional = ocorrencia.id_responsavel !== ocorrencia.id_usuario
+    const isProfessional = localStorage.getItem("tipo_usuario") !== "COMUM"
 
     const handleVisibility = async () => {
         setIsLoading(true)
@@ -145,11 +146,14 @@ export default function Ocorrencia({ ocorrencia, evidencias, listaCrimes, nome_c
                     {
                         hasProfessional &&
                         <div className="profissional_infos" >
-                            <MdConnectWithoutContact
-                                size={40}
-                                title='Clique para contatar a vítima.'
-                                onClick={getVictimInfos}
-                            />
+                            {
+                                isProfessional &&
+                                <MdConnectWithoutContact
+                                    size={40}
+                                    title='Clique para contatar a vítima.'
+                                    onClick={getVictimInfos}
+                                />
+                            } 
                             <PiDetectiveFill
                                 onClick={getProfessionalInfo}
                                 size={40}
@@ -178,7 +182,7 @@ export default function Ocorrencia({ ocorrencia, evidencias, listaCrimes, nome_c
                         </IconButton>
                         <DialogContent>
                             Email de contato: {ocorrencia.email_usuario} <br />
-                            Telefone de contato: {ocorrencia.contato_usuario}
+                            Telefone de contato: {ocorrencia.contato_usuario ? ocorrencia.contato_usuario : 'Não informado.'}
                         </DialogContent>
                     </BootstrapDialog>
                     <BootstrapDialog
