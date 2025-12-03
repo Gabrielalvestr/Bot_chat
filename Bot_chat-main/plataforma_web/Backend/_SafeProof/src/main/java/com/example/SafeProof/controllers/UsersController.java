@@ -83,22 +83,28 @@ public class UsersController {
         String senhaAntigaHash = usuario.getSenha_hash();
         String novaSenhaPura = body.senha_hash();
 
-        if(body.email() == usuario.getEmail()){
-            BeanUtils.copyProperties(body, usuario, "id", "email");
-        }else{
-            BeanUtils.copyProperties(body, usuario, "id");
-        }
+        boolean novaSenhaExist = false;
+        String hashed = "";
+
         // Só entra aqui se o usuário realmente enviou uma nova senha
         if (novaSenhaPura != null && !novaSenhaPura.isBlank()) {
-
             // Verifica se a senha nova é diferente da atual
             boolean mesmaSenha = BCrypt.checkpw(novaSenhaPura, senhaAntigaHash);
 
             if (!mesmaSenha) {
                 // Usuário quer alterar → gerar novo hash
-                String hashed = BCrypt.hashpw(novaSenhaPura, BCrypt.gensalt());
-                usuario.setSenha_hash(hashed);
+                hashed = BCrypt.hashpw(novaSenhaPura, BCrypt.gensalt());
+                novaSenhaExist = true;
             }
+        }
+
+        if(body.email() == usuario.getEmail()){
+            BeanUtils.copyProperties(body, usuario, "id", "email","senha_hash");
+        }else{
+            BeanUtils.copyProperties(body, usuario, "id", "senha_hash");
+        }
+        if(novaSenhaExist){
+            usuario.setSenha_hash(hashed);
         }
 
         return ResponseEntity.status(HttpStatus.OK).body(userService.save(usuario));
