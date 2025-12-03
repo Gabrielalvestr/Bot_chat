@@ -37,7 +37,7 @@ def classificar_imagem_base64(image_b64: str, mime_type: str = "image/png") -> D
     Recebe UMA imagem em base64 (sem 'data:image/...;base64,') e retorna:
     {
       "gravidade": "BAIXA|MEDIA|ALTA",
-      "tipo_crime": "racismo|estelionato|ofensa|ameaca|outro"
+      "tipo_crime": "racismo|perseguicao|estelionato|violencia domestica|honra|ameaca|outro"
     }
     """
     data_url = f"data:{mime_type};base64,{image_b64}"
@@ -53,8 +53,10 @@ Sua missão é:
 
 2) Sugerir o TIPO DE CRIME mais provável, escolhendo entre:
    - racismo
+   - perseguicao
    - estelionato
-   - ofensa
+   - violencia domestica
+   - honra
    - ameaca
    - outro   (use "outro" se não tiver segurança suficiente para classificar)
 

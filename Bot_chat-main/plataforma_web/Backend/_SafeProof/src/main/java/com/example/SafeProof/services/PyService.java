@@ -14,6 +14,7 @@ public class PyService {
     private OcorrenciasService ocorrenciasService;
 
     public ResultadoIa ler_arquivo_como_base64(String b64, Integer id_ocorrencia){
+
         WebClient client = WebClient.create();
         Map<String, Object> aux = new HashMap<>();
         aux.put("imagem_base64", b64);
@@ -64,21 +65,8 @@ public class PyService {
                     break;
             }
 
-            switch (gravidade) {
-                case gravidade.BAIXA:
-                    ocorrenciaToSet.setGravidade(gravidade.BAIXA);
-                    break;
-                case gravidade.MEDIA:
-                    ocorrenciaToSet.setGravidade(gravidade.MEDIA);
-                    break;
-                case gravidade.ALTA:
-                    ocorrenciaToSet.setGravidade(gravidade.ALTA);
-                    break;
-                default:
-                    ocorrenciaToSet.setGravidade(gravidade.BAIXA); // fallback
-                    break;
-            }
             ocorrenciaToSet.setId_crime(resultCrime);
+            ocorrenciaToSet.setGravidade(gravidade);
             ocorrenciasService.save(ocorrenciaToSet);
         }
 
