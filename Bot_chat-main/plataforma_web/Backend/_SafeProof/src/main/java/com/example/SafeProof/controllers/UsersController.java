@@ -77,10 +77,17 @@ public class UsersController {
         }
         var usuario = findUsuario.get();
 
+//        var usersModel = new UsersModel();
+//        BeanUtils.copyProperties(body, usersModel);
+
         String senhaAntigaHash = usuario.getSenha_hash();
         String novaSenhaPura = body.senha_hash();
-        BeanUtils.copyProperties(body, usuario);
 
+        if(body.email() == usuario.getEmail()){
+            BeanUtils.copyProperties(body, usuario, "id", "email");
+        }else{
+            BeanUtils.copyProperties(body, usuario, "id");
+        }
         // Só entra aqui se o usuário realmente enviou uma nova senha
         if (novaSenhaPura != null && !novaSenhaPura.isBlank()) {
 
