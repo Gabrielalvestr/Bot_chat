@@ -47,6 +47,10 @@ public class UsersController {
         var bodyReturn = userService.getErros(usersModel);
         if (bodyReturn.containsKey("erro_email") || bodyReturn.containsKey("erro_documento"))
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bodyReturn);
+
+        String senhaHash = BCrypt.hashpw(usersModel.getSenha_hash(), BCrypt.gensalt());
+        usersModel.setSenha_hash(senhaHash);
+
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(usersModel));
     }
 
@@ -72,7 +76,24 @@ public class UsersController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado.");
         }
         var usuario = findUsuario.get();
+
+        String senhaAntigaHash = usuario.getSenha_hash();
+        String novaSenhaPura = body.senha_hash();
         BeanUtils.copyProperties(body, usuario);
+
+        // Só entra aqui se o usuário realmente enviou uma nova senha
+        if (novaSenhaPura != null && !novaSenhaPura.isBlank()) {
+
+            // Verifica se a senha nova é diferente da atual
+            boolean mesmaSenha = BCrypt.checkpw(novaSenhaPura, senhaAntigaHash);
+
+            if (!mesmaSenha) {
+                // Usuário quer alterar → gerar novo hash
+                String hashed = BCrypt.hashpw(novaSenhaPura, BCrypt.gensalt());
+                usuario.setSenha_hash(hashed);
+            }
+        }
+
         return ResponseEntity.status(HttpStatus.OK).body(userService.save(usuario));
     }
 

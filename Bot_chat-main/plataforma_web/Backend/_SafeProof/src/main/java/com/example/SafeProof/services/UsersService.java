@@ -33,8 +33,8 @@ public class UsersService {
     }
 
     public UsersModel save(UsersModel body) {
-        String senha_hash = BCrypt.hashpw(body.getSenha_hash(), BCrypt.gensalt());
-        body.setSenha_hash(senha_hash);
+//        String senha_hash = BCrypt.hashpw(body.getSenha_hash(), BCrypt.gensalt());
+//        body.setSenha_hash(senha_hash);
         return usersRepository.save(body);
     }
 
