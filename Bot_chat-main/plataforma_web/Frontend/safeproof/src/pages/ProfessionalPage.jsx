@@ -13,7 +13,7 @@ export default function ProfessionalPage({ userID }) {
 
             try {
                 setIsLoading(true)
-                const getOcorrencias = await fetch(`${API_URL}/get_home`, {
+                const getOcorrencias = await fetch(`${API_URL}/get_home?pageSize=50`, {
                     method: "GET"
                 })
                 const ocorrencias = await getOcorrencias.json()

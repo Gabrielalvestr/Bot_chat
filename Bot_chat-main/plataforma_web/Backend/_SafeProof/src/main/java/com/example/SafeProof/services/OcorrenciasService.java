@@ -42,7 +42,7 @@ public class OcorrenciasService {
         return ocorrenciasRepository.findByIdUsuario(id);
     }
 
-    public List<OcorrenciasModel> getOcorrenciasPorIdResponsavel(Integer id){
+    public List<OcorrenciasModel> getOcorrenciasPorIdResponsavel(Integer id) {
         return ocorrenciasRepository.findByIdResponsavel(id);
     }
 
@@ -56,8 +56,7 @@ public class OcorrenciasService {
         ocorrenciasRepository.deleteByIdUsuario(id);
     }
 
-    public HashMap returnOcorrenciasComEvidenciasOLD
-            (List<OcorrenciasModel> listaOcorrencias) {
+    public HashMap returnOcorrenciasComEvidenciasOLD(List<OcorrenciasModel> listaOcorrencias) {
         var result = new HashMap<>();
         var ocorrenciasResult = new ArrayList<>();
 
@@ -104,7 +103,7 @@ public class OcorrenciasService {
 
         var ocorrenciasResult = new ArrayList<>();
         for (var ocorrencia : sublist) {
-            if(ocorrencia.getStatus().toString() == "ATIVA" && ocorrencia.isVisibilidade()){
+            if (ocorrencia.getStatus().toString() == "ATIVA" && ocorrencia.isVisibilidade()) {
                 var listaDeEvidencias = evidenciasService.findByIdOcorrencia(ocorrencia.getId_ocorrencia());
                 var ocorrenciaMap = new HashMap<>();
                 ocorrenciaMap.put("ocorrencia", ocorrencia);
@@ -121,8 +120,7 @@ public class OcorrenciasService {
         return result;
     }
 
-
-    //! Esse endpoint  e o returnHome fazem exatamente a msm coisa
+    // ! Esse endpoint e o returnHome fazem exatamente a msm coisa
     public HashMap returnOcorrenciasComEvidenciasAtiva(List<OcorrenciasModel> listaOcorrencias, Pageable pageable) {
         var result = new HashMap<>();
         int start = (int) pageable.getOffset();
@@ -132,7 +130,7 @@ public class OcorrenciasService {
         var ocorrenciasResult = new ArrayList<>();
         for (var ocorrencia : sublist) {
             var listaDeEvidencias = evidenciasService.findByIdOcorrencia(ocorrencia.getId_ocorrencia());
-            if(ocorrencia.getStatus().toString() == "ATIVA"){
+            if (ocorrencia.getStatus().toString() == "ATIVA") {
                 var ocorrenciaMap = new HashMap<>();
                 ocorrenciaMap.put("ocorrencia", ocorrencia);
                 ocorrenciaMap.put("evidencias", listaDeEvidencias);

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import Ocorrencia from '../components/Ocorrencia';
 import { RxReset } from "react-icons/rx";
 
@@ -6,39 +6,78 @@ const OcorrenciasPage = ({ userType }) => {
 
     const [ocorrencias, setOcorrencias] = useState([]);
     const [ocorrenciasOriginal, setOcorrenciasOriginal] = useState([])
-    const [isLoading, setIsLoading] = useState(true);
+
+    // Estados de carregamento separados
+    const [isLoading, setIsLoading] = useState(true); // Carregamento inicial da página
+    const [isFetchingMore, setIsFetchingMore] = useState(false); // Carregamento do scroll
+
     const [error, setError] = useState(null);
     const [listaCrimes, setTipo_crimes] = useState([])
     const [msg, setMsg] = useState('Você ainda não criou nenhuma ocorrência.')
+
+    // Estados para controle da Paginação
+    const [page, setPage] = useState(0);
+    const [hasMore, setHasMore] = useState(true);
+    const observerTarget = useRef(null); // Ref para a div observada
+
     const API_URL = process.env.REACT_APP_API_URL;
 
     const endpoint = userType === "PROFISSIONAL" ? 'get_ocorrencia_com_evicendencias_ativa_responsavel' : 'get_ocorrencias_com_evicendencias'
 
-    useEffect(() => {
-        const fetchOcorrencias = async () => {
-            setIsLoading(true);
-            setError(null);
-            try {
-                const id = localStorage.getItem('id');
+    // 1. Fetch refatorado com useCallback e aceitando paginação
+    const fetchOcorrencias = useCallback(async (pageToFetch) => {
+        // Define qual loading ativar
+        if (pageToFetch === 0) setIsLoading(true);
+        else setIsFetchingMore(true);
 
-                const getOcorrencias = await fetch(`${API_URL}/${endpoint}/${id}`, {
-                    method: "GET"
-                })
+        setError(null);
+        try {
+            const id = localStorage.getItem('id');
+            const pageSize = 10;
 
-                const ocorrencias = await getOcorrencias.json()
-                setOcorrencias(ocorrencias.ocorrencias)
-                setOcorrenciasOriginal(ocorrencias.ocorrencias)
+            // Adicionado pageNumber e pageSize na Query String
+            const getOcorrencias = await fetch(`${API_URL}/${endpoint}/${id}?pageNumber=${pageToFetch}&pageSize=${pageSize}`, {
+                method: "GET"
+            })
 
-            } catch (err) {
-                setError(err.message);
-            } finally {
-                setIsLoading(false);
+            const data = await getOcorrencias.json()
+            const novasOcorrencias = data.ocorrencias || []
+
+            // Lógica para ADICIONAR itens em vez de substituir (se não for a pág 0)
+            setOcorrencias(prev => {
+                if (pageToFetch === 0) return novasOcorrencias;
+
+                // Filtra duplicatas por segurança (baseado no id_ocorrencia)
+                const idsExistentes = new Set(prev.map(o => o.ocorrencia.id_ocorrencia));
+                const filtradas = novasOcorrencias.filter(o => !idsExistentes.has(o.ocorrencia.id_ocorrencia));
+
+                return [...prev, ...filtradas];
+            });
+
+            setOcorrenciasOriginal(prev => {
+                if (pageToFetch === 0) return novasOcorrencias;
+                const idsExistentes = new Set(prev.map(o => o.ocorrencia.id_ocorrencia));
+                const filtradas = novasOcorrencias.filter(o => !idsExistentes.has(o.ocorrencia.id_ocorrencia));
+                return [...prev, ...filtradas];
+            });
+
+            if (data.currentPage == data.totalPages - 1) {
+                setHasMore(false);
             }
-        };
 
+
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setIsLoading(false);
+            setIsFetchingMore(false);
+        }
+    }, [API_URL, endpoint]);
+
+    // 2. useEffect separado para carregar tipos de crimes (roda apenas uma vez)
+    useEffect(() => {
         const fetchTipoCrimes = async () => {
             try {
-
                 const getTipoCrimes = await fetch(`${API_URL}/listar_crimes`, {
                     method: "GET"
                 })
@@ -49,13 +88,39 @@ const OcorrenciasPage = ({ userType }) => {
             } catch (err) {
                 setError(err.message);
             } finally {
-                console.log(listaCrimes)
+                // console.log(listaCrimes)
             }
         }
         fetchTipoCrimes()
+    }, [API_URL]); // Dependência adicionada para evitar warnings
 
-        fetchOcorrencias();
-    }, []);
+    // 3. useEffect que dispara o fetch quando a 'page' muda
+    useEffect(() => {
+        fetchOcorrencias(page);
+    }, [page, fetchOcorrencias]);
+
+    // 4. useEffect do Observer (Scroll Infinito)
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                // Se a div estiver visível, tiver mais páginas e não estiver carregando nada
+                if (entries[0].isIntersecting && hasMore && !isLoading && !isFetchingMore) {
+                    setPage((prevPage) => prevPage + 1);
+                }
+            },
+            { threshold: 0.1 }
+        );
+
+        if (observerTarget.current) {
+            observer.observe(observerTarget.current);
+        }
+
+        return () => {
+            if (observerTarget.current) {
+                observer.unobserve(observerTarget.current);
+            }
+        };
+    }, [hasMore, isLoading, isFetchingMore]);
 
 
     if (isLoading) {
@@ -111,7 +176,7 @@ const OcorrenciasPage = ({ userType }) => {
         }
     }
 
-    const handleReset = () =>{
+    const handleReset = () => {
         setOcorrencias([...ocorrenciasOriginal])
     }
 
@@ -153,27 +218,44 @@ const OcorrenciasPage = ({ userType }) => {
                     </li>
                     <li>
                         <RxReset
-                        size={30} 
-                        style={{cursor: "pointer"}}
-                        onClick={handleReset}
+                            size={30}
+                            style={{ cursor: "pointer" }}
+                            onClick={handleReset}
                         />
                     </li>
                 </ul>
             </menu>
-            {ocorrencias.length === 0 ? (
+            {ocorrencias.length === 0 && !isFetchingMore ? (
                 <p>{msg}</p>
             ) : (
                 <section className='minhas_ocorrencias'>
                     {listaCrimes ? ocorrencias.map((ocorrencia) => (
-                        // Usar o ID da ocorrência como chave é a melhor prática
                         <Ocorrencia
                             listaCrimes={listaCrimes}
                             ocorrencia={ocorrencia.ocorrencia}
                             evidencias={ocorrencia.evidencias}
-                            key={ocorrencia.id_ocorrencia}
+                            // Adicionei verificação segura para a Key, caso precise
+                            key={ocorrencia.ocorrencia?.id_ocorrencia || ocorrencia.id_ocorrencia}
                         />
                     )) : <h2>Carregando suas ocorrências...</h2>}
                 </section>
+            )}
+
+            {/* Div Sentinela para o Observer */}
+            {hasMore && (
+                <div
+                    id="carregar-mais-ocorrencias"
+                    ref={observerTarget}
+                    style={{
+                        height: '50px',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        marginTop: '20px'
+                    }}
+                >
+                    {isFetchingMore && <span>Carregando mais...</span>}
+                </div>
             )}
         </div>
     );
