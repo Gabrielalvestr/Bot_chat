@@ -35,7 +35,7 @@ public class OcorrenciasController {
 
     @GetMapping("/listar_ocorrencias")
     public ResponseEntity<?> listarOcorrencias(@RequestParam(defaultValue = "0") int pageNumber,
-                                               @RequestParam(defaultValue = "10") int pageSize) {
+            @RequestParam(defaultValue = "10") int pageSize) {
         int maxPageSize = 50;
         int pageSizeLimiter = Math.min(pageSize, maxPageSize); // limita o pageSize
         Pageable pageable = PageRequest.of(pageNumber, pageSizeLimiter);
@@ -57,22 +57,20 @@ public class OcorrenciasController {
         pageSize = Math.min(pageSize, maxPageSize); // limita o pageSize
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
         var listaOcorrencias = ocorrenciasService.getOcorrenciasPorIdUsuario(id_usuario);
-        var result = ocorrenciasService.returnOcorrenciasComEvidencias(listaOcorrencias,pageable);
+        var result = ocorrenciasService.returnOcorrenciasComEvidencias(listaOcorrencias, pageable);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
-
 
     @GetMapping("/get_ocorrencias_com_evicendencias_ativa/{id_usuario}")
     public ResponseEntity<?> getOcorrenciasComEvidenciasAtreladasAtivas(
             @PathVariable(value = "id_usuario") Integer id_usuario,
             @RequestParam(defaultValue = "0") int pageNumber,
-            @RequestParam(defaultValue = "10") int pageSize
-            ) {
+            @RequestParam(defaultValue = "10") int pageSize) {
         int maxPageSize = 50;
         pageSize = Math.min(pageSize, maxPageSize); // limita o pageSize
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
         var listaOcorrencias = ocorrenciasService.getOcorrenciasPorIdUsuario(id_usuario);
-        var result = ocorrenciasService.returnOcorrenciasComEvidenciasAtiva(listaOcorrencias,pageable);
+        var result = ocorrenciasService.returnOcorrenciasComEvidenciasAtiva(listaOcorrencias, pageable);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
@@ -80,13 +78,12 @@ public class OcorrenciasController {
     public ResponseEntity<?> getOcorrenciasComEvidenciasAtreladasAtivasResponsavel(
             @PathVariable(value = "id_responsavel") Integer id_responsavel,
             @RequestParam(defaultValue = "0") int pageNumber,
-            @RequestParam(defaultValue = "10") int pageSize
-    ) {
+            @RequestParam(defaultValue = "10") int pageSize) {
         int maxPageSize = 50;
         pageSize = Math.min(pageSize, maxPageSize); // limita o pageSize
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
         var listaOcorrencias = ocorrenciasService.getOcorrenciasPorIdResponsavel(id_responsavel);
-        var result = ocorrenciasService.returnOcorrenciasComEvidenciasAtiva(listaOcorrencias,pageable);
+        var result = ocorrenciasService.returnOcorrenciasComEvidenciasAtiva(listaOcorrencias, pageable);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
@@ -94,23 +91,27 @@ public class OcorrenciasController {
     public ResponseEntity<?> getHome(
             @RequestParam(defaultValue = "0") int pageNumber,
             @RequestParam(defaultValue = "10") int pageSize) {
-        int maxPageSize = 50;
+        int maxPageSize = 150;
         pageSize = Math.min(pageSize, maxPageSize); // limita o pageSize
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
         var listarOcorrencias = ocorrenciasService.findAll(pageable);
-        var result = ocorrenciasService.returnHome(listarOcorrencias,pageable);
+        var result = ocorrenciasService.returnHome(listarOcorrencias, pageable);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
-//    @GetMapping("/teste/{id_usuario}")
-//    public ResponseEntity<?> teste(@PathVariable(value = "id_usuario") Integer id_usuario,
-//                                   @RequestParam(defaultValue = "0") int pageNumber,
-//                                   @RequestParam(defaultValue = "10") int pageSize){
-//        var listaOcorrencias = ocorrenciasService.getOcorrenciasPorIdUsuario(id_usuario);
-//        Pageable pageable = PageRequest.of(pageNumber, pageSize);
-//        var result = ocorrenciasService.returnOcorrenciasComEvidencias(listaOcorrencias, pageable);
-//        return ResponseEntity.status(HttpStatus.OK).body(result);
-//    }
+    // @GetMapping("/teste/{id_usuario}")
+    // public ResponseEntity<?> teste(@PathVariable(value = "id_usuario") Integer
+    // id_usuario,
+    // @RequestParam(defaultValue = "0") int pageNumber,
+    // @RequestParam(defaultValue = "10") int pageSize){
+    // var listaOcorrencias =
+    // ocorrenciasService.getOcorrenciasPorIdUsuario(id_usuario);
+    // Pageable pageable = PageRequest.of(pageNumber, pageSize);
+    // var result =
+    // ocorrenciasService.returnOcorrenciasComEvidencias(listaOcorrencias,
+    // pageable);
+    // return ResponseEntity.status(HttpStatus.OK).body(result);
+    // }
 
     @PostMapping("/registrar_ocorrencia")
     public ResponseEntity<?> registrarOcorrencia(@RequestBody OcorrenciasRequest body) {
@@ -145,19 +146,19 @@ public class OcorrenciasController {
     }
 
     // Put passando o body inteiro
-//    @PutMapping("/alterar_ocorrencia/{id_ocorrencia}")
-//    public ResponseEntity<?> alterarOcorrencia(
-//            @PathVariable(value = "id_ocorrencia") Integer id_ocorrencia,
-//            @RequestBody OcorrenciasRequest body
-//    ){
-//        var ocorrenciaOpt = ocorrenciasService.getById(id_ocorrencia);
-//        if (ocorrenciaOpt.isEmpty())
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-//
-//        var ocorrencia = ocorrenciaOpt.get();
-//        BeanUtils.copyProperties(body, ocorrencia); // <<< SEM SETTERS
-//        return ResponseEntity.ok(ocorrenciasService.save(ocorrencia));
-//    }
+    // @PutMapping("/alterar_ocorrencia/{id_ocorrencia}")
+    // public ResponseEntity<?> alterarOcorrencia(
+    // @PathVariable(value = "id_ocorrencia") Integer id_ocorrencia,
+    // @RequestBody OcorrenciasRequest body
+    // ){
+    // var ocorrenciaOpt = ocorrenciasService.getById(id_ocorrencia);
+    // if (ocorrenciaOpt.isEmpty())
+    // throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+    //
+    // var ocorrencia = ocorrenciaOpt.get();
+    // BeanUtils.copyProperties(body, ocorrencia); // <<< SEM SETTERS
+    // return ResponseEntity.ok(ocorrenciasService.save(ocorrencia));
+    // }
 
     @PutMapping("/alterar_status/{id_ocorrencia}")
     public ResponseEntity<?> alterarStatusOcorrencia(
@@ -189,8 +190,7 @@ public class OcorrenciasController {
     @PutMapping("/alterar_tipo_crime/{id_ocorrencia}")
     public ResponseEntity<?> alterarTipoCrime(
             @PathVariable(value = "id_ocorrencia") Integer id_ocorrencia,
-            @RequestBody Integer idNewCrime
-    ){
+            @RequestBody Integer idNewCrime) {
         var ocorrencia = ocorrenciasService.getById(id_ocorrencia);
         if (ocorrencia.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Ocorrência não encontrada.");

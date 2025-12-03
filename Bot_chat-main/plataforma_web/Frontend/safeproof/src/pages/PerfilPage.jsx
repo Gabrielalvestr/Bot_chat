@@ -18,7 +18,7 @@ const PerfilPage = () => {
   const [success, setSuccess] = useState(null);
   const [cpfError, setCpfError] = useState('');
 
-    const API_URL = process.env.REACT_APP_API_URL;
+  const API_URL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -145,31 +145,43 @@ const PerfilPage = () => {
     setIsLoading(true);
     setError(null);
     setSuccess(null);
-
-    try {
-      const token = localStorage.getItem('authToken');
-      // **AÇÃO DO BACKEND NECESSÁRIA:** Criar um endpoint PUT /api/perfil/me
-      const response = await fetch(`${API_URL}/editar_usuario/${userData.id_usuario}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify(formData)
-      });
-
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.message || 'Erro ao atualizar o perfil.');
-
-      setUserData(data); // Atualiza os dados base com as novas informações
-      setSuccess('Perfil atualizado com sucesso!');
-      setIsEditing(false); // Sai do modo de edição
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setIsLoading(false);
+    let formDataNovo = {}
+    if (formData.senha_hash.length === 60) {
+      formDataNovo = {
+        ...formData,
+        senha_hash: ''
+      }
+    } else {
+      formDataNovo = {
+        ...formData
+      }
     }
-  };
+    console.log(formDataNovo)
+
+        try {
+          const token = localStorage.getItem('authToken');
+          // AÇÃO DO BACKEND NECESSÁRIA: Criar um endpoint PUT /api/perfil/me
+          const response = await fetch(`${API_URL}/editar_usuario/${userData.id_usuario}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formDataNovo)
+          });
+    
+          const data = await response.json();
+          if (!response.ok) throw new Error(data.message || 'Erro ao atualizar o perfil.');
+    
+          setUserData(data); // Atualiza os dados base com as novas informações
+          setSuccess('Perfil atualizado com sucesso!');
+          setIsEditing(false); // Sai do modo de edição
+        } catch (err) {
+          setError(err.message);
+        } finally {
+          setIsLoading(false);
+        }
+    
+  }
 
   const handleApagar = async (e) => {
 
@@ -267,6 +279,16 @@ const PerfilPage = () => {
               <p className="display-value">{userData?.documento}</p>
             )}
             {cpfError && <span className="error-message">{cpfError}</span>}
+          </div>
+
+
+          <div className="form-group">
+            <label>Alterar senha</label>
+            {isEditing ? (
+              <input type="password" maxLength='40' name="senha_hash" onChange={handleInputChange} />
+            ) : (
+              <p className="display-value">{'**********'}</p>
+            )}
           </div>
 
           <div className="form-group">
